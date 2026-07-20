@@ -52,3 +52,21 @@ Registro cronológico del qué y el porqué. El estado actual vive en la entrada
 - Consumo anclado a tabla estática de calorías por ingrediente (tipo USDA/SMAE); el LLM solo mapea ingredientes y porciones. Reduce el error de ±30% a rango útil.
 - Gasto: registro manual aproximado ("gimnasio ~400 kcal") → balance consumido vs quemado vs meta.
 - Si la precisión no bastara en la práctica, se abre pregunta nueva para revisar LLM/costos de tokens.
+
+---
+
+## 2026-07-20 — Investigación: ¿qué tan personalizable es el cálculo calórico?
+
+**Qué pasó:** el usuario cuestionó que las fórmulas nutricionales estén hechas "para un hombre blanco promedio" y pidió investigar antes de decidir, listando ocho factores candidatos (etnia, sexo, ciclo menstrual, región/clima, alergias, enfermedades metabólicas, teoría de los cuatro humores, somatotipos). Se corrió una investigación con 21 fuentes primarias, 102 afirmaciones extraídas y verificación adversarial de 25 (14 confirmadas, 11 refutadas). Resultado completo en `docs/investigaciones/personalizacion-calorica.md`.
+
+**Qué se encontró:**
+- La crítica del usuario es **correcta y está documentada**: ninguna ecuación estándar se derivó sobre muestras grandes de población hispana, y Mifflin sobreestima ~136 kcal/día (10.7%) en mujeres hispanas.
+- Pero **no existe corrección étnica validada**. La ecuación mexicana del Instituto Nacional de Ciencias Médicas y Nutrición conserva ±19% de error individual, y en las mismas mujeres hispanas la ecuación genérica de Owen acertó en 84% — es problema de especificación de ecuación, no de "metabolismo hispano". El sesgo además está confundido con adiposidad.
+- Techo estructural: peso, estatura, edad y sexo explican solo 63–70% de la varianza del metabolismo. Más campos demográficos no cierran la brecha.
+- Somatotipos: descartados por la comunidad científica como charlatanería en su origen (Sheldon, observación subjetiva y fotos); ninguna relación establecida con gasto energético. Cuatro humores: pseudociencia, sin base fisiológica.
+- Ciclo menstrual: efecto real pero pequeño (30–120 kcal/día en fase lútea), por debajo del error de la propia fórmula.
+- Alergias/intolerancias: el factor con mejor evidencia y mayor valor práctico — pero como filtro de recetas, no como corrección calórica.
+
+**Decisión de diseño (SPEC #8):** en vez de añadir factores demográficos, Nana usa **calibración empírica**: corrige el gasto estimado contra la tendencia real de peso del usuario. Eso mide su metabolismo en vez de estimarlo y captura de golpe el ~30% de varianza que ninguna ecuación explica. Más honesto, más preciso y más barato de programar que una tabla de correcciones inventada. Se muestra rango de kcal, no número único.
+
+**Nota de método:** la investigación dejó los factores 3–8 sin verificación adversarial (se agotó el presupuesto en el factor 1). Sus datos vienen de extracción con cita textual de fuentes primarias y están marcados como tal en el documento. Ninguno cambiaría la decisión de diseño.
