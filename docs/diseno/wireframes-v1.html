@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nana — Wireframes v1 (estructura, todo gris)</title>
+<style>
+  /* ============================================================
+     WIREFRAMES v1 — SOLO ESTRUCTURA
+     Regla de esta pasada: todo en gris, tipografía del sistema.
+     Aquí se juzga QUÉ hay en cada pantalla y DÓNDE, no cómo se ve.
+     El color y la letra manuscrita entran en la pasada 2.
+     Números que sí se validan ya: targets táctiles >= 48px,
+     texto base 18px (legible a un brazo de distancia).
+     ============================================================ */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { font-size: 18px; } /* base generosa: se lee a un brazo de distancia */
+  body {
+    font-family: system-ui, sans-serif;
+    background: #ccc;
+    color: #111;
+  }
+
+  /* --- Barra de revisión (NO es parte de la app, es para navegar el wireframe) --- */
+  #review-bar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 10;
+    background: #111; color: #fff;
+    display: flex; gap: 4px; overflow-x: auto;
+    padding: 6px; font-size: 12px;
+  }
+  #review-bar button {
+    flex: 0 0 auto; padding: 8px 10px; font-size: 12px;
+    background: #333; color: #fff; border: none; border-radius: 4px;
+  }
+  #review-bar button.active { background: #fff; color: #111; }
+
+  /* --- Marco de pantalla (simula el celular) --- */
+  .screen {
+    display: none;
+    max-width: 420px; margin: 52px auto 24px auto;
+    background: #f4f4f4; min-height: 90vh;
+    border: 2px solid #999;
+    position: relative;
+    padding-bottom: 96px; /* espacio para la barra de navegación */
+  }
+  .screen.visible { display: block; }
+
+  /* --- Piezas comunes --- */
+  header.app {
+    padding: 16px; border-bottom: 2px solid #bbb;
+    display: flex; align-items: center; gap: 12px;
+  }
+  header.app h1 { font-size: 1.2rem; }
+  header.app .back {
+    width: 48px; height: 48px; border: 2px solid #888;
+    border-radius: 8px; background: #e2e2e2; font-size: 1.2rem;
+  }
+  .content { padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+
+  /* Botón primario: mínimo 56px de alto (arriba del mínimo de 48px) */
+  .btn-primary {
+    min-height: 56px; width: 100%;
+    background: #333; color: #fff; border: none; border-radius: 10px;
+    font-size: 1.05rem; padding: 12px;
+  }
+  .btn-secondary {
+    min-height: 56px; width: 100%;
+    background: #e8e8e8; color: #111; border: 2px solid #888;
+    border-radius: 10px; font-size: 1rem; padding: 12px;
+  }
+  /* Botones de intención del inicio: extra grandes, zona del pulgar */
+  .btn-intent {
+    min-height: 76px; width: 100%; text-align: left;
+    background: #fff; border: 2px solid #777; border-radius: 12px;
+    font-size: 1.15rem; padding: 14px 16px; color: #111;
+  }
+  .btn-intent small { display: block; font-size: 0.8rem; color: #555; margin-top: 4px; }
+
+  .row {
+    min-height: 56px; background: #fff; border: 1px solid #aaa;
+    border-radius: 8px; padding: 10px 12px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .row .qty { margin-left: auto; color: #555; font-size: 0.9rem; }
+  .row input[type="checkbox"] { width: 28px; height: 28px; flex: 0 0 auto; }
+  .tag {
+    font-size: 0.7rem; border: 1px solid #888; border-radius: 4px;
+    padding: 2px 6px; color: #555; flex: 0 0 auto;
+  }
+  .group-title { font-size: 0.85rem; color: #444; margin-top: 8px; text-transform: uppercase; letter-spacing: 1px; }
+
+  .card {
+    background: #fff; border: 2px solid #888; border-radius: 12px; padding: 14px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .card h3 { font-size: 1.1rem; }
+  .card .meta { font-size: 0.9rem; color: #444; }
+
+  textarea, input[type="text"], input[type="password"], select {
+    width: 100%; min-height: 48px; font-size: 1rem;
+    border: 2px solid #888; border-radius: 8px; padding: 10px; background: #fff;
+  }
+  textarea { min-height: 110px; }
+
+  .state-divider {
+    text-align: center; font-size: 0.75rem; color: #666;
+    border-top: 2px dashed #999; padding-top: 8px; margin-top: 8px;
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+
+  /* Barra de navegación inferior: 4 destinos, siempre al alcance del pulgar */
+  nav.bottom {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    display: flex; border-top: 2px solid #999; background: #e5e5e5;
+  }
+  nav.bottom button {
+    flex: 1; min-height: 64px; border: none; background: none;
+    font-size: 0.75rem; color: #333; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 4px;
+  }
+  nav.bottom button .ico {
+    width: 26px; height: 26px; border: 2px solid #555; border-radius: 6px;
+  }
+  nav.bottom button.active { background: #fff; font-weight: bold; }
+
+  /* Notas de diseño por pantalla (solo para la revisión) */
+  details.notes {
+    margin: 16px; font-size: 0.85rem; color: #333;
+    border: 1px dashed #777; border-radius: 8px; padding: 10px; background: #eee;
+  }
+  details.notes ol { padding-left: 20px; display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+
+  .status-strip {
+    font-size: 0.9rem; color: #444; background: #e9e9e9;
+    border: 1px solid #aaa; border-radius: 8px; padding: 10px 12px;
+  }
+  .avatar {
+    width: 56px; height: 56px; border-radius: 50%;
+    border: 2px solid #666; background: #ddd;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; color: #555; flex: 0 0 auto;
+  }
+</style>
+</head>
+<body>
+
+<!-- Barra para saltar entre pantallas durante la revisión (no existe en la app real) -->
+<div id="review-bar">
+  <button data-target="home" class="active">0 Inicio</button>
+  <button data-target="capture">1 Compré cosas</button>
+  <button data-target="pantry">2 Despensa</button>
+  <button data-target="cook">3 ¿Qué cocino?</button>
+  <button data-target="list">4 Lista</button>
+  <button data-target="settings">5 Ajustes</button>
+</div>
+
+<!-- ============ PANTALLA 0: INICIO (menú de intenciones) ============ -->
+<section class="screen visible" id="screen-home">
+  <header class="app">
+    <div class="avatar">Nana</div>
+    <h1>Hola — ¿qué hacemos?</h1>
+  </header>
+  <div class="content">
+    <!-- Los 3 botones grandes SON hablarle a Nana: se leen como frases dichas a ella -->
+    <button class="btn-intent" data-go="cook">«¿Qué cocino hoy?»
+      <small>Nana sugiere con lo que hay en tu despensa</small></button>
+    <button class="btn-intent" data-go="capture">«Compré cosas»
+      <small>Escribe o dicta tu compra y entra a la despensa</small></button>
+    <button class="btn-intent" data-go="list">«Se me antoja algo…»
+      <small>Nana agrega a la lista lo que te falte</small></button>
+    <div class="status-strip">En tu despensa: 23 cosas · Lista del domingo: 5 pendientes</div>
+  </div>
+  <details class="notes"><summary>Notas de esta pantalla</summary>
+    <ol>
+      <li>El menú ES hablarle a Nana: cada botón es una frase que le dirías. Mantiene la personalidad (decisión #7) sin obligar a un chat.</li>
+      <li>Los 3 botones viven en la mitad superior; en celular quedan alcanzables y el pulgar tiene la barra inferior para el resto.</li>
+      <li>La tira de estado da el "vistazo de 3 segundos": cuántas cosas hay y cuántas faltan comprar, sin entrar a nada.</li>
+    </ol>
+  </details>
+  <nav class="bottom">
+    <button class="active"><span class="ico"></span>Inicio</button>
+    <button data-go="pantry"><span class="ico"></span>Despensa</button>
+    <button data-go="list"><span class="ico"></span>Lista</button>
+    <button data-go="settings"><span class="ico"></span>Ajustes</button>
+  </nav>
+</section>
+
+<!-- ============ PANTALLA 1: COMPRÉ COSAS (captura) ============ -->
+<section class="screen" id="screen-capture">
+  <header class="app">
+    <button class="back" data-go="home">←</button>
+    <h1>Compré cosas</h1>
+  </header>
+  <div class="content">
+    <textarea placeholder="Escribe o dicta: «compré pollo, jitomate y un kilo de arroz»"></textarea>
+    <div class="status-strip">Tip: el micrófono del teclado de tu celular dicta por ti.</div>
+    <button class="btn-primary">Apúntalo, Nana</button>
+
+    <!-- Segundo estado de la misma pantalla: Nana entendió y pide confirmar -->
+    <div class="state-divider">Estado 2 — Nana confirma lo que entendió</div>
+    <div class="row">Pollo <span class="qty">1 kg</span> <button class="tag">✕</button></div>
+    <div class="row">Jitomate <span class="qty">6 piezas</span> <button class="tag">✕</button></div>
+    <div class="row">Arroz <span class="qty">1 kg</span> <button class="tag">✕</button></div>
+    <button class="btn-primary">Sí, guárdalo en la despensa</button>
+    <button class="btn-secondary">Corregir</button>
+  </div>
+  <details class="notes"><summary>Notas de esta pantalla</summary>
+    <ol>
+      <li>Un solo campo grande: texto libre, el LLM lo separa en items. El dictado es del teclado, no se programa.</li>
+      <li>Confirmación obligatoria antes de guardar: si el LLM entendió mal, se corrige aquí y no en la despensa.</li>
+      <li>En la app real los dos estados se alternan; aquí se muestran juntos para revisarlos.</li>
+    </ol>
+  </details>
+  <nav class="bottom">
+    <button data-go="home"><span class="ico"></span>Inicio</button>
+    <button data-go="pantry"><span class="ico"></span>Despensa</button>
+    <button data-go="list"><span class="ico"></span>Lista</button>
+    <button data-go="settings"><span class="ico"></span>Ajustes</button>
+  </nav>
+</section>
+
+<!-- ============ PANTALLA 2: DESPENSA ============ -->
+<section class="screen" id="screen-pantry">
+  <header class="app">
+    <button class="back" data-go="home">←</button>
+    <h1>Despensa</h1>
+  </header>
+  <div class="content">
+    <button class="btn-secondary">＋ Agregar algo a mano</button>
+    <div class="group-title">Proteínas</div>
+    <div class="row">Pollo <span class="qty">1 kg</span></div>
+    <div class="row">Huevos <span class="qty">como 8</span></div>
+    <div class="group-title">Verduras</div>
+    <div class="row">Jitomate <span class="qty">6 piezas</span></div>
+    <div class="row">Cebolla <span class="qty">2</span></div>
+    <div class="row">Cilantro <span class="qty">poquito</span></div>
+    <div class="group-title">Básicos</div>
+    <div class="row">Arroz <span class="qty">1 kg</span></div>
+    <div class="row">Aceite <span class="qty">media botella</span></div>
+  </div>
+  <details class="notes"><summary>Notas de esta pantalla</summary>
+    <ol>
+      <li>Cantidades en texto libre («poquito», «como 8») — así habla la gente de su cocina, no en gramos.</li>
+      <li>Tocar un renglón lo abre para editar cantidad o borrarlo (renglones de 56px: dedo con masa aguanta).</li>
+      <li>Agrupado por categoría para el vistazo de 3 segundos; las categorías salen del catálogo de datos.</li>
+    </ol>
+  </details>
+  <nav class="bottom">
+    <button data-go="home"><span class="ico"></span>Inicio</button>
+    <button class="active"><span class="ico"></span>Despensa</button>
+    <button data-go="list"><span class="ico"></span>Lista</button>
+    <button data-go="settings"><span class="ico"></span>Ajustes</button>
+  </nav>
+</section>
+
+<!-- ============ PANTALLA 3: ¿QUÉ COCINO HOY? ============ -->
+<section class="screen" id="screen-cook">
+  <header class="app">
+    <button class="back" data-go="home">←</button>
+    <h1>¿Qué cocino hoy?</h1>
+  </header>
+  <div class="content">
+    <div class="card">
+      <h3>Arroz con pollo a la jardinera</h3>
+      <div class="meta">Usas: pollo, arroz, jitomate, cebolla</div>
+      <div class="meta">No te falta nada ✓</div>
+      <button class="btn-secondary">Ver pasos</button>
+    </div>
+    <div class="card">
+      <h3>Tacos de pollo con salsa de jitomate</h3>
+      <div class="meta">Usas: pollo, jitomate, cebolla, cilantro</div>
+      <div class="meta">Te faltan: tortillas (poca cosa)</div>
+      <button class="btn-secondary">Ver pasos</button>
+    </div>
+    <div class="card">
+      <h3>Huevos ahogados en salsa</h3>
+      <div class="meta">Usas: huevos, jitomate, cebolla</div>
+      <div class="meta">No te falta nada ✓</div>
+      <button class="btn-secondary">Ver pasos</button>
+    </div>
+    <button class="btn-primary">Otras ideas, Nana</button>
+  </div>
+  <details class="notes"><summary>Notas de esta pantalla</summary>
+    <ol>
+      <li>Siempre 3 sugerencias (flujo 2 del SPEC). Cada tarjeta dice qué usas y qué falta, ANTES de abrir los pasos.</li>
+      <li>«Te faltan: tortillas» tocable → manda el faltante a la lista de compras.</li>
+      <li>«Ver pasos» expande la receta aquí mismo; no hay pantalla aparte de receta en el MVP.</li>
+    </ol>
+  </details>
+  <nav class="bottom">
+    <button data-go="home"><span class="ico"></span>Inicio</button>
+    <button data-go="pantry"><span class="ico"></span>Despensa</button>
+    <button data-go="list"><span class="ico"></span>Lista</button>
+    <button data-go="settings"><span class="ico"></span>Ajustes</button>
+  </nav>
+</section>
+
+<!-- ============ PANTALLA 4: LISTA DE COMPRAS ============ -->
+<section class="screen" id="screen-list">
+  <header class="app">
+    <button class="back" data-go="home">←</button>
+    <h1>Lista de compras</h1>
+  </header>
+  <div class="content">
+    <!-- El antojo vive aquí: alimenta directamente esta lista -->
+    <input type="text" placeholder="«Se me antoja…» y Nana agrega lo que falte">
+    <button class="btn-secondary">＋ Agregar a mano</button>
+    <div class="group-title">Por comprar</div>
+    <div class="row"><input type="checkbox"> Tortillas <span class="tag">receta</span></div>
+    <div class="row"><input type="checkbox"> Queso Oaxaca <span class="tag">antojo</span></div>
+    <div class="row"><input type="checkbox"> Pan de caja <span class="tag">antojo</span></div>
+    <div class="row"><input type="checkbox"> Jabón de trastes <span class="tag">manual</span></div>
+    <div class="group-title">Ya en el carrito</div>
+    <div class="row" style="opacity:.55"><input type="checkbox" checked> Leche <span class="tag">manual</span></div>
+    <button class="btn-primary">Ya compré — pásalo a la despensa</button>
+  </div>
+  <details class="notes"><summary>Notas de esta pantalla</summary>
+    <ol>
+      <li>Esta pantalla se usa EN el súper: checkboxes de 28px dentro de renglones de 56px, palomeables caminando.</li>
+      <li>Cada item trae su origen (manual / antojo / receta) para saber por qué está ahí.</li>
+      <li>El botón final cierra el flujo del domingo: lo palomeado entra a la despensa de un jalón.</li>
+    </ol>
+  </details>
+  <nav class="bottom">
+    <button data-go="home"><span class="ico"></span>Inicio</button>
+    <button data-go="pantry"><span class="ico"></span>Despensa</button>
+    <button class="active"><span class="ico"></span>Lista</button>
+    <button data-go="settings"><span class="ico"></span>Ajustes</button>
+  </nav>
+</section>
+
+<!-- ============ PANTALLA 5: AJUSTES ============ -->
+<section class="screen" id="screen-settings">
+  <header class="app">
+    <button class="back" data-go="home">←</button>
+    <h1>Ajustes</h1>
+  </header>
+  <div class="content">
+    <div class="group-title">Cerebro de Nana (LLM)</div>
+    <select><option>Gemini (gratuito)</option><option>Ollama (mi PC)</option><option>OpenRouter</option></select>
+    <input type="password" placeholder="API key (se guarda solo en este dispositivo)">
+    <button class="btn-secondary">Probar conexión</button>
+    <div class="group-title">Mis datos</div>
+    <button class="btn-secondary">Exportar respaldo (JSON)</button>
+    <button class="btn-secondary">Importar respaldo</button>
+  </div>
+  <details class="notes"><summary>Notas de esta pantalla</summary>
+    <ol>
+      <li>La pantalla menos usada: no gasta lugar en la barra de nada extra, solo lo indispensable.</li>
+      <li>La API key nunca sale del dispositivo (regla dura del TDD).</li>
+      <li>Export/import es el paracaídas local-first: perder el celular no es perder la despensa.</li>
+    </ol>
+  </details>
+  <nav class="bottom">
+    <button data-go="home"><span class="ico"></span>Inicio</button>
+    <button data-go="pantry"><span class="ico"></span>Despensa</button>
+    <button data-go="list"><span class="ico"></span>Lista</button>
+    <button class="active"><span class="ico"></span>Ajustes</button>
+  </nav>
+</section>
+
+<script>
+  // Navegación del wireframe: muestra una pantalla y oculta las demás.
+  // En la app real esto lo hará el router de la PWA; aquí basta esto.
+  function showScreen(name) {
+    document.querySelectorAll('.screen').forEach(function (s) {
+      s.classList.toggle('visible', s.id === 'screen-' + name);
+    });
+    document.querySelectorAll('#review-bar button').forEach(function (b) {
+      b.classList.toggle('active', b.dataset.target === name);
+    });
+    window.scrollTo(0, 0);
+  }
+  // La barra de revisión y todos los botones con data-go usan el mismo mecanismo
+  document.querySelectorAll('#review-bar button').forEach(function (b) {
+    b.addEventListener('click', function () { showScreen(b.dataset.target); });
+  });
+  document.querySelectorAll('[data-go]').forEach(function (b) {
+    b.addEventListener('click', function () { showScreen(b.dataset.go); });
+  });
+</script>
+</body>
+</html>

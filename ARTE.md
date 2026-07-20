@@ -24,14 +24,41 @@ Prohibido el look "hecho con IA por default": gradientes morado-azul de template
 - **Mobile-first vertical** (celular del usuario). Objetivos secundarios: tableta y pantalla de cocina 7" — resoluciones documentadas en `docs/investigaciones/cotizacion-raspberry-pi.md` (720×1280 vertical nativa; 800×480 horizontal si fuera la pantalla vieja).
 - Diseñar para el peor caso (800×480 horizontal = muy poca altura útil) hace que todo lo demás quepa.
 
-## Dirección visual — PENDIENTE
+## Pilares visuales ✅ (2026-07-20, sesión de wireframes)
 
-Paleta, tipografías, pilares y referencias se definen en la **sesión de wireframes** (siguiente paso del proyecto, paso 0 del TDD). Los wireframes se guardan en `docs/diseno/` con puntero aquí.
+Intención declarada por el usuario: hogareño sin ser genérico; papel de escribir, notas pegadas al refrigerador; nada que se sienta técnico. No encontró referencia en apps ni libros de cocina (los libros le parecen "demasiado revista" — eso también es dato: NO revista, NO foto glossy).
+
+1. **Hogareño, no genérico** — cabe en cualquier casa. Si una pantalla podría ser de cualquier app tech, está mal (refuerza la regla anti-genérico).
+2. **Papel de refri** — la referencia concreta es el objeto real: la nota pegada con imán al refrigerador. La app se ve *escrita*, no *renderizada*: listas, post-its, tachones.
+3. **Vistazo de 3 segundos** — una nota de refri se entiende de un golpe de vista; la app también. Este pilar vuelve estética la restricción dura (legible a un brazo, dedos con masa).
+
+## Entrada principal ✅ (2026-07-20)
+
+**Menú de intenciones, no chat.** El inicio son 3 botones grandes fraseados como cosas que le *dices* a Nana: «¿Qué cocino hoy?», «Compré cosas», «Se me antoja algo…». Así el menú ES hablarle a Nana — conserva la personalidad (decisión #7 del SPEC) sin obligar a teclear en un chat. Porqué: el usuario lo pidió por comodidad; un chat libre además es más frágil (todo pasa por el LLM) y más lento para acciones repetidas.
+
+## Paleta — candidata recomendada 🟡 (se valida en pasada 2, en el celular)
+
+El usuario dudaba entre: (a) lavanda/índigo claro (tranquilidad), (b) blanco y negro (uniforme de nana), (c) colores post-it. Recomendación firme de Claude — **fusionar (b) y (c) bajo la metáfora del papel**:
+
+- **Base "papel y tinta":** fondo blanco roto/crema (papel) + texto gris casi negro (tinta). Es el blanco-y-negro del uniforme pero cálido, y es literalmente el pilar 2.
+- **Acentos post-it con rol funcional:** amarillo/rosa/verde/azul pastel como *notas*, no decoración — p. ej. origen de items en la lista, estados, avisos de Nana. Regla: un post-it señala algo; si no señala nada, no va.
+- **Lavanda/índigo: descartada.** Es la opción menos conectada con la metáfora del papel y la más cercana al look "template morado-azul" que la regla anti-genérico prohíbe.
+- Números (hex exactos y ratios ≥ 4.5:1 sobre crema, bajo luz cálida) se fijan y validan en la pasada 2.
+
+## Tipografía — estrategia 🟡 (candidatas se prueban en el celular, pasada 2)
+
+Pedido del usuario: como escrito a mano pero no cursiva, totalmente legible. Estrategia de **dos voces**:
+
+- **Voz de Nana (títulos, mensajes, botones de intención):** manuscrita de palo, sin ligaduras. Candidatas a probar: Patrick Hand, Shantell Sans, Architects Daughter (todas gratuitas, Google Fonts, se sirven localmente en la PWA — sin CDN, local-first).
+- **Voz de trabajo (listas, cantidades, recetas):** una fuente de máxima legibilidad para el vistazo de 3 segundos. Candidata: Atkinson Hyperlegible. Porqué dos y no una: la nota de refri real tiene letra a mano, pero una lista que no se lee de un vistazo traiciona el pilar 3. La manuscrita da el alma; la legible hace el trabajo.
+
+## Estado del paso 0
 
 | Decisión | Estado |
 |---|---|
-| Pilares visuales (máx. 3) | ⬜ pendiente sesión wireframes |
-| Paleta con ratios de contraste | ⬜ pendiente |
-| Tipografías y escala | ⬜ pendiente |
-| Wireframes de las 4 pantallas del MVP (despensa, hoy-cocino, lista, ajustes) | ⬜ pendiente |
-| Ícono de la app (bloqueado también por nombre, pregunta #1 de SPEC) | ⬜ pendiente |
+| Pilares visuales (máx. 3) | ✅ cerrados (arriba) |
+| Entrada principal (menú de intenciones) | ✅ cerrada (arriba) |
+| Wireframes de estructura — ahora 6 pantallas: inicio, captura, despensa, hoy-cocino, lista, ajustes | 🟡 pasada 1 lista en `docs/diseno/wireframes-v1.html` — compuerta: aprobarlos viéndolos en el celular |
+| Paleta con ratios de contraste | 🟡 candidata recomendada (arriba); hex y ratios en pasada 2 |
+| Tipografías y escala | 🟡 estrategia definida; fuentes se eligen viéndolas en el celular |
+| Ícono de la app | ⬜ pendiente (nombre ya cerrado; se diseña con la paleta de pasada 2) |

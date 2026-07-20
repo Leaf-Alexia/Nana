@@ -70,3 +70,19 @@ Registro cronológico del qué y el porqué. El estado actual vive en la entrada
 **Decisión de diseño (SPEC #8):** en vez de añadir factores demográficos, Nana usa **calibración empírica**: corrige el gasto estimado contra la tendencia real de peso del usuario. Eso mide su metabolismo en vez de estimarlo y captura de golpe el ~30% de varianza que ninguna ecuación explica. Más honesto, más preciso y más barato de programar que una tabla de correcciones inventada. Se muestra rango de kcal, no número único.
 
 **Nota de método:** la investigación dejó los factores 3–8 sin verificación adversarial (se agotó el presupuesto en el factor 1). Sus datos vienen de extracción con cita textual de fuentes primarias y están marcados como tal en el documento. Ninguno cambiaría la decisión de diseño.
+
+---
+
+## 2026-07-20 — Sesión de wireframes, pasada 1 (paso 0 del TDD)
+
+**Qué pasó:** primera sesión visual. El usuario dio su intención (hogareño no genérico, papel de refri, letra a mano legible, nada técnico) y Claude la formalizó en ARTE.md. Se construyeron los wireframes de estructura en `docs/diseno/wireframes-v1.html`.
+
+**Decisiones y porqués:**
+- **Método:** wireframes en HTML gris abiertos en el celular real (no papel ni Figma) — valida targets de 48px y legibilidad en la pantalla donde vivirá la app, y el usuario lee HTML. Dos pasadas separadas: estructura en gris primero, color/tipografía después, para no discutir el verde cuando el botón está en el lugar equivocado.
+- **Pilares cerrados:** (1) hogareño no genérico, (2) papel de refri, (3) vistazo de 3 segundos. Los dio el usuario; el tercero formaliza la restricción de cocina como estética.
+- **Entrada principal = menú de intenciones**, pedido del usuario por comodidad. Los botones se frasean como frases dichas a Nana («¿Qué cocino hoy?») para conservar la personalidad sin obligar a un chat.
+- **Paleta candidata:** papel+tinta (crema/casi negro) con acentos post-it funcionales — fusiona dos de las tres opciones del usuario (uniforme B/N + post-its). Lavanda descartada por Claude: la menos "papel" y la más cercana al look template prohibido. Pendiente ratificación del usuario en pasada 2.
+- **Tipografía de dos voces:** manuscrita no cursiva para la voz de Nana + hiperlegible para listas. Candidatas en ARTE.md; se eligen viéndolas en el celular.
+- Las pantallas del MVP pasan de 4 a **6**: se suman inicio (menú) y captura de compra, que estaban implícitas en los flujos pero no en la lista de pantallas.
+
+**Estado:** pasada 1 lista. **Compuerta abierta:** el usuario debe ver `wireframes-v1.html` en su celular y aprobar o corregir la estructura antes de la pasada 2 (dirección visual aplicada).
