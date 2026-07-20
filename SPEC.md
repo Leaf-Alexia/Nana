@@ -23,7 +23,11 @@ Fuente de la verdad del diseño del producto. Las decisiones cerradas llevan ✅
 ### Capa 2 — Planeación y nutrición
 - Planeador de comidas de la semana (usa despensa + antojos + lista de compras del domingo).
 - Calorías y nutrición aproximada por receta/día.
-- **Metas nutricionales:** el usuario fija su meta calórica semanal y un objetivo (mantener / bajar / subir de peso / ganar músculo); Nana ajusta las sugerencias diarias y el plan semanal para acercarse a la meta, y da consejos prácticos breves generados por el LLM ("para ganar músculo prioriza X que ya tienes"). ⚠️ Números aproximados (±20–30% con LLM gratuito): Nana es brújula de tendencia, no herramienta clínica ni sustituto de nutriólogo.
+- **Metas nutricionales y balance energético:** el usuario fija su meta calórica semanal y un objetivo (mantener / bajar / subir de peso / ganar músculo); Nana ajusta las sugerencias diarias y el plan semanal para acercarse a la meta, y da consejos prácticos breves generados por el LLM ("para ganar músculo prioriza X que ya tienes"). Diseño para que la brújula no se desvíe (sin APIs de pago):
+  - **Cuánto necesitas:** fórmula estándar Mifflin-St Jeor (peso, estatura, edad, nivel de actividad) calculada en código local — exacta, sin LLM.
+  - **Cuánto consumes:** tabla estática de calorías por ingrediente (datos tipo USDA/SMAE, módulo `src/data/`); el LLM solo mapea ingredientes y estima porciones, los números salen de la tabla. Misma jugada que la tabla de caducidades.
+  - **Cuánto quemas:** el usuario registra un aproximado de su gasto ("gimnasio ~400 kcal") y Nana lleva el balance consumido vs quemado vs meta.
+  - ⚠️ Sigue siendo aproximado: brújula de tendencia útil, no herramienta clínica ni sustituto de nutriólogo. Links a artículos externos: descartado (2026-07-20). Si la precisión resultara insuficiente en la práctica, se revisa la elección de LLM/costos de tokens como pregunta nueva.
 - Prioridad por caducidad aproximada: tabla estática de duraciones típicas ("cebolla ≈ 3 semanas, cilantro ≈ 5 días") que empuja recetas con lo que está por vencerse. Sin fechas exactas por producto.
 
 ### Capa 3 — Entradas cómodas

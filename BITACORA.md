@@ -46,3 +46,9 @@ Registro cronológico del qué y el porqué. El estado actual vive en la entrada
 **Alcances acotados (porqués):**
 - Números aproximados: un LLM gratuito estima calorías con ±20–30% de error. Nana marca tendencia ("vas alto esta semana"), no sustituye a un nutriólogo. El usuario lo aceptó al conocer la limitación.
 - "Recomendaciones" = consejos prácticos breves generados por el LLM con lo que hay en despensa, NO links a artículos externos (requeriría búsqueda web y curaduría; se sale del objetivo local-first). Si el usuario quisiera links reales, se discute como pregunta nueva.
+
+**Refinamiento (mismo día):** el usuario confirmó — links externos descartados definitivamente, y pidió que la brújula "no se aleje tanto": noción real de cuánto consume, cuánto quema y cuánto necesita. Diseño acordado para lograrlo sin APIs de pago:
+- Necesidad calórica con fórmula Mifflin-St Jeor en código local (exacta, sin LLM).
+- Consumo anclado a tabla estática de calorías por ingrediente (tipo USDA/SMAE); el LLM solo mapea ingredientes y porciones. Reduce el error de ±30% a rango útil.
+- Gasto: registro manual aproximado ("gimnasio ~400 kcal") → balance consumido vs quemado vs meta.
+- Si la precisión no bastara en la práctica, se abre pregunta nueva para revisar LLM/costos de tokens.
