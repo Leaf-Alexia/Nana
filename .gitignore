@@ -1,0 +1,12 @@
+# Dependencias y builds (se regeneran, no se versionan)
+node_modules/
+dist/
+
+# Secretos y configuración local — NUNCA subir API keys
+.env
+.env.*
+*.local
+
+# Basura de sistema operativo
+.DS_Store
+Thumbs.db
