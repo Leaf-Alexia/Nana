@@ -1,6 +1,6 @@
-# HEALTY — instrucciones para Claude
+# NANA — instrucciones para Claude
 
-App personal local-first de despensa: registra lo que compras, sugiere qué cocinar con lo que tienes y arma la lista de compras. "Healty" es nombre provisional (pregunta abierta #1 en SPEC.md).
+App personal local-first de despensa: registra lo que compras, sugiere qué cocinar con lo que tienes y arma la lista de compras. Se llama **Nana** y es un asistente al que se le habla («Nana, ¿qué cocino hoy?»), no solo una app (decisión cerrada #7 en SPEC.md, 2026-07-20).
 
 ## 🔒 Núcleo (solo cambia por decisión explícita del usuario)
 

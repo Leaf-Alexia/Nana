@@ -1,4 +1,4 @@
-# TDD — Diseño técnico de HEALTY
+# TDD — Diseño técnico de NANA
 
 ## Manual del especialista (órdenes permanentes de este doc)
 
@@ -51,7 +51,7 @@
 ### Estructura de carpetas prevista
 
 ```
-healty/
+nana/
 ├── index.html
 ├── src/
 │   ├── ui/          # pantallas y componentes (pantry, recipes, shopping-list, settings)

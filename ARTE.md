@@ -1,4 +1,4 @@
-# ARTE — Dirección visual de HEALTY
+# ARTE — Dirección visual de NANA
 
 ## Manual del especialista (órdenes permanentes de este doc)
 

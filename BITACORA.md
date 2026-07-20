@@ -1,4 +1,4 @@
-# BITÁCORA — HEALTY
+# BITÁCORA — NANA
 
 Registro cronológico del qué y el porqué. El estado actual vive en la entrada más reciente y en SPEC.md.
 
@@ -22,3 +22,15 @@ Registro cronológico del qué y el porqué. El estado actual vive en la entrada
 **Estado:** documentación fundacional lista. Sin código aún.
 
 **Próximo paso:** sesión de wireframes + dirección visual (paso 0 del TDD, tabla pendiente en ARTE.md).
+
+---
+
+## 2026-07-20 — La app se llama Nana (pregunta #1 cerrada)
+
+**Qué pasó:** el usuario pidió reemplazar el provisional "Healty" por un nombre corto, amigable y con personalidad de asistente al estilo Jarvis. Se evaluaron cuatro candidatos (Nana, Lupe, Coco, Sazón) con sus trade-offs; el usuario eligió **Nana**, que era la recomendación.
+
+**Porqué:** la nana es la figura casera que sabe qué hay en la cocina y qué se come hoy — el equivalente doméstico del mayordomo Jarvis. Es corta, cálida, fácil de dictar por voz y funciona como persona a la que se le habla («Nana, ¿qué cocino?»). Descartados: Lupe (nombre de persona real cercana potencial), Coco (asociación Pixar/Chanel, suena a mascota), Sazón (buen nombre de app pero no de asistente). Trade-off aceptado: no es buscable en internet, irrelevante para una app personal local-first.
+
+**Cambios:** título y menciones actualizadas en los 6 docs canónicos; decisión cerrada #7 en SPEC.md; pregunta #1 del inbox marcada resuelta.
+
+**Pendiente menor:** renombrar la carpeta `HEALTY/` → `nana/` lo hará el usuario con la sesión de Claude cerrada, para no romper rutas activas.

@@ -1,10 +1,11 @@
-# SPEC — HEALTY (nombre provisional)
+# SPEC — NANA
 
 Fuente de la verdad del diseño del producto. Las decisiones cerradas llevan ✅ con su porqué; lo pendiente vive en el inbox numerado del final.
 
 ## Identidad
 
 - **Qué es:** app personal local-first para celular/tableta Android (PWA) que registra la despensa, sugiere qué cocinar con lo que hay y arma la lista de compras.
+- **Nombre y personalidad:** **Nana** — no es solo el nombre de la app sino un asistente al que se le habla, al estilo Jarvis: «Nana, ¿qué cocino hoy?». La nana es quien sabe qué hay en la cocina y qué se come en la casa. El tono de voz de la interfaz se define en ARTE.md.
 - **Para quién:** el usuario y su casa. Futuro (capa 4): dos hogares — su casa con su pareja y la casa de sus papás.
 - **Éxito:** *"Le digo a la app lo que compro y lo que se me antoja, y ella me resuelve el resto: qué cocinar hoy con lo que tengo, y qué comprar el domingo."*
 - **Qué NO es:** ver núcleo 🔒 de CLAUDE.md (sin cuentas, sin nube, sin APIs de pago, sin caducidades exactas).
@@ -61,10 +62,11 @@ Diseñado para multi-hogar desde el día 1 aunque el MVP sea un solo usuario (ag
 4. ✅ **Lista de compras interna**: Google Notes queda como referencia personal, no se integra (API limitada, fricción sin beneficio).
 5. ✅ **Caducidades aproximadas, no exactas**: tabla estática, capa 2. Costo bajo, valor alto.
 6. ✅ **Código en inglés, comentarios en español** (núcleo 🔒).
+7. ✅ **Nombre: Nana** (2026-07-20): reemplaza al provisional "Healty". Elegido por ser corto, cálido y con personalidad de asistente al que se le habla (efecto Jarvis casero). Descartados: Lupe (nombre de persona real), Coco (asociación Pixar/Chanel), Sazón (no funciona como persona). Trade-off aceptado: no es buscable en internet — irrelevante para una app personal.
 
 ## Inbox — preguntas abiertas
 
-1. **Nombre definitivo.** "Healty" es provisional (y es una errata de "healthy"). ¿Se queda por cariño, o buscamos nombre? Sin prisa: bloquea solo el ícono/manifest final.
+1. ~~**Nombre definitivo.**~~ ✅ Resuelta (2026-07-20): la app se llama **Nana** (decisión cerrada #7). Pendiente menor derivado: renombrar la carpeta del proyecto `HEALTY/` → `nana/` (lo hace el usuario cuando cierre la sesión de Claude, para no romper rutas activas).
 2. **LLM por defecto del MVP.** Opciones: (a) **Gemini free tier — recomendada**: gratis, cuota generosa, funciona fuera de casa; (b) Ollama en la PC del usuario: 100% local pero solo sirve con la PC prendida y en la misma red; (c) OpenRouter free (Kimi K2 u otros): gratis con límites variables. La capa adaptadora hace reversible la elección. Nota: (b) se vuelve la opción natural en capa 5 con la Pi.
 3. **¿El planeador semanal sube al MVP o queda en capa 2?** Recomendación: capa 2 — el MVP ya da valor diario y el planeador necesita el ciclo básico probado.
 4. **Distribución a terceros (capa 4):** ¿PWA por URL o APK (TWA)? No urge.

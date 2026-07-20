@@ -1,4 +1,4 @@
-# PROCESO — Caso de estudio de HEALTY (portafolio)
+# PROCESO — Caso de estudio de NANA (portafolio)
 
 Documento hacia afuera: el reto, las decisiones y el método, curados para mostrar. **No se escribe en vivo**: se destila de BITACORA.md al cerrar cada hito.
 
