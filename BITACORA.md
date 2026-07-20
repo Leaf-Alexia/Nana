@@ -34,3 +34,15 @@ Registro cronológico del qué y el porqué. El estado actual vive en la entrada
 **Cambios:** título y menciones actualizadas en los 6 docs canónicos; decisión cerrada #7 en SPEC.md; pregunta #1 del inbox marcada resuelta.
 
 **Pendiente menor:** renombrar la carpeta `HEALTY/` → `nana/` lo hará el usuario con la sesión de Claude cerrada, para no romper rutas activas.
+
+---
+
+## 2026-07-20 — Metas nutricionales se suman a la capa 2
+
+**Qué pasó:** el usuario propuso que Nana permita fijar una meta calórica semanal y un objetivo (mantener/bajar/subir de peso, ganar músculo), ajustando sugerencias y dando recomendaciones.
+
+**Decisión:** se agrega a la capa 2 (no al MVP): es la evolución natural de "calorías por receta/día" que la capa ya contemplaba, y reutiliza su misma maquinaria. No altera el mapa de capas.
+
+**Alcances acotados (porqués):**
+- Números aproximados: un LLM gratuito estima calorías con ±20–30% de error. Nana marca tendencia ("vas alto esta semana"), no sustituye a un nutriólogo. El usuario lo aceptó al conocer la limitación.
+- "Recomendaciones" = consejos prácticos breves generados por el LLM con lo que hay en despensa, NO links a artículos externos (requeriría búsqueda web y curaduría; se sale del objetivo local-first). Si el usuario quisiera links reales, se discute como pregunta nueva.

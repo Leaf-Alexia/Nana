@@ -23,6 +23,7 @@ Fuente de la verdad del diseño del producto. Las decisiones cerradas llevan ✅
 ### Capa 2 — Planeación y nutrición
 - Planeador de comidas de la semana (usa despensa + antojos + lista de compras del domingo).
 - Calorías y nutrición aproximada por receta/día.
+- **Metas nutricionales:** el usuario fija su meta calórica semanal y un objetivo (mantener / bajar / subir de peso / ganar músculo); Nana ajusta las sugerencias diarias y el plan semanal para acercarse a la meta, y da consejos prácticos breves generados por el LLM ("para ganar músculo prioriza X que ya tienes"). ⚠️ Números aproximados (±20–30% con LLM gratuito): Nana es brújula de tendencia, no herramienta clínica ni sustituto de nutriólogo.
 - Prioridad por caducidad aproximada: tabla estática de duraciones típicas ("cebolla ≈ 3 semanas, cilantro ≈ 5 días") que empuja recetas con lo que está por vencerse. Sin fechas exactas por producto.
 
 ### Capa 3 — Entradas cómodas
