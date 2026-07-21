@@ -86,3 +86,12 @@ Registro cronológico del qué y el porqué. El estado actual vive en la entrada
 - Las pantallas del MVP pasan de 4 a **6**: se suman inicio (menú) y captura de compra, que estaban implícitas en los flujos pero no en la lista de pantallas.
 
 **Estado:** pasada 1 lista. **Compuerta abierta:** el usuario debe ver `wireframes-v1.html` en su celular y aprobar o corregir la estructura antes de la pasada 2 (dirección visual aplicada).
+
+---
+
+## 2026-07-21 — Mantenimiento del canon
+
+**Qué pasó:** se revisaron dos cabos sueltos detectados en la sesión de wireframes.
+
+- **Decisión SPEC #8 (calibración empírica):** la aparente inconsistencia era falsa alarma — una sesión paralela ya la había registrado en SPEC.md (commit `cd30f90`) después de que esta sesión leyó el archivo. No hubo cambio que hacer; se eliminó un duplicado creado por el cruce de sesiones. Lección operativa: releer SPEC.md antes de editarlo cuando hay sesiones paralelas.
+- **`docs/investigaciones/Cocinología.htm`:** el usuario confirmó que está ahí a propósito — es el libro *Cocinología* (la ciencia de cocinar) como referencia de cocina. Quedó apuntado desde CLAUDE.md (regla de no proliferación: si no está apuntado desde un doc canónico, no existe).

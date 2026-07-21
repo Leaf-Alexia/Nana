@@ -46,3 +46,4 @@ Una pieza está ✅ solo si: funciona, fue probada en dispositivo real (celular 
 - `BITACORA.md` — estado actual e historial de decisiones con su porqué.
 - `PROCESO.md` — caso de estudio para portafolio; se destila de la bitácora al cerrar cada hito.
 - `docs/investigaciones/cotizacion-raspberry-pi.md` — hardware de capa 5; NO comprar hasta cerrar capa 4.
+- `docs/investigaciones/Cocinología.htm` — libro *Cocinología* (la ciencia de cocinar), guardado por el usuario como referencia de cocina para recetas y técnicas.
