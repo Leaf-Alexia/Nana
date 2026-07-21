@@ -56,7 +56,28 @@ El diseño no se incrusta en el markup. La dirección visual se define en su pro
 - **El inicio muestra el refri con sus dos notas:** un cuadro «En tu despensa» (scrollea por dentro si hay mucho texto) y debajo «Por comprar». Es el vistazo de 3 segundos hecho pantalla, y literalmente el pilar 2 (notas pegadas al refri). Tocar una nota abre su pantalla completa.
 - **Nomenclatura:** nada se llama «lista del domingo» en la UI; la nota del inicio dice «Por comprar» y la pantalla completa «Lista de compras».
 
-## Paleta — candidata recomendada 🟡 (se valida en pasada 2, en el celular)
+## Paleta y tipografía ✅ (2026-07-21 — el usuario eligió mezclando las 3 exploraciones)
+
+**Tokens definitivos** (la mezcla: papel/tinta de C, post-its de A, letra de B):
+
+| Token | Valor | Contraste con la tinta |
+|---|---|---|
+| Papel (fondo app) | `#F3EEE3` — ahuesado | 10.4:1 |
+| Tarjeta / nota | `#FBF8F0` | 11.3:1 |
+| Tinta (texto, botón primario) | `#3A362E` — gris lápiz | — |
+| Tinta suave (secundario) | `#75705F` | (solo texto grande/meta) |
+| Post-it amarillo = **receta** | `#FFE082` | 9.3:1 |
+| Post-it rosa = **antojo** | `#F8BBD0` | 7.5:1 |
+| Post-it azul = **manual (tú)** | `#B3E5FC` | 8.9:1 |
+| Post-it verde = **voz de Nana** | `#C5E1A5` | 8.4:1 |
+
+- **Voz de Nana:** Shantell Sans (títulos, botones de intención, mensajes de Nana), cuerpo base 1.25rem. **Voz de trabajo:** Atkinson Hyperlegible (listas, cantidades, pasos), base 18px.
+- Peor contraste de toda la matriz: **7.45:1** (tinta sobre rosa) — muy arriba del AA 4.5:1.
+- Fuentes servidas localmente en la PWA (sin CDN); el CDN solo existió en el doc de exploración.
+- **Compuerta pendiente:** ratificación en la primera prueba de la app real en el celular, bajo luz cálida de cocina (la exploración se vio en pantalla, la app se ratifica en contexto).
+- La piel elegida se ve en la pestaña «★ Elegida» de `docs/diseno/exploraciones-pasada2.html`.
+
+### Historia de la decisión (candidata original, 2026-07-20)
 
 El usuario dudaba entre: (a) lavanda/índigo claro (tranquilidad), (b) blanco y negro (uniforme de nana), (c) colores post-it. Recomendación firme de Claude — **fusionar (b) y (c) bajo la metáfora del papel**:
 
@@ -66,7 +87,7 @@ El usuario dudaba entre: (a) lavanda/índigo claro (tranquilidad), (b) blanco y 
 - Números (hex exactos y ratios ≥ 4.5:1 sobre crema, bajo luz cálida) se fijan y validan en la pasada 2.
 - **Exploraciones de pasada 2:** `docs/diseno/exploraciones-pasada2.html` — 3 pieles (A cuaderno cálido / B nota fresca / C lápiz y libreta) sobre el mismo contenido, cada color con su hex y ratio WCAG calculado (mínimo real: 6.1:1). Compuerta: elegir viéndolas en el celular bajo la luz de la cocina.
 
-## Tipografía — estrategia 🟡 (candidatas se prueban en el celular, pasada 2)
+### Tipografía — estrategia original (resuelta arriba: Shantell Sans + Atkinson)
 
 Pedido del usuario: como escrito a mano pero no cursiva, totalmente legible. Estrategia de **dos voces**:
 
@@ -80,6 +101,6 @@ Pedido del usuario: como escrito a mano pero no cursiva, totalmente legible. Est
 | Pilares visuales (máx. 3) | ✅ cerrados (arriba) |
 | Entrada principal (menú de intenciones) | ✅ cerrada (arriba) |
 | Wireframes de estructura — 6 pantallas: inicio, captura, despensa, cocinar-hoy, lista, ajustes | 🟡 pasada 1 corregida con el feedback del usuario (inicio con notas de despensa/por-comprar, botones de acción, antojo fusionado en cocinar-hoy) — compuerta: verla en el celular |
-| Paleta con ratios de contraste | 🟡 3 exploraciones con hex y ratios listas (`exploraciones-pasada2.html`); el usuario elige en el celular |
-| Tipografías y escala | 🟡 las 3 candidatas manuscritas + Atkinson Hyperlegible montadas en las exploraciones; se eligen en el celular |
-| Ícono de la app | ⬜ pendiente (nombre ya cerrado; se diseña con la paleta de pasada 2) |
+| Paleta con ratios de contraste | ✅ tokens definitivos (tabla arriba); ratificación final en la app real |
+| Tipografías y escala | ✅ Shantell Sans + Atkinson Hyperlegible (tabla arriba) |
+| Ícono de la app | ⬜ pendiente — siguiente pieza visual, ya con paleta cerrada |

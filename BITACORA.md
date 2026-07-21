@@ -89,6 +89,16 @@ Registro cronológico del qué y el porqué. El estado actual vive en la entrada
 
 ---
 
+## 2026-07-21 — Piel elegida: paleta y tipografía cerradas ✅
+
+**Qué pasó:** el usuario eligió mezclando las tres exploraciones — exactamente el caso previsto. **Papel ahuesado y gris lápiz de C** (`#F3EEE3` / `#3A362E`), **post-its pastel de A** (amarillo `#FFE082`, rosa `#F8BBD0`, verde `#C5E1A5`, azul `#B3E5FC`) y **Shantell Sans de B** como voz de Nana, con Atkinson Hyperlegible de voz de trabajo.
+
+**Verificación:** se recalculó la matriz de contraste de la mezcla (la tinta de C sobre los post-its de A no se había medido): peor caso 7.45:1 (tinta/rosa), todo arriba del AA 4.5:1. La piel quedó como pestaña «★ Elegida» en `exploraciones-pasada2.html` y los tokens definitivos en tabla en ARTE.md.
+
+**Estado:** paleta ✅ y tipografía ✅. Pendientes del paso 0: ícono de la app (siguiente pieza, ya con paleta) y ratificación de todo en la primera prueba de la app real en el celular. Después: TDD paso 1 (esqueleto de la PWA consumiendo `tokens.css`).
+
+---
+
 ## 2026-07-21 — Pasada 2 arranca: 3 exploraciones visuales
 
 **Qué pasó:** con la estructura aprobada, se construyeron las 3 exploraciones de dirección visual en `docs/diseno/exploraciones-pasada2.html` (apuntadas desde ARTE.md).

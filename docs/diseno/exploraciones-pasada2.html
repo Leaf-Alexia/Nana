@@ -61,6 +61,14 @@
     --f-nana: 'Architects Daughter', cursive; --f-trabajo: 'Atkinson Hyperlegible', sans-serif;
     --nana-size: 1.3rem;
   }
+  /* ★ ELEGIDA (mezcla del usuario, 2026-07-21): papel y tinta de C,
+     post-its de A, Shantell Sans de B. Estos son los tokens de la app. */
+  .expF {
+    --paper: #F3EEE3; --card: #FBF8F0; --ink: #3A362E; --ink-soft: #75705F;
+    --pin-amarillo: #FFE082; --pin-rosa: #F8BBD0; --pin-verde: #C5E1A5; --pin-azul: #B3E5FC;
+    --f-nana: 'Shantell Sans', cursive; --f-trabajo: 'Atkinson Hyperlegible', sans-serif;
+    --nana-size: 1.25rem;
+  }
 
   /* ============ Piezas comunes, pintadas con las variables ============ */
   .exp { background: var(--paper); color: var(--ink); font-family: var(--f-trabajo); }
@@ -174,6 +182,7 @@
   <button data-target="A" class="active">A · Cuaderno cálido</button>
   <button data-target="B">B · Nota fresca</button>
   <button data-target="C">C · Lápiz y libreta</button>
+  <button data-target="F">★ Elegida</button>
 </div>
 
 <!-- ============================================================
@@ -195,6 +204,11 @@
   data-desc="Papel ahuesado + gris lápiz. Architects Daughter: trazo de lápiz técnico. Post-its desaturados, todo baja de volumen."
   data-paper="#F3EEE3 · papel" data-card="#FBF8F0 · tarjeta" data-ink="#3A362E · tinta (10.4:1 sobre papel)"
   data-pins="#EFE0A9 9.1:1|#E8C4CE 7.6:1|#CBD9B1 8.1:1|#BDD7E2 8.0:1"></section>
+
+<section class="exp expF" id="exp-F" data-name="★ Elegida — la piel de Nana"
+  data-desc="Mezcla del usuario: papel ahuesado y gris lápiz (C) + post-its pastel clásicos (A) + Shantell Sans (B) con Atkinson Hyperlegible. Peor contraste de la matriz: 7.45:1."
+  data-paper="#F3EEE3 · papel" data-card="#FBF8F0 · tarjeta" data-ink="#3A362E · tinta (10.4:1 sobre papel)"
+  data-pins="#FFE082 9.3:1|#F8BBD0 7.5:1|#C5E1A5 8.4:1|#B3E5FC 8.9:1"></section>
 
 <script>
   // Contenido único de muestra (inicio + lista + chat), inyectado en las 3 pieles.
