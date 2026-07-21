@@ -95,3 +95,38 @@ Registro cronológico del qué y el porqué. El estado actual vive en la entrada
 
 - **Decisión SPEC #8 (calibración empírica):** la aparente inconsistencia era falsa alarma — una sesión paralela ya la había registrado en SPEC.md (commit `cd30f90`) después de que esta sesión leyó el archivo. No hubo cambio que hacer; se eliminó un duplicado creado por el cruce de sesiones. Lección operativa: releer SPEC.md antes de editarlo cuando hay sesiones paralelas.
 - **`docs/investigaciones/Cocinología.htm`:** el usuario confirmó que está ahí a propósito — es el libro *Cocinología* (la ciencia de cocinar) como referencia de cocina. Quedó apuntado desde CLAUDE.md (regla de no proliferación: si no está apuntado desde un doc canónico, no existe).
+
+---
+
+## 2026-07-21 — Conocimiento culinario destilado de libros (4 fuentes → 6 módulos de datos)
+
+**Qué pasó:** el usuario propuso "nutrir el contexto" con libros de cocina para que Nana no dependa de internet. Se rechazó el mecanismo, se aceptó el objetivo, y se destilaron cuatro libros a datos que la app carga siempre.
+
+**Corrección al registro anterior:** la entrada del 2026-07-21 daba por bueno `Cocinología.htm`. Al abrirlo resultó ser la **página del visor de Scribd, no el libro**: 488 KB de JavaScript con 23 caracteres de texto útil (`"Scribd View on Scribd"`). Nunca tuvo contenido. Se eliminó del repo. Lección: verificar el contenido de un archivo antes de apuntarlo desde un doc canónico; que exista y tenga nombre no significa que traiga lo que promete.
+
+**Decisiones y porqués:**
+- **Los libros NO se meten al contexto; se destilan a datos** (decisión cerrada SPEC #9). Tres razones: (1) no caben — McGee solo son ~500k tokens y la capa 5 corre LLMs locales con ventanas de 8k–128k; (2) pagarías la relectura en cada consulta; (3) copyright. La razón de diseño de fondo: Nana no necesita *leer* el libro, necesita *el resultado* del libro. Es el mismo patrón que ya se había elegido para la tabla de caducidades.
+- **Los PDF quedan fuera del repo** (`.gitignore`): 58 MB con copyright. Se leen una vez en la máquina local; lo que se versiona es el destilado, que es inspeccionable y cabe en un celular.
+- **Las claves canónicas quedan en inglés**, con un puente español aparte (`ingredient_names.js`). Traducir 22 mil maridajes sería enorme y frágil; traducir los ~300 ingredientes que una despensa mexicana puede contener es acotado y verificable.
+- **Lo que no se pudo verificar, no se escribió.** Dos casos concretos, ambos preferibles a rellenar:
+  - Puntos de humo: solo **4**, no los 12–15 pedidos. McGee no publica esa tabla; da dos cifras genéricas. Cualquier tabla larga de puntos de humo que ande por internet no sale de este libro.
+  - Nutrientes del USDA: los 26 factores se extrajeron completos, pero **sin etiqueta de cuál es cuál**. El PDF dibuja los nombres de columna en vertical entrelazado y no los declara en ningún lado legible. Etiquetarlos de memoria sería inventar datos nutricionales. Queda como pregunta abierta SPEC #5.
+
+**Qué se construyó** (`src/data/`, 580 KB en total):
+
+| Módulo | Contenido | Fuente |
+|---|---|---|
+| `flavor_pairings.js` | 548 ingredientes, 22,185 maridajes, 1,390 afinidades | The Flavor Bible |
+| `ingredient_names.js` | 304 sinónimos español→inglés, con plurales y frases | escrito a mano |
+| `cooking_rules.js` | 73 reglas en 4 ejes + 20 diagnósticos síntoma→arreglo | Salt Fat Acid Heat |
+| `cooking_techniques.js` | 48 temperaturas, 4 puntos de humo, 48 técnicas | On Food and Cooking |
+| `food_science_rules.js` | 80 reglas de ciencia accionables | On Food and Cooking |
+| `nutrient_retention.js` | 270 combinaciones alimento×método | USDA Release 6 |
+
+**Notas técnicas del parseo** (por si hay que rehacerlo): el texto del Flavor Bible se extrae con `pdftotext -layout -enc UTF-8`, pero la indentación **no** sirve como señal — el reflujo de columnas la destruye. La señal fiable es que un encabezado va seguido de una etiqueta (`Taste:`, `Weight:`…). Tres bugs costaron la mitad de la cobertura y valen recordarse: (1) el PDF pega encabezados al final de líneas de prosa (`…(Washington, Virginia) APPLES`); (2) muchos traen paréntesis en minúsculas que rompen la prueba de mayúsculas (`SHRIMP (See also Shellfish)`); (3) algunas entradas arrancan sin metadatos y se recuperan por orden alfabético. De 400 entradas iniciales se pasó a 548. La tabla del USDA exige extracción por **coordenadas** (`pdfplumber`): con `-layout` las descripciones salen desfasadas dos filas respecto de sus números.
+
+**Validación:** los 6 módulos pasan `node --check`; el puente resuelve 15/15 pruebas con despensa real en español ("jitomates", "chiles serranos", "pechuga de pollo asada"); 0 destinos rotos. La tabla del USDA se validó contra el ejemplo que el propio documento da en su prosa (verduras hervidas, 85%) y es internamente coherente: hervir y tirar el agua conserva 55% del peor nutriente, hervir y aprovechar el caldo 70%, al vapor 85%.
+
+**Estado:** datos listos y probados en Node. **No probados en dispositivo real** — eso ocurre cuando exista app que los consuma (paso 1 del TDD). La compuerta del DoD sigue abierta para estos módulos.
+
+**Próximo paso:** sin cambios — sigue pendiente la compuerta de wireframes (el usuario debe abrir `wireframes-v1.html` en su celular). Estos datos son insumo de capas 2–3, no adelantan capa 1.

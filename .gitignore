@@ -10,3 +10,7 @@ dist/
 # Basura de sistema operativo
 .DS_Store
 Thumbs.db
+
+# Libros fuente: con copyright y pesados (58 MB). Se leen una vez, se destilan
+# a data/, y el destilado SI se versiona. Los PDF viven solo en la maquina local.
+docs/investigaciones/*.pdf

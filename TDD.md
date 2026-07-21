@@ -46,6 +46,7 @@
 
 - Código, variables, funciones y archivos en inglés; **comentarios en español** explicando qué sucede (núcleo 🔒).
 - Todos los números y catálogos en módulos de datos: `src/data/shelf_life.js`, `src/data/categories.js`, `src/data/config.js`.
+- **Conocimiento culinario destilado de libros** (ya construido, decisión SPEC #9): `flavor_pairings.js` (maridajes), `cooking_rules.js` (sal/grasa/ácido/calor), `cooking_techniques.js` (temperaturas), `food_science_rules.js` (por qué funciona), `nutrient_retention.js` (USDA), y `ingredient_names.js` que traduce del español a las claves en inglés de los otros. Son ~580 KB: **cargar bajo demanda**, nunca en el bundle inicial — `flavor_pairings.js` solo pesa cuando se pide una sugerencia.
 - Modelo de datos con `household_id` desde el día 1 (ver SPEC.md).
 
 ### Estructura de carpetas prevista
