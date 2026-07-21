@@ -24,7 +24,7 @@ export function renderCooking(state) {
 
   // Encabezado del chat
   body.append(el('div', { class: 'group-head' },
-    el('span', { class: 'tape tape--small', style: 'background:var(--nana);top:-9px;left:12px;transform:rotate(-2deg)' }),
+    el('span', { class: 'tape-swatch', style: 'background:var(--nana)' }),
     el('div', { class: 'group-name' }, 'Tu chat con Nana')
   ));
 

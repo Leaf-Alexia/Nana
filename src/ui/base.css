@@ -42,6 +42,9 @@ input, textarea, select, button { font-family: inherit; color: var(--ink); }
 /* ---- Zona de pantalla (scrollea) + nav fija abajo ---- */
 .screen {
   flex: 1;
+  /* min-height:0 es obligatorio: sin él, flexbox no deja encoger la zona
+     y el contenido empuja la pantalla en vez de scrollear dentro de ella */
+  min-height: 0;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -207,26 +210,39 @@ input, textarea, select, button { font-family: inherit; color: var(--ink); }
 
 /* ---- Chip post-it (siempre con texto: el color solo se lee junto a su palabra) ---- */
 .chip {
+  display: inline-flex;
+  align-items: center;
   border: 1px solid rgba(0, 0, 0, .2);
   border-radius: 5px;
   padding: 4px 9px;
   font-size: 12.5px;
+  line-height: 1.2;
+  white-space: nowrap;
 }
 .chip--tilt-l { transform: rotate(-1.5deg); }
 .chip--tilt-r { transform: rotate(1.5deg); }
 
 /* ---- Encabezado de grupo con cinta de color ---- */
+/* La cinta va en línea junto al nombre (nada absoluto: siempre alineados) */
 .group-head {
-  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   margin-top: 12px;
+  min-height: 24px;
 }
-.group-head .tape--small { top: -9px; left: 12px; width: 44px; transform: rotate(-2deg); }
+.group-head .tape-swatch {
+  width: 44px;
+  height: 13px;
+  border: 1px solid rgba(0, 0, 0, .2);
+  transform: rotate(-2deg);
+  flex: none;
+}
 .group-head .group-name {
   font-family: var(--font-nana);
   font-size: 16px;
   font-weight: 700;
   color: var(--ink-soft);
-  padding-left: 66px;
 }
 
 /* ---- Post-it suelto (tips, avisos de Nana) ---- */

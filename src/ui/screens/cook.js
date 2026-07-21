@@ -3,7 +3,7 @@
 // Los ingredientes de «Usas:» llevan su color de categoría (pedido 2026-07-21).
 import { el } from '../dom.js';
 import { screenHead } from './common.js';
-import { submitAntojo, toggleRecipe, sendMissing, startCooking } from '../../state.js';
+import { submitAntojo, toggleRecipe, sendMissing, startCooking, askMoreIdeas } from '../../state.js';
 import { guessCategory, categoryColor } from '../../data/categories.js';
 
 export function renderCook(state) {
@@ -82,6 +82,17 @@ export function renderCook(state) {
 
     body.append(card);
   }
+
+  // Respuesta de Nana al pedir más ideas (post-it verde = su voz)
+  if (state.moreIdeasNote) {
+    body.append(el('div', {
+      class: 'postit',
+      style: 'background:var(--nana);align-self:stretch;box-shadow:var(--shadow-note);font-family:var(--font-nana);font-size:14.5px'
+    }, state.moreIdeasNote));
+  }
+
+  body.append(el('button', { class: 'btn-primary', onClick: askMoreIdeas },
+    'Recomiéndame otras cosas, Nana'));
 
   screen.append(body);
   return screen;

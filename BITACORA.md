@@ -221,3 +221,15 @@ Registro cronológico del qué y el porqué. El estado actual vive en la entrada
 **Validación:** `npm run build` limpio; probada en Chrome de escritorio (build de producción con service worker): navegación completa, fuentes cargan, dos códigos de color visibles, sin errores de consola. **Compuerta del DoD abierta:** falta instalarla en el celular del usuario (`npm run dev -- --host` o `npm run preview` en la misma red) y ratificar paleta bajo luz de cocina.
 
 **Próximo paso:** el usuario la instala en su celular (compuerta del paso 1); luego paso 2 del TDD (Dexie + CRUD real de despensa).
+
+---
+
+## 2026-07-21 — Ajustes de la primera revisión del usuario (despensa y cocinar hoy)
+
+**Qué pasó:** el usuario revisó la app implementada y pidió tres arreglos; se aplicaron y verificaron en Chrome.
+
+- **Tags de la despensa desalineados:** los encabezados de grupo usaban una cinta posicionada en absoluto que flotaba lejos del nombre. Ahora cinta y nombre van en línea (`.group-head` flex) y los chips tienen altura consistente (`inline-flex` + `nowrap`). Se corrigió en despensa, lista y chat de cocina, que compartían el componente.
+- **La despensa no scrolleaba:** bug clásico de flexbox — a `.screen` le faltaba `min-height: 0`; sin él, el contenido empuja el layout en vez de scrollear dentro. Una línea de CSS.
+- **Botón «Recomiéndame otras cosas, Nana»** al final de Cocinar hoy (estaba en el hi-fi como «Otras ideas, Nana» y se perdió en el porteo). En el paso 1 responde con un post-it honesto: sin LLM conectado no hay ideas nuevas; la respuesta real llega en el paso 3.
+
+**Estado:** compuerta del paso 1 sigue abierta (instalarla en el celular).

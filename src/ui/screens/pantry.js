@@ -30,11 +30,10 @@ export function renderPantry(state) {
     const items = state.pantry.filter(it => it.category === cat.key);
     if (!items.length) continue;
 
-    const groupHead = el('div', { class: 'group-head' },
-      el('span', { class: 'tape tape--small', style: `background:${categoryColor(cat.key)};top:-9px;left:12px;transform:rotate(-2deg)` }),
+    body.append(el('div', { class: 'group-head' },
+      el('span', { class: 'tape-swatch', style: `background:${categoryColor(cat.key)}` }),
       el('div', { class: 'group-name' }, cat.label)
-    );
-    body.append(groupHead);
+    ));
 
     for (const it of items) {
       body.append(el('div', { class: 'item-row', style: `min-height:54px;border-left-color:${categoryColor(cat.key)}` },

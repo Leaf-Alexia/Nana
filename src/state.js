@@ -13,7 +13,8 @@ const state = {
   parsed: null,        // items entendidos al capturar compra (null = aún no)
   session: null,       // receta que se está cocinando ahora
   chat: [],
-  replyIdx: 0
+  replyIdx: 0,
+  moreIdeasNote: ''    // respuesta de Nana al pedir más ideas en Cocinar hoy
 };
 
 const listeners = new Set();
@@ -28,7 +29,15 @@ export function setState(patch) {
   listeners.forEach(fn => fn(state));
 }
 
-export function go(screen) { setState({ screen, toast: '' }); }
+export function go(screen) { setState({ screen, toast: '', moreIdeasNote: '' }); }
+
+// Botón «Recomiéndame otras cosas» — placeholder honesto del paso 1:
+// las ideas nuevas de verdad llegan cuando se conecte el LLM (paso 3).
+export function askMoreIdeas() {
+  setState({
+    moreIdeasNote: 'Con lo de hoy, esas son mis mejores ideas. Cuando conectes mi cerebro (Ajustes) voy a poder inventarte más.'
+  });
+}
 
 /* ---- Acciones de la app (portadas del prototipo aprobado) ---- */
 

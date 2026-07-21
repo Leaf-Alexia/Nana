@@ -49,7 +49,7 @@ export function renderList(state) {
 
   if (cart.length) {
     body.append(el('div', { class: 'group-head', style: 'margin-top:10px' },
-      el('span', { class: 'tape tape--small', style: 'background:var(--origin-manual);top:-9px;left:12px;transform:rotate(2deg)' }),
+      el('span', { class: 'tape-swatch', style: 'background:var(--origin-manual);transform:rotate(2deg)' }),
       el('div', { class: 'group-name' }, 'Ya en el carrito')
     ));
     cart.forEach(it => body.append(row(it, true)));
