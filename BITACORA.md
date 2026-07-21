@@ -89,6 +89,21 @@ Registro cronológico del qué y el porqué. El estado actual vive en la entrada
 
 ---
 
+## 2026-07-21 — Tercera ronda: sesión de cocina, grupos de despensa y rumbo a pasada 2
+
+**Qué pasó:** el usuario revisó pantalla por pantalla y refinó el flujo de cocinar; la estructura queda aprobada para pasar al diseño (pasada 2).
+
+**Decisiones y porqués:**
+- **Cocinar en dos momentos (diseño del usuario):** en «Cocinar hoy», «Ver pasos» abre la receta debajo y permite preguntas rápidas SUELTAS para decidir; «Voy a cocinar esto» abre la pantalla nueva **«Cocinando» (3b)**: guía + chat con Nana con **historial temporal** («cocinando ahora»), del que se puede salir y volver (tira 🍳 en el inicio). «Ya terminé» descuenta lo usado (decisión #10) y borra la sesión. Nuevo modelo de datos: `CookingSession` (temporal, 0 o 1 activa). Porqué temporal: el historial vale mientras cocinas; las recetas ya quedan cacheadas aparte.
+- **Second pass de grupos de despensa:** Proteínas, Verduras, Frutas, Lácteos, Básicos, Condimentos y especias, Hogar — siete máximo para no romper el vistazo de 3 segundos. En condimentos la cantidad puede ser solo «hay / se acaba».
+- **No comestibles resueltos:** «jabón de trastes» y similares entran a despensa bajo «Hogar» y el motor de recetas los ignora — la lista los acepta sin fricción y no contaminan sugerencias (duda del usuario, confirmada: no afectan).
+- **Moodboard del usuario apuntado:** `docs/diseno/HEALTYREF.pur` queda en ARTE.md como insumo de la pasada 2.
+- **Práctica de separación diseño/código (pedido del usuario):** el diseño vive en su propio documento (tokens CSS) y la app solo lo consume. Registrada en ARTE.md.
+
+**Estado:** estructura aprobada por el usuario. **Siguiente paso: pasada 2 (dirección visual)** — paleta con hex y ratios, tipografías vistas en el celular, colores post-it con su mapa color→significado.
+
+---
+
 ## 2026-07-21 — Segunda ronda de feedback: familia, guía interactiva y cierre de la #5
 
 **Qué pasó:** el usuario aprobó la corrección de la pasada 1 y añadió dos piezas de diseño; también cerró la pregunta #5.

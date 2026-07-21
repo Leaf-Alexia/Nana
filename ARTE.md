@@ -41,6 +41,12 @@ Intención declarada por el usuario: hogareño sin ser genérico; papel de escri
 2. **Papel de refri** — la referencia concreta es el objeto real: la nota pegada con imán al refrigerador. La app se ve *escrita*, no *renderizada*: listas, post-its, tachones.
 3. **Vistazo de 3 segundos** — una nota de refri se entiende de un golpe de vista; la app también. Este pilar vuelve estética la restricción dura (legible a un brazo, dedos con masa).
 
+Moodboard personal del usuario: `docs/diseno/HEALTYREF.pur` — su tracking propio de referencias visuales; insumo directo de la pasada 2.
+
+## Práctica: el diseño vive aparte del código ✅ (2026-07-21, pedido del usuario)
+
+El diseño no se incrusta en el markup. La dirección visual se define en su propio documento (tokens CSS: colores, tipografías, tamaños, espaciados en un `design.css` / `tokens.css`) y la app solo **consume** esos tokens. Porqué: cambiar la paleta o la letra = tocar un archivo, no cazar estilos regados por toda la app; y es la misma separación estructura/vista que ya se usó en las dos pasadas de wireframes.
+
 ## Entrada principal ✅ (2026-07-20, revisada 2026-07-21 con feedback del usuario)
 
 **Menú de intenciones, no chat** — sigue firme. Lo que cambió tras la revisión del usuario sobre la pasada 1:

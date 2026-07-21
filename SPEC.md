@@ -15,7 +15,7 @@ Fuente de la verdad del diseño del producto. Las decisiones cerradas llevan ✅
 ### Capa 1 — MVP: "la app vive en mi celular"
 1. Registrar despensa escribiendo o dictando ("compré pollo, jitomate, arroz") — el dictado lo da el teclado de Android, no se programa.
 2. Ver y editar el inventario.
-3. "¿Qué cocino hoy?" → sugerencias de recetas usando solo lo que hay (vía LLM). La receta abierta es una **guía interactiva**: se le puede preguntar a Nana sobre la marcha («se me pasó el arroz, ¿cómo lo salvo?», «pide 3 jitomates y solo tengo 2») y ella responde y recalibra con el contexto de la receta y la despensa.
+3. "¿Qué cocino hoy?" → sugerencias de recetas usando solo lo que hay (vía LLM), en dos momentos (diseño del usuario, 2026-07-21): **antes de decidir**, ver pasos y hacer preguntas rápidas sueltas; al elegir **«Voy a cocinar esto»** se abre la **sesión de cocina**: guía de pasos + chat con Nana con historial temporal («se me pasó el arroz», «pide 3 jitomates y tengo 2») que recalibra sobre la marcha. «Ya terminé» descuenta lo usado y borra el chat.
 4. Lista de compras: manual + "se me antoja X" → el LLM infiere ingredientes, detecta faltantes contra la despensa y los agrega.
 5. Instalable como PWA en Android con su ícono.
 6. Exportar/importar datos en JSON (respaldo manual — en local-first, perder el dispositivo no debe ser perder la despensa).
@@ -53,14 +53,17 @@ Diseñado para multi-hogar desde el día 1 aunque el MVP sea un solo usuario (ag
 - **PantryItem** — id, household_id, name, quantity aproximada (texto libre: "2", "medio kilo", "poquito"), category, added_at.
 - **ShoppingListItem** — id, household_id, name, source (`manual` | `craving` | `recipe`), done.
 - **RecipeSuggestion** — id, household_id, title, ingredients_used, missing_ingredients, steps, created_at (caché de sugerencias del LLM para no re-consultar).
+- **CookingSession** — id, household_id, recipe (copia de la sugerencia), messages (chat con Nana), started_at. **Temporal:** vive solo mientras se cocina; «Ya terminé» descuenta ingredientes y la borra. Normalmente hay 0 o 1 activa.
 - **ShelfLifeTable** (capa 2) — tabla estática en módulo de datos, no en base de datos.
 
 ## Flujos clave
 
 1. **Registrar compra:** usuario escribe/dicta texto libre → LLM lo parsea a items → confirma → entra a despensa.
-2. **Cocinar hoy:** despensa actual → LLM → 3 sugerencias con lo que hay (marca si falta algo menor). *(2026-07-21: absorbe al antojo, antes flujo 3.)* Con la receta abierta, un campo «Pregúntale a Nana» manda la duda + receta + despensa al LLM y la respuesta recalibra la guía (accidentes, sustituciones, cantidades). Acotación MVP: pregunta-respuesta simple, sin historial de chat persistente. Al terminar, «Ya lo cociné» descuenta lo usado (decisión #10).
+2. **Cocinar hoy:** despensa actual → LLM → 3 sugerencias con lo que hay (marca si falta algo menor). *(2026-07-21: absorbe al antojo, antes flujo 3.)* Dos momentos:
+   - **Antes de decidir:** «Ver pasos» abre la receta debajo de la tarjeta; ahí se pueden hacer **preguntas rápidas** sueltas (sin historial) para comparar opciones.
+   - **Sesión de cocina:** «Voy a cocinar esto» abre la pantalla de cocinando — guía de pasos + chat con Nana **con historial temporal** (contexto: receta + despensa + lo ya preguntado), guardada como «cocinando ahora» para poder salir y volver. «Ya terminé» descuenta lo usado (decisión #10) y la sesión se borra. Porqué temporal: el historial vale mientras cocinas; guardarlo para siempre es peso muerto y las recetas ya quedan cacheadas en RecipeSuggestion.
 3. **Antojo (fusionado en el flujo 2, 2026-07-21):** "se me antoja huevo revuelto" se dice dentro de «Cocinar hoy» → Nana lo convierte en sugerencia con lo que hay Y detecta faltantes → los faltantes van a la lista de compras. Porqué (del usuario): un antojo ES una pregunta de qué cocinar; tenerlo como flujo/botón aparte duplicaba el camino.
-4. **Domingo de compras:** abrir lista, palomear en el súper, lo comprado pasa a la despensa.
+4. **Domingo de compras:** abrir lista, palomear en el súper, lo comprado pasa a la despensa. Los items no comestibles («jabón de trastes») entran a la despensa bajo la categoría **Hogar** y el motor de recetas los ignora por completo: la lista los acepta sin fricción y no contaminan las sugerencias.
 
 ## Decisiones cerradas
 
