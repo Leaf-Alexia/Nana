@@ -89,6 +89,21 @@ Registro cronológico del qué y el porqué. El estado actual vive en la entrada
 
 ---
 
+## 2026-07-21 — Pasada 2 arranca: 3 exploraciones visuales
+
+**Qué pasó:** con la estructura aprobada, se construyeron las 3 exploraciones de dirección visual en `docs/diseno/exploraciones-pasada2.html` (apuntadas desde ARTE.md).
+
+**Método y porqués:**
+- Las tres pieles visten **exactamente el mismo contenido** (inicio, lista con post-its, chat de cocinando) — así la comparación es de piel, no de contenido. El contenido se inyecta una vez con JS para que no pueda divergir.
+- **A · Cuaderno cálido:** crema profunda #F8F1E5 + tinta café #2B2620 + Patrick Hand. **B · Nota fresca:** papel casi blanco #FBFAF6 + tinta azul-grafito #22303A + Shantell Sans. **C · Lápiz y libreta:** papel ahuesado #F3EEE3 + gris lápiz #3A362E + Architects Daughter. Las tres con Atkinson Hyperlegible como voz de trabajo y 4 post-its funcionales.
+- **Ratios WCAG calculados con script, no a ojo** (regla de ARTE: número o no cuenta): tinta/papel 10.4–13.4:1; el peor caso de toda la matriz es tinta sobre post-it rosa de B con 6.1:1 — todo arriba del AA 4.5:1.
+- Mapa color→significado propuesto en las tres: amarillo=receta, rosa=antojo, azul=manual, verde=voz de Nana.
+- Fuentes por CDN de Google **solo en la exploración**; en la app serán locales (regla local-first).
+
+**Estado:** compuerta abierta — el usuario abre el archivo en su celular bajo la luz de la cocina y elige piel (o mezcla: puede elegir paleta de una y letra de otra).
+
+---
+
 ## 2026-07-21 — Tercera ronda: sesión de cocina, grupos de despensa y rumbo a pasada 2
 
 **Qué pasó:** el usuario revisó pantalla por pantalla y refinó el flujo de cocinar; la estructura queda aprobada para pasar al diseño (pasada 2).

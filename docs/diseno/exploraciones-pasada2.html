@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nana — Pasada 2: 3 exploraciones visuales</title>
+<!-- ============================================================
+     PASADA 2 — EXPLORACIONES VISUALES (A/B/C)
+     Misma estructura (ya aprobada en wireframes-v1), tres pieles.
+     Aquí se juzga: paleta, tipografía y colores post-it.
+     Cada color trae su ratio de contraste WCAG calculado (regla de
+     ARTE.md: número, no impresión). Mínimo exigido: 4.5:1 (AA).
+     NOTA: las fuentes vienen de Google Fonts por CDN SOLO en este
+     documento de exploración; en la app real se sirven locales
+     (regla local-first del TDD).
+     Compuerta: verlo en el celular, bajo la luz de la cocina.
+     ============================================================ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Shantell+Sans:wght@400;700&family=Architects+Daughter&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { font-size: 18px; } /* base generosa: legible a un brazo de distancia */
+  body { background: #b9b4a9; }
+
+  /* --- Barra para saltar entre exploraciones (no es parte de la app) --- */
+  #review-bar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 10;
+    background: #111; color: #fff; display: flex; gap: 4px;
+    padding: 6px; font-size: 13px; font-family: system-ui, sans-serif;
+  }
+  #review-bar button {
+    flex: 1; padding: 10px 6px; background: #333; color: #fff;
+    border: none; border-radius: 4px; font-size: 13px;
+  }
+  #review-bar button.active { background: #fff; color: #111; }
+
+  .exp { display: none; max-width: 420px; margin: 58px auto 24px auto;
+         min-height: 92vh; border: 2px solid #777; padding-bottom: 24px; }
+  .exp.visible { display: block; }
+
+  /* ============ Variables por exploración (los futuros tokens.css) ============ */
+  /* A — Cuaderno cálido: crema profunda, tinta café oscuro, Patrick Hand */
+  .expA {
+    --paper: #F8F1E5; --card: #FFFDF7; --ink: #2B2620; --ink-soft: #6B6154;
+    --pin-amarillo: #FFE082; --pin-rosa: #F8BBD0; --pin-verde: #C5E1A5; --pin-azul: #B3E5FC;
+    --f-nana: 'Patrick Hand', cursive; --f-trabajo: 'Atkinson Hyperlegible', sans-serif;
+    --nana-size: 1.45rem; /* Patrick Hand es chica de ojo: se compensa con cuerpo */
+  }
+  /* B — Nota fresca: papel casi blanco, tinta azul-grafito, Shantell Sans */
+  .expB {
+    --paper: #FBFAF6; --card: #FFFFFF; --ink: #22303A; --ink-soft: #5C6B76;
+    --pin-amarillo: #FFD54F; --pin-rosa: #F48FB1; --pin-verde: #AED581; --pin-azul: #81D4FA;
+    --f-nana: 'Shantell Sans', cursive; --f-trabajo: 'Atkinson Hyperlegible', sans-serif;
+    --nana-size: 1.25rem;
+  }
+  /* C — Lápiz y libreta: papel ahuesado, tinta gris-lápiz, Architects Daughter */
+  .expC {
+    --paper: #F3EEE3; --card: #FBF8F0; --ink: #3A362E; --ink-soft: #75705F;
+    --pin-amarillo: #EFE0A9; --pin-rosa: #E8C4CE; --pin-verde: #CBD9B1; --pin-azul: #BDD7E2;
+    --f-nana: 'Architects Daughter', cursive; --f-trabajo: 'Atkinson Hyperlegible', sans-serif;
+    --nana-size: 1.3rem;
+  }
+
+  /* ============ Piezas comunes, pintadas con las variables ============ */
+  .exp { background: var(--paper); color: var(--ink); font-family: var(--f-trabajo); }
+
+  .exp-head {
+    padding: 14px 16px; border-bottom: 2px solid var(--ink);
+    font-family: system-ui, sans-serif; background: rgba(0,0,0,.04);
+  }
+  .exp-head h2 { font-size: 1rem; }
+  .exp-head p { font-size: .8rem; color: var(--ink-soft); margin-top: 4px; }
+
+  .sec { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+  .sec > h3 {
+    font-family: system-ui, sans-serif; font-size: .72rem; color: var(--ink-soft);
+    text-transform: uppercase; letter-spacing: 1px;
+    border-top: 1px dashed var(--ink-soft); padding-top: 12px;
+  }
+
+  /* Muestras de paleta: cada una con su hex y su ratio de contraste real */
+  .swatches { display: flex; flex-wrap: wrap; gap: 8px; }
+  .sw {
+    flex: 1 1 45%; border: 1.5px solid var(--ink); border-radius: 8px;
+    padding: 10px; min-height: 64px;
+  }
+  .sw b { display: block; font-size: .95rem; }
+  .sw span { font-size: .72rem; font-family: system-ui, sans-serif; opacity: .75; }
+
+  /* Voz de Nana: saludo, botones de intención. Voz de trabajo: listas. */
+  .hello { font-family: var(--f-nana); font-size: var(--nana-size); }
+  .avatar {
+    width: 52px; height: 52px; border-radius: 50%; flex: 0 0 auto;
+    border: 2px solid var(--ink); background: var(--card);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--f-nana); font-size: .9rem;
+  }
+  .home-head { display: flex; align-items: center; gap: 12px; }
+
+  .btn-intent {
+    min-height: 76px; width: 100%; text-align: left;
+    background: var(--card); border: 2px solid var(--ink); border-radius: 12px;
+    padding: 12px 16px; color: var(--ink);
+    font-family: var(--f-nana); font-size: var(--nana-size);
+    box-shadow: 2px 3px 0 rgba(0,0,0,.12); /* la nota despega tantito del refri */
+  }
+  .btn-intent small {
+    display: block; font-family: var(--f-trabajo); font-size: .8rem;
+    color: var(--ink-soft); margin-top: 2px;
+  }
+  .btn-primary {
+    min-height: 56px; width: 100%;
+    background: var(--ink); color: var(--paper); border: none; border-radius: 10px;
+    font-family: var(--f-nana); font-size: 1.15rem; padding: 12px;
+  }
+
+  /* La "nota de refri" del inicio */
+  .home-note {
+    background: var(--card); border: 2px solid var(--ink); border-radius: 4px;
+    padding: 12px; box-shadow: 2px 3px 0 rgba(0,0,0,.12); position: relative;
+  }
+  .home-note::before { /* el imán/cinta que la pega al refri */
+    content: ""; position: absolute; top: -8px; left: 50%; transform: translateX(-50%) rotate(-2deg);
+    width: 56px; height: 14px; background: var(--pin-amarillo);
+    border: 1px solid rgba(0,0,0,.25);
+  }
+  .home-note h4 {
+    font-family: var(--f-nana); font-size: 1.15rem; margin-bottom: 6px; margin-top: 4px;
+  }
+  .home-note li { list-style: none; display: flex; font-size: 1rem; padding: 3px 0; }
+  .home-note li .qty { margin-left: auto; color: var(--ink-soft); font-size: .85rem; }
+
+  /* Lista de compras: el origen del item es un post-it de color (un color = un significado) */
+  .row {
+    min-height: 56px; background: var(--card); border: 1.5px solid var(--ink);
+    border-radius: 8px; padding: 10px 12px;
+    display: flex; align-items: center; gap: 10px; font-size: 1rem;
+  }
+  .row input[type="checkbox"] { width: 26px; height: 26px; accent-color: var(--ink); }
+  .pin {
+    margin-left: auto; flex: 0 0 auto;
+    font-size: .72rem; font-family: system-ui, sans-serif;
+    padding: 4px 8px; border: 1px solid rgba(0,0,0,.35);
+    color: var(--ink); transform: rotate(-1.5deg); /* pegado a mano, no impreso */
+  }
+  .pin.amarillo { background: var(--pin-amarillo); }
+  .pin.rosa     { background: var(--pin-rosa); }
+  .pin.azul     { background: var(--pin-azul); }
+  .pin.verde    { background: var(--pin-verde); }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 6px; font-size: .75rem; font-family: system-ui, sans-serif; }
+  .legend .pin { margin-left: 0; transform: none; }
+
+  /* Chat de la sesión de cocina: Nana habla en post-it verde, tú en tarjeta */
+  .msg { border-radius: 10px; padding: 10px 12px; font-size: .95rem; max-width: 88%; }
+  .msg.tu { background: var(--card); border: 1.5px solid var(--ink); align-self: flex-end; }
+  .msg.nana {
+    background: var(--pin-verde); border: 1px solid rgba(0,0,0,.3);
+    align-self: flex-start; font-family: var(--f-nana); font-size: 1.1rem;
+  }
+  .chat { display: flex; flex-direction: column; gap: 8px; }
+
+  .foot {
+    margin: 4px 16px 16px 16px; padding: 10px; border: 1px dashed var(--ink-soft);
+    border-radius: 8px; font-size: .75rem; color: var(--ink-soft);
+    font-family: system-ui, sans-serif;
+  }
+</style>
+</head>
+<body>
+
+<div id="review-bar">
+  <button data-target="A" class="active">A · Cuaderno cálido</button>
+  <button data-target="B">B · Nota fresca</button>
+  <button data-target="C">C · Lápiz y libreta</button>
+</div>
+
+<!-- ============================================================
+     Las tres exploraciones repiten EXACTAMENTE el mismo contenido:
+     así lo único que cambia entre pestañas es la piel, y la
+     comparación es justa. Generamos el contenido una vez con JS.
+     ============================================================ -->
+<section class="exp expA visible" id="exp-A" data-name="A — Cuaderno cálido"
+  data-desc="Crema profunda + tinta café. Patrick Hand: la letra más redonda y casera. Post-its pastel clásicos."
+  data-paper="#F8F1E5 · papel" data-card="#FFFDF7 · tarjeta" data-ink="#2B2620 · tinta (13.4:1 sobre papel)"
+  data-pins="#FFE082 11.6:1|#F8BBD0 9.3:1|#C5E1A5 10.5:1|#B3E5FC 11.1:1"></section>
+
+<section class="exp expB" id="exp-B" data-name="B — Nota fresca"
+  data-desc="Papel casi blanco + tinta azul-grafito. Shantell Sans: manuscrita moderna, la más legible de las tres. Post-its saturados."
+  data-paper="#FBFAF6 · papel" data-card="#FFFFFF · tarjeta" data-ink="#22303A · tinta (13.0:1 sobre papel)"
+  data-pins="#FFD54F 9.6:1|#F48FB1 6.1:1|#AED581 8.1:1|#81D4FA 8.2:1"></section>
+
+<section class="exp expC" id="exp-C" data-name="C — Lápiz y libreta"
+  data-desc="Papel ahuesado + gris lápiz. Architects Daughter: trazo de lápiz técnico. Post-its desaturados, todo baja de volumen."
+  data-paper="#F3EEE3 · papel" data-card="#FBF8F0 · tarjeta" data-ink="#3A362E · tinta (10.4:1 sobre papel)"
+  data-pins="#EFE0A9 9.1:1|#E8C4CE 7.6:1|#CBD9B1 8.1:1|#BDD7E2 8.0:1"></section>
+
+<script>
+  // Contenido único de muestra (inicio + lista + chat), inyectado en las 3 pieles.
+  // Los ratios de contraste de los data-atributos se calcularon con la fórmula
+  // WCAG (script aparte); todos superan el mínimo AA de 4.5:1.
+  function render(exp) {
+    var pins = exp.dataset.pins.split('|');
+    var pinNames = ['amarillo', 'rosa', 'verde', 'azul'];
+    exp.innerHTML =
+      '<div class="exp-head"><h2>' + exp.dataset.name + '</h2><p>' + exp.dataset.desc + '</p></div>' +
+
+      '<div class="sec"><h3>Paleta (hex · contraste con la tinta)</h3>' +
+      '<div class="swatches">' +
+        '<div class="sw" style="background:var(--paper)"><b>Papel</b><span>' + exp.dataset.paper + '</span></div>' +
+        '<div class="sw" style="background:var(--card)"><b>Tarjeta</b><span>' + exp.dataset.card + '</span></div>' +
+        '<div class="sw" style="background:var(--ink);color:var(--paper)"><b>Tinta</b><span style="opacity:.9">' + exp.dataset.ink + '</span></div>' +
+        pinNames.map(function (n, i) {
+          return '<div class="sw" style="background:var(--pin-' + n + ')"><b>Post-it ' + n + '</b><span>' + pins[i] + '</span></div>';
+        }).join('') +
+      '</div></div>' +
+
+      '<div class="sec"><h3>Inicio — las dos voces</h3>' +
+      '<div class="home-head"><div class="avatar">Nana</div><div class="hello">Hola — ¿qué hacemos?</div></div>' +
+      '<button class="btn-intent">Cocinar hoy<small>Nana sugiere con lo que hay — y si se te antoja algo, díselo ahí mismo</small></button>' +
+      '<button class="btn-intent">Añadir a la despensa<small>Escribe o dicta lo que compraste</small></button>' +
+      '<div class="home-note"><h4>En tu despensa</h4><ul>' +
+        '<li>Pollo <span class="qty">1 kg</span></li>' +
+        '<li>Huevos <span class="qty">como 8</span></li>' +
+        '<li>Jitomate <span class="qty">6 piezas</span></li>' +
+        '<li>Cilantro <span class="qty">poquito</span></li>' +
+      '</ul></div></div>' +
+
+      '<div class="sec"><h3>Lista — post-its con significado</h3>' +
+      '<div class="legend">' +
+        '<span class="pin amarillo">receta</span>' +
+        '<span class="pin rosa">antojo</span>' +
+        '<span class="pin azul">tú lo apuntaste</span>' +
+        '<span class="pin verde">Nana avisa</span>' +
+      '</div>' +
+      '<div class="row"><input type="checkbox"> Tortillas <span class="pin amarillo">receta</span></div>' +
+      '<div class="row"><input type="checkbox"> Queso Oaxaca <span class="pin rosa">antojo</span></div>' +
+      '<div class="row"><input type="checkbox"> Jabón de trastes <span class="pin azul">tú</span></div>' +
+      '</div>' +
+
+      '<div class="sec"><h3>Cocinando — el chat con Nana</h3>' +
+      '<div class="chat">' +
+        '<div class="msg tu">solo tengo 2 jitomates y pide 3</div>' +
+        '<div class="msg nana">Sale con 2: media taza de agua al licuar y una pizca más de sal.</div>' +
+      '</div>' +
+      '<button class="btn-primary">Ya terminé — descuenta lo usado</button></div>' +
+
+      '<div class="foot">Fuentes por CDN solo en esta exploración; en la app van locales. ' +
+      'Ratios calculados con fórmula WCAG; mínimo AA exigido: 4.5:1. ' +
+      'Compuerta: elegir viéndolo en el celular, bajo la luz cálida de la cocina.</div>';
+  }
+  document.querySelectorAll('.exp').forEach(render);
+
+  // Navegación entre exploraciones
+  document.querySelectorAll('#review-bar button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('.exp').forEach(function (e) {
+        e.classList.toggle('visible', e.id === 'exp-' + b.dataset.target);
+      });
+      document.querySelectorAll('#review-bar button').forEach(function (x) {
+        x.classList.toggle('active', x === b);
+      });
+      window.scrollTo(0, 0);
+    });
+  });
+</script>
+</body>
+</html>

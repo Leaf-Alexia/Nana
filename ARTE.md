@@ -64,6 +64,7 @@ El usuario dudaba entre: (a) lavanda/índigo claro (tranquilidad), (b) blanco y 
 - **Acentos post-it con rol funcional:** amarillo/rosa/verde/azul pastel como *notas*, no decoración — p. ej. origen de items en la lista, estados, avisos de Nana. Regla: un post-it señala algo; si no señala nada, no va. **Confirmado por el usuario (2026-07-21):** quiere el código de color estilo post-it para distinguir qué es cada cosa. Falta fijar en pasada 2 el mapa color→significado (pocos colores, significado estable en toda la app).
 - **Lavanda/índigo: descartada.** Es la opción menos conectada con la metáfora del papel y la más cercana al look "template morado-azul" que la regla anti-genérico prohíbe.
 - Números (hex exactos y ratios ≥ 4.5:1 sobre crema, bajo luz cálida) se fijan y validan en la pasada 2.
+- **Exploraciones de pasada 2:** `docs/diseno/exploraciones-pasada2.html` — 3 pieles (A cuaderno cálido / B nota fresca / C lápiz y libreta) sobre el mismo contenido, cada color con su hex y ratio WCAG calculado (mínimo real: 6.1:1). Compuerta: elegir viéndolas en el celular bajo la luz de la cocina.
 
 ## Tipografía — estrategia 🟡 (candidatas se prueban en el celular, pasada 2)
 
@@ -79,6 +80,6 @@ Pedido del usuario: como escrito a mano pero no cursiva, totalmente legible. Est
 | Pilares visuales (máx. 3) | ✅ cerrados (arriba) |
 | Entrada principal (menú de intenciones) | ✅ cerrada (arriba) |
 | Wireframes de estructura — 6 pantallas: inicio, captura, despensa, cocinar-hoy, lista, ajustes | 🟡 pasada 1 corregida con el feedback del usuario (inicio con notas de despensa/por-comprar, botones de acción, antojo fusionado en cocinar-hoy) — compuerta: verla en el celular |
-| Paleta con ratios de contraste | 🟡 candidata recomendada (arriba); hex y ratios en pasada 2 |
-| Tipografías y escala | 🟡 estrategia definida; fuentes se eligen viéndolas en el celular |
+| Paleta con ratios de contraste | 🟡 3 exploraciones con hex y ratios listas (`exploraciones-pasada2.html`); el usuario elige en el celular |
+| Tipografías y escala | 🟡 las 3 candidatas manuscritas + Atkinson Hyperlegible montadas en las exploraciones; se eligen en el celular |
 | Ícono de la app | ⬜ pendiente (nombre ya cerrado; se diseña con la paleta de pasada 2) |
