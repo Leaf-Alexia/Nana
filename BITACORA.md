@@ -89,6 +89,23 @@ Registro cronológico del qué y el porqué. El estado actual vive en la entrada
 
 ---
 
+## 2026-07-21 — Feedback del usuario sobre la pasada 1 (inicio, antojo, colores)
+
+**Qué pasó:** el usuario revisó la estructura del inicio y pidió cuatro cambios; se aplicaron en `wireframes-v1.html`, ARTE.md y SPEC.md.
+
+**Decisiones y porqués:**
+- **Inicio = refri con dos notas:** cuadro «En tu despensa» (scrolleable por dentro si hay mucho texto) y debajo «Por comprar». Sustituye a la tira de estado de una línea. Tocar una nota abre su pantalla completa.
+- **Botones en modo acción:** «Cocinar hoy» y «Añadir a la despensa» en vez de frases dichas a Nana; la voz de Nana se muda a los subtítulos. Pedido del usuario: el botón debe decir lo que haces.
+- **Antojo fusionado en «Cocinar hoy»:** razonamiento del usuario (correcto): un antojo ES una pregunta de qué cocinar; Nana lo sugiere y avisa si falta comprar algo. El flujo 3 del SPEC quedó absorbido por el flujo 2; la lista de compras ya no captura antojos, solo recibe faltantes.
+- **Nomenclatura:** desaparece «lista del domingo» de la UI («Por comprar» / «Lista de compras»).
+- **Colores post-it confirmados** como código funcional (un color = un significado); el mapa exacto se fija en la pasada 2.
+
+**Pregunta nueva (SPEC #5):** despensa desactualizada cuando se cocina sin avisar. Recomendación registrada: «Ya lo cociné» que descuenta + corrección de un toque «ya no tengo esto» en el MVP; captura de gasto en texto libre a capa 2. El usuario decide.
+
+**Estado:** pasada 1 corregida. Compuerta sigue abierta: verla en el celular antes de la pasada 2.
+
+---
+
 ## 2026-07-21 — Mantenimiento del canon
 
 **Qué pasó:** se revisaron dos cabos sueltos detectados en la sesión de wireframes.

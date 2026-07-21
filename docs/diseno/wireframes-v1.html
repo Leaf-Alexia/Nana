@@ -134,6 +134,21 @@
     font-size: 0.9rem; color: #444; background: #e9e9e9;
     border: 1px solid #aaa; border-radius: 8px; padding: 10px 12px;
   }
+  /* "Notas de refri" del inicio: resumen de despensa y de compras pendientes.
+     El cuadro de despensa scrollea por dentro si hay demasiado texto,
+     para que los botones y la lista de compras nunca se salgan de pantalla. */
+  .home-note {
+    background: #fff; border: 2px solid #888; border-radius: 12px;
+    padding: 12px; text-align: left;
+  }
+  .home-note h2 {
+    font-size: 0.85rem; color: #444;
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
+  }
+  .home-note ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .home-note ul.scrollable { max-height: 170px; overflow-y: auto; }
+  .home-note li { display: flex; gap: 8px; font-size: 1rem; }
+  .home-note li .qty { margin-left: auto; color: #555; font-size: 0.9rem; }
   .avatar {
     width: 56px; height: 56px; border-radius: 50%;
     border: 2px solid #666; background: #ddd;
@@ -147,9 +162,9 @@
 <!-- Barra para saltar entre pantallas durante la revisión (no existe en la app real) -->
 <div id="review-bar">
   <button data-target="home" class="active">0 Inicio</button>
-  <button data-target="capture">1 Compré cosas</button>
+  <button data-target="capture">1 Añadir despensa</button>
   <button data-target="pantry">2 Despensa</button>
-  <button data-target="cook">3 ¿Qué cocino?</button>
+  <button data-target="cook">3 Cocinar hoy</button>
   <button data-target="list">4 Lista</button>
   <button data-target="settings">5 Ajustes</button>
 </div>
@@ -161,20 +176,42 @@
     <h1>Hola — ¿qué hacemos?</h1>
   </header>
   <div class="content">
-    <!-- Los 3 botones grandes SON hablarle a Nana: se leen como frases dichas a ella -->
-    <button class="btn-intent" data-go="cook">«¿Qué cocino hoy?»
-      <small>Nana sugiere con lo que hay en tu despensa</small></button>
-    <button class="btn-intent" data-go="capture">«Compré cosas»
-      <small>Escribe o dicta tu compra y entra a la despensa</small></button>
-    <button class="btn-intent" data-go="list">«Se me antoja algo…»
-      <small>Nana agrega a la lista lo que te falte</small></button>
-    <div class="status-strip">En tu despensa: 23 cosas · Lista del domingo: 5 pendientes</div>
+    <!-- 2 botones de acción (feedback del usuario, 2026-07-21): dicen lo que HACES,
+         y la voz de Nana vive en el subtítulo. El antojo ya no es botón propio:
+         se fusionó dentro de «Cocinar hoy». -->
+    <button class="btn-intent" data-go="cook">Cocinar hoy
+      <small>Nana sugiere con lo que hay — y si se te antoja algo, díselo ahí mismo</small></button>
+    <button class="btn-intent" data-go="capture">Añadir a la despensa
+      <small>Escribe o dicta lo que compraste</small></button>
+
+    <!-- Las dos "notas de refri": qué hay y qué falta, sin entrar a nada -->
+    <div class="home-note" data-go="pantry">
+      <h2>En tu despensa</h2>
+      <ul class="scrollable">
+        <li>Pollo <span class="qty">1 kg</span></li>
+        <li>Huevos <span class="qty">como 8</span></li>
+        <li>Jitomate <span class="qty">6 piezas</span></li>
+        <li>Cebolla <span class="qty">2</span></li>
+        <li>Cilantro <span class="qty">poquito</span></li>
+        <li>Arroz <span class="qty">1 kg</span></li>
+        <li>Aceite <span class="qty">media botella</span></li>
+      </ul>
+    </div>
+    <div class="home-note" data-go="list">
+      <h2>Por comprar</h2>
+      <ul>
+        <li>Tortillas</li>
+        <li>Queso Oaxaca</li>
+        <li>Jabón de trastes</li>
+      </ul>
+    </div>
   </div>
   <details class="notes"><summary>Notas de esta pantalla</summary>
     <ol>
-      <li>El menú ES hablarle a Nana: cada botón es una frase que le dirías. Mantiene la personalidad (decisión #7) sin obligar a un chat.</li>
-      <li>Los 3 botones viven en la mitad superior; en celular quedan alcanzables y el pulgar tiene la barra inferior para el resto.</li>
-      <li>La tira de estado da el "vistazo de 3 segundos": cuántas cosas hay y cuántas faltan comprar, sin entrar a nada.</li>
+      <li>Botones en modo acción («Cocinar hoy», «Añadir a la despensa»); la personalidad de Nana (decisión #7) se conserva en los subtítulos, no en el fraseo del botón.</li>
+      <li>«Se me antoja algo» dejó de ser botón: el antojo se dice dentro de «Cocinar hoy», que sugiere la receta Y avisa si falta comprar algo.</li>
+      <li>El inicio es el refri con sus dos notas pegadas: qué hay (scrollea por dentro si es mucho) y qué falta por comprar. Tocar una nota abre su pantalla completa.</li>
+      <li>Nada aquí se llama «lista del domingo»: la nota dice «Por comprar» y la pantalla completa «Lista de compras».</li>
     </ol>
   </details>
   <nav class="bottom">
@@ -185,11 +222,11 @@
   </nav>
 </section>
 
-<!-- ============ PANTALLA 1: COMPRÉ COSAS (captura) ============ -->
+<!-- ============ PANTALLA 1: AÑADIR A LA DESPENSA (captura) ============ -->
 <section class="screen" id="screen-capture">
   <header class="app">
     <button class="back" data-go="home">←</button>
-    <h1>Compré cosas</h1>
+    <h1>Añadir a la despensa</h1>
   </header>
   <div class="content">
     <textarea placeholder="Escribe o dicta: «compré pollo, jitomate y un kilo de arroz»"></textarea>
@@ -253,13 +290,17 @@
   </nav>
 </section>
 
-<!-- ============ PANTALLA 3: ¿QUÉ COCINO HOY? ============ -->
+<!-- ============ PANTALLA 3: COCINAR HOY ============ -->
 <section class="screen" id="screen-cook">
   <header class="app">
     <button class="back" data-go="home">←</button>
-    <h1>¿Qué cocino hoy?</h1>
+    <h1>Cocinar hoy</h1>
   </header>
   <div class="content">
+    <!-- El antojo vive AQUÍ (fusión decidida por el usuario, 2026-07-21):
+         se le dice a Nana qué se antoja, ella lo mete a las sugerencias
+         y avisa si falta comprar algo (el faltante se manda a la lista). -->
+    <input type="text" placeholder="«Se me antoja…» — Nana lo suma a las ideas y te avisa si falta algo">
     <div class="card">
       <h3>Arroz con pollo a la jardinera</h3>
       <div class="meta">Usas: pollo, arroz, jitomate, cebolla</div>
@@ -283,8 +324,9 @@
   <details class="notes"><summary>Notas de esta pantalla</summary>
     <ol>
       <li>Siempre 3 sugerencias (flujo 2 del SPEC). Cada tarjeta dice qué usas y qué falta, ANTES de abrir los pasos.</li>
+      <li>El antojo entra por el campo de arriba: Nana lo convierte en sugerencia y, si falta algo, lo marca igual que en las demás tarjetas. Ya no hay flujo de antojo separado.</li>
       <li>«Te faltan: tortillas» tocable → manda el faltante a la lista de compras.</li>
-      <li>«Ver pasos» expande la receta aquí mismo; no hay pantalla aparte de receta en el MVP.</li>
+      <li>«Ver pasos» expande la receta aquí mismo; no hay pantalla aparte de receta en el MVP. Al final de los pasos va «Ya lo cociné» → Nana descuenta lo usado de la despensa (propuesta contra la despensa desactualizada, pendiente de cerrar en SPEC #5).</li>
     </ol>
   </details>
   <nav class="bottom">
@@ -302,8 +344,8 @@
     <h1>Lista de compras</h1>
   </header>
   <div class="content">
-    <!-- El antojo vive aquí: alimenta directamente esta lista -->
-    <input type="text" placeholder="«Se me antoja…» y Nana agrega lo que falte">
+    <!-- El antojo ya NO vive aquí: se movió a «Cocinar hoy» (2026-07-21).
+         Esta pantalla recibe los faltantes que Nana detecta, más lo manual. -->
     <button class="btn-secondary">＋ Agregar a mano</button>
     <div class="group-title">Por comprar</div>
     <div class="row"><input type="checkbox"> Tortillas <span class="tag">receta</span></div>
@@ -317,7 +359,8 @@
   <details class="notes"><summary>Notas de esta pantalla</summary>
     <ol>
       <li>Esta pantalla se usa EN el súper: checkboxes de 28px dentro de renglones de 56px, palomeables caminando.</li>
-      <li>Cada item trae su origen (manual / antojo / receta) para saber por qué está ahí.</li>
+      <li>Cada item trae su origen (manual / antojo / receta) para saber por qué está ahí. En la pasada 2, ese origen se marca con color de post-it (confirmado por el usuario): un color = un significado.</li>
+      <li>El antojo ya no se captura aquí: entra por «Cocinar hoy» y esta lista solo recibe los faltantes.</li>
       <li>El botón final cierra el flujo del domingo: lo palomeado entra a la despensa de un jalón.</li>
     </ol>
   </details>

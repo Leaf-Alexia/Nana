@@ -32,16 +32,21 @@ Intención declarada por el usuario: hogareño sin ser genérico; papel de escri
 2. **Papel de refri** — la referencia concreta es el objeto real: la nota pegada con imán al refrigerador. La app se ve *escrita*, no *renderizada*: listas, post-its, tachones.
 3. **Vistazo de 3 segundos** — una nota de refri se entiende de un golpe de vista; la app también. Este pilar vuelve estética la restricción dura (legible a un brazo, dedos con masa).
 
-## Entrada principal ✅ (2026-07-20)
+## Entrada principal ✅ (2026-07-20, revisada 2026-07-21 con feedback del usuario)
 
-**Menú de intenciones, no chat.** El inicio son 3 botones grandes fraseados como cosas que le *dices* a Nana: «¿Qué cocino hoy?», «Compré cosas», «Se me antoja algo…». Así el menú ES hablarle a Nana — conserva la personalidad (decisión #7 del SPEC) sin obligar a teclear en un chat. Porqué: el usuario lo pidió por comodidad; un chat libre además es más frágil (todo pasa por el LLM) y más lento para acciones repetidas.
+**Menú de intenciones, no chat** — sigue firme. Lo que cambió tras la revisión del usuario sobre la pasada 1:
+
+- **Botones en modo acción, no frase dicha:** «Cocinar hoy» y «Añadir a la despensa». El usuario prefirió que el botón diga lo que *haces*; la personalidad de Nana (decisión #7 del SPEC) se conserva en los subtítulos de cada botón, que sí hablan como ella.
+- **El antojo dejó de ser botón propio:** se fusiona dentro de «Cocinar hoy». Porqué (del usuario, y correcto): «se me antoja huevo revuelto» ES una pregunta de qué cocinar — Nana lo sugiere y, si falta algo, avisa y manda el faltante a la lista. Separarlo duplicaba el flujo.
+- **El inicio muestra el refri con sus dos notas:** un cuadro «En tu despensa» (scrollea por dentro si hay mucho texto) y debajo «Por comprar». Es el vistazo de 3 segundos hecho pantalla, y literalmente el pilar 2 (notas pegadas al refri). Tocar una nota abre su pantalla completa.
+- **Nomenclatura:** nada se llama «lista del domingo» en la UI; la nota del inicio dice «Por comprar» y la pantalla completa «Lista de compras».
 
 ## Paleta — candidata recomendada 🟡 (se valida en pasada 2, en el celular)
 
 El usuario dudaba entre: (a) lavanda/índigo claro (tranquilidad), (b) blanco y negro (uniforme de nana), (c) colores post-it. Recomendación firme de Claude — **fusionar (b) y (c) bajo la metáfora del papel**:
 
 - **Base "papel y tinta":** fondo blanco roto/crema (papel) + texto gris casi negro (tinta). Es el blanco-y-negro del uniforme pero cálido, y es literalmente el pilar 2.
-- **Acentos post-it con rol funcional:** amarillo/rosa/verde/azul pastel como *notas*, no decoración — p. ej. origen de items en la lista, estados, avisos de Nana. Regla: un post-it señala algo; si no señala nada, no va.
+- **Acentos post-it con rol funcional:** amarillo/rosa/verde/azul pastel como *notas*, no decoración — p. ej. origen de items en la lista, estados, avisos de Nana. Regla: un post-it señala algo; si no señala nada, no va. **Confirmado por el usuario (2026-07-21):** quiere el código de color estilo post-it para distinguir qué es cada cosa. Falta fijar en pasada 2 el mapa color→significado (pocos colores, significado estable en toda la app).
 - **Lavanda/índigo: descartada.** Es la opción menos conectada con la metáfora del papel y la más cercana al look "template morado-azul" que la regla anti-genérico prohíbe.
 - Números (hex exactos y ratios ≥ 4.5:1 sobre crema, bajo luz cálida) se fijan y validan en la pasada 2.
 
@@ -58,7 +63,7 @@ Pedido del usuario: como escrito a mano pero no cursiva, totalmente legible. Est
 |---|---|
 | Pilares visuales (máx. 3) | ✅ cerrados (arriba) |
 | Entrada principal (menú de intenciones) | ✅ cerrada (arriba) |
-| Wireframes de estructura — ahora 6 pantallas: inicio, captura, despensa, hoy-cocino, lista, ajustes | 🟡 pasada 1 lista en `docs/diseno/wireframes-v1.html` — compuerta: aprobarlos viéndolos en el celular |
+| Wireframes de estructura — 6 pantallas: inicio, captura, despensa, cocinar-hoy, lista, ajustes | 🟡 pasada 1 corregida con el feedback del usuario (inicio con notas de despensa/por-comprar, botones de acción, antojo fusionado en cocinar-hoy) — compuerta: verla en el celular |
 | Paleta con ratios de contraste | 🟡 candidata recomendada (arriba); hex y ratios en pasada 2 |
 | Tipografías y escala | 🟡 estrategia definida; fuentes se eligen viéndolas en el celular |
 | Ícono de la app | ⬜ pendiente (nombre ya cerrado; se diseña con la paleta de pasada 2) |
