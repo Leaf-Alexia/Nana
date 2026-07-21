@@ -89,6 +89,20 @@ Registro cronológico del qué y el porqué. El estado actual vive en la entrada
 
 ---
 
+## 2026-07-21 — Segunda ronda de feedback: familia, guía interactiva y cierre de la #5
+
+**Qué pasó:** el usuario aprobó la corrección de la pasada 1 y añadió dos piezas de diseño; también cerró la pregunta #5.
+
+**Decisiones y porqués:**
+- **Público de la casa (nueva sección en ARTE.md):** la app debe entenderse sin manual por cualquiera de la casa — la mamá con todo el contexto de cocina, el papá del vistazo, los hijos. La metáfora del papel de refri carga el peso: todos saben leer una nota pegada al refri. Compuerta añadida: en la prueba real, alguien sin contexto navega inicio → cocinar → lista sin explicación.
+- **La receta abierta es una guía interactiva** (flujo 2 y capa 1 del SPEC, estado 2 del wireframe cocinar-hoy): campo «Pregúntale a Nana» para dudas sobre la marcha — accidentes («se me pasó el arroz»), sustituciones y cantidades («pide 3 jitomates y tengo 2») — con el contexto de receta + despensa. Acotación MVP: pregunta-respuesta simple, sin historial de chat persistente (mantiene el costo de LLM y de código bajo; si en uso real se extraña el hilo, se abre pregunta).
+- **Pregunta #5 cerrada → decisión #10:** «Ya lo cociné» que descuenta + «ya no tengo esto» de un toque, ambas en MVP; captura de gasto en texto libre a backlog (capa 2), como decidió el usuario.
+- **Renumeración del inbox:** dos sesiones paralelas crearon cada una su «#5»; quedó 5 = despensa (resuelta), 6 = etiquetas USDA, 7 = mapas de sabor.
+
+**Estado:** estructura de pasada 1 estable con dos rondas de feedback. Compuerta: verla en el celular antes de la pasada 2.
+
+---
+
 ## 2026-07-21 — Feedback del usuario sobre la pasada 1 (inicio, antojo, colores)
 
 **Qué pasó:** el usuario revisó la estructura del inicio y pidió cuatro cambios; se aplicaron en `wireframes-v1.html`, ARTE.md y SPEC.md.
@@ -127,7 +141,7 @@ Registro cronológico del qué y el porqué. El estado actual vive en la entrada
 - **Las claves canónicas quedan en inglés**, con un puente español aparte (`ingredient_names.js`). Traducir 22 mil maridajes sería enorme y frágil; traducir los ~300 ingredientes que una despensa mexicana puede contener es acotado y verificable.
 - **Lo que no se pudo verificar, no se escribió.** Dos casos concretos, ambos preferibles a rellenar:
   - Puntos de humo: solo **4**, no los 12–15 pedidos. McGee no publica esa tabla; da dos cifras genéricas. Cualquier tabla larga de puntos de humo que ande por internet no sale de este libro.
-  - Nutrientes del USDA: los 26 factores se extrajeron completos, pero **sin etiqueta de cuál es cuál**. El PDF dibuja los nombres de columna en vertical entrelazado y no los declara en ningún lado legible. Etiquetarlos de memoria sería inventar datos nutricionales. Queda como pregunta abierta SPEC #5.
+  - Nutrientes del USDA: los 26 factores se extrajeron completos, pero **sin etiqueta de cuál es cuál**. El PDF dibuja los nombres de columna en vertical entrelazado y no los declara en ningún lado legible. Etiquetarlos de memoria sería inventar datos nutricionales. Queda como pregunta abierta SPEC #6 (renumerada: dos sesiones paralelas habían creado cada una su «#5»).
 
 **Qué se construyó** (`src/data/`, 580 KB en total):
 

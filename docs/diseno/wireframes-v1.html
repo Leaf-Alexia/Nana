@@ -320,13 +320,28 @@
       <button class="btn-secondary">Ver pasos</button>
     </div>
     <button class="btn-primary">Otras ideas, Nana</button>
+
+    <!-- Segundo estado de la misma pantalla: la receta abierta como GUÍA INTERACTIVA
+         (pedido del usuario, 2026-07-21). Se muestra aquí junto para revisarlo. -->
+    <div class="state-divider">Estado 2 — receta abierta (guía interactiva)</div>
+    <div class="card">
+      <h3>Tacos de pollo con salsa de jitomate</h3>
+      <div class="row">1. Asa los jitomates y la cebolla</div>
+      <div class="row">2. Licúa con sal — salsa lista</div>
+      <div class="row">3. Deshebra el pollo y mézclalo</div>
+      <!-- El campo de dudas sobre la marcha: accidentes, sustituciones, cantidades -->
+      <input type="text" placeholder="Pregúntale a Nana: «se me pasó el arroz», «solo tengo 2 jitomates»…">
+      <div class="status-strip">Nana: «Con 2 jitomates sale, solo agrega media taza de agua al licuar.»</div>
+      <button class="btn-primary">Ya lo cociné — descuenta lo usado</button>
+    </div>
   </div>
   <details class="notes"><summary>Notas de esta pantalla</summary>
     <ol>
       <li>Siempre 3 sugerencias (flujo 2 del SPEC). Cada tarjeta dice qué usas y qué falta, ANTES de abrir los pasos.</li>
       <li>El antojo entra por el campo de arriba: Nana lo convierte en sugerencia y, si falta algo, lo marca igual que en las demás tarjetas. Ya no hay flujo de antojo separado.</li>
-      <li>«Te faltan: tortillas» tocable → manda el faltante a la lista de compras.</li>
-      <li>«Ver pasos» expande la receta aquí mismo; no hay pantalla aparte de receta en el MVP. Al final de los pasos va «Ya lo cociné» → Nana descuenta lo usado de la despensa (propuesta contra la despensa desactualizada, pendiente de cerrar en SPEC #5).</li>
+      <li>«Te faltan: tortillas» tocable → manda el faltante a la lista de compras. Y en «Usas: …», tocar un ingrediente que ya no tienes lo corrige de un toque (decisión #10: corrección barata contra la despensa vieja).</li>
+      <li>La receta abierta es una guía, no un texto: pasos en renglones grandes + campo para dudas sobre la marcha («se me pasó el arroz») — Nana responde con el contexto de la receta y la despensa y recalibra. Sin historial de chat en el MVP: pregunta y respuesta en el lugar.</li>
+      <li>«Ya lo cociné» cierra el ciclo: descuenta lo usado de la despensa (decisión #10).</li>
     </ol>
   </details>
   <nav class="bottom">

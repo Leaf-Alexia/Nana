@@ -24,6 +24,15 @@ Prohibido el look "hecho con IA por default": gradientes morado-azul de template
 - **Mobile-first vertical** (celular del usuario). Objetivos secundarios: tableta y pantalla de cocina 7" — resoluciones documentadas en `docs/investigaciones/cotizacion-raspberry-pi.md` (720×1280 vertical nativa; 800×480 horizontal si fuera la pantalla vieja).
 - Diseñar para el peor caso (800×480 horizontal = muy poca altura útil) hace que todo lo demás quepa.
 
+## Público de la casa ✅ (2026-07-21, pedido del usuario)
+
+La app debe entenderse **sin manual por cualquier miembro de la casa**: la mamá que tiene todo el contexto de cocina, el papá que solo le da un vistazo, y los hijos. Consecuencias de diseño:
+
+- Nada requiere saber de apps ni de cocina para leerse: verbos simples en botones, cero jerga técnica y cero jerga culinaria sin explicar.
+- Cada pantalla debe pasar la prueba del vistazo (pilar 3) con un usuario que la ve **por primera vez**, no solo con el usuario que la diseñó.
+- Familiar = la metáfora del papel de refri (pilar 2) hace el trabajo: todos en una casa saben leer una nota pegada al refri y una lista de súper. Si un elemento no tiene equivalente en ese mundo, se sospecha de él.
+- Compuerta de validación: en la prueba en dispositivo real, además del usuario, que alguien de su casa sin contexto navegue inicio → cocinar → lista sin que se le explique nada.
+
 ## Pilares visuales ✅ (2026-07-20, sesión de wireframes)
 
 Intención declarada por el usuario: hogareño sin ser genérico; papel de escribir, notas pegadas al refrigerador; nada que se sienta técnico. No encontró referencia en apps ni libros de cocina (los libros le parecen "demasiado revista" — eso también es dato: NO revista, NO foto glossy).
