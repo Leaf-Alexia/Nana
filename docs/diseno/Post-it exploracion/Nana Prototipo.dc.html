@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:wght@400;500;700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#EDE9DF}a{color:#33302A}a:hover{color:#6E6858}
+input,textarea,select,button{font-family:inherit}
+::placeholder{color:#9B9483;opacity:1}</style></helmet>
+
+<div style="min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:28px 16px;background:#EDE9DF;font-family:'Atkinson Hyperlegible',sans-serif">
+<div style="width:390px;height:844px;background:#F6EFDF;border-radius:30px;overflow:hidden;display:flex;flex-direction:column;color:#33302A;box-shadow:0 10px 34px rgba(51,48,42,.22);border:1px solid rgba(0,0,0,.1)">
+
+<div style="flex:1;overflow-y:auto;display:flex;flex-direction:column">
+
+<!-- ============ INICIO ============ -->
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-direction:column;flex:1" data-screen-label="Inicio">
+<div style="display:flex;align-items:center;gap:14px;padding:26px 20px 16px">
+<div style="width:58px;height:58px;border-radius:50%;background:#FFDF7E;border:2px solid #33302A;display:flex;align-items:center;justify-content:center;font-family:'Shantell Sans',cursive;font-size:16px;font-weight:700;flex:none">Nana</div>
+<div style="font-family:'Shantell Sans',cursive;font-size:26px;font-weight:700;line-height:1.15">Hola — ¿qué hacemos?</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:13px;padding:0 18px 18px">
+<sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+<div style="background:#C3DDA0;border:1px solid rgba(0,0,0,.22);padding:11px 14px;font-size:14.5px;position:relative;box-shadow:2px 3px 0 rgba(51,48,42,.14)">
+<span style="position:absolute;top:-7px;left:16px;width:40px;height:12px;background:rgba(255,255,255,.55);border:1px solid rgba(0,0,0,.14);transform:rotate(-3deg)"></span>
+{{ toast }}</div>
+</sc-if>
+<sc-if value="{{ cookingActive }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ goCooking }}" style="background:#C3DDA0;border:1.5px solid #33302A;border-radius:12px;padding:13px 15px;font-size:15px;text-align:left;color:#33302A;cursor:pointer;box-shadow:2px 3px 0 rgba(51,48,42,.16)"><span style="font-family:'Shantell Sans',cursive;font-weight:700">Cocinando ahora:</span> {{ sessionShort }} — toca para volver</button>
+</sc-if>
+<button onClick="{{ goCook }}" style="min-height:80px;width:100%;text-align:left;background:#FCF8EE;border:2px solid #33302A;border-radius:14px;padding:14px 16px;color:#33302A;box-shadow:2px 3px 0 rgba(51,48,42,.16);cursor:pointer;display:flex;align-items:center;gap:12px">
+<span style="width:40px;height:40px;border-radius:10px;background:#C3DDA0;border:1.5px solid #33302A;display:inline-flex;align-items:center;justify-content:center;flex:none"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#33302A" stroke-width="2" stroke-linecap="round"><path d="M4 15h13M4 15a6.5 5 0 0113 0M10.5 9V7M20 15h1M17 18l1.5 2"></path></svg></span>
+<span><span style="font-family:'Shantell Sans',cursive;font-size:22px;font-weight:700;display:block">Cocinar hoy</span>
+<span style="display:block;font-size:13.5px;color:#6E6858;margin-top:2px">Nana sugiere con lo que hay — el antojo también va aquí</span></span></button>
+<button onClick="{{ goCapture }}" style="min-height:80px;width:100%;text-align:left;background:#FCF8EE;border:2px solid #33302A;border-radius:14px;padding:14px 16px;color:#33302A;box-shadow:2px 3px 0 rgba(51,48,42,.16);cursor:pointer;display:flex;align-items:center;gap:12px">
+<span style="width:40px;height:40px;border-radius:10px;background:#FFDF7E;border:1.5px solid #33302A;display:inline-flex;align-items:center;justify-content:center;flex:none"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#33302A" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg></span>
+<span><span style="font-family:'Shantell Sans',cursive;font-size:22px;font-weight:700;display:block">Añadir a la despensa</span>
+<span style="display:block;font-size:13.5px;color:#6E6858;margin-top:2px">Escribe o dicta lo que compraste</span></span></button>
+<button onClick="{{ goPantry }}" style="text-align:left;background:#FCF8EE;border:2px solid #33302A;border-radius:8px;padding:15px;box-shadow:2px 3px 0 rgba(51,48,42,.16);position:relative;cursor:pointer;color:#33302A;width:100%">
+<span style="position:absolute;top:-8px;left:50%;margin-left:-29px;width:58px;height:15px;background:#FFDF7E;border:1px solid rgba(0,0,0,.22);transform:rotate(-2deg)"></span>
+<span style="display:flex;align-items:baseline;gap:8px;margin:2px 0 9px"><span style="font-family:'Shantell Sans',cursive;font-size:19px;font-weight:700">En tu despensa</span><span style="margin-left:auto;font-size:13px;color:#6E6858">{{ pantryCount }} cosas →</span></span>
+<span style="display:flex;flex-direction:column;gap:7px;font-size:15.5px">
+<sc-for list="{{ homePantry }}" as="it" hint-placeholder-count="4">
+<span style="display:flex"><span>{{ it.name }}</span><span style="margin-left:auto;color:#6E6858;font-size:14px">{{ it.qty }}</span></span>
+</sc-for>
+</span></button>
+<button onClick="{{ goList }}" style="text-align:left;background:#FCF8EE;border:2px solid #33302A;border-radius:8px;padding:15px;box-shadow:2px 3px 0 rgba(51,48,42,.16);position:relative;cursor:pointer;color:#33302A;width:100%">
+<span style="position:absolute;top:-8px;left:50%;margin-left:-29px;width:58px;height:15px;background:#A8DBF2;border:1px solid rgba(0,0,0,.22);transform:rotate(2deg)"></span>
+<span style="display:flex;align-items:baseline;gap:8px;margin:2px 0 9px"><span style="font-family:'Shantell Sans',cursive;font-size:19px;font-weight:700">Por comprar</span><span style="margin-left:auto;font-size:13px;color:#6E6858">{{ shopCount }} →</span></span>
+<span style="display:flex;flex-wrap:wrap;gap:7px;font-size:14px">
+<sc-for list="{{ homeShop }}" as="it" hint-placeholder-count="3">
+<span style="background:{{ it.color }};border:1px solid rgba(0,0,0,.2);padding:4px 10px">{{ it.name }}</span>
+</sc-for>
+</span></button>
+</div></div>
+</sc-if>
+
+<!-- ============ AÑADIR A LA DESPENSA ============ -->
+<sc-if value="{{ isCapture }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;flex:1" data-screen-label="Añadir a la despensa">
+<div style="display:flex;align-items:center;gap:12px;padding:20px 18px 12px">
+<button onClick="{{ goHome }}" style="width:46px;height:46px;border:2px solid #33302A;border-radius:12px;background:#FCF8EE;font-size:19px;color:#33302A;flex:none;cursor:pointer">←</button>
+<div style="font-family:'Shantell Sans',cursive;font-size:24px;font-weight:700">Añadir a la despensa</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:13px;padding:0 18px 18px">
+<sc-if value="{{ captureIdle }}" hint-placeholder-val="{{ true }}">
+<textarea value="{{ captureText }}" onChange="{{ onCaptureInput }}" placeholder="Escribe o dicta: «compré pollo, 6 jitomates y un kilo de arroz»" style="width:100%;min-height:130px;font-size:17px;border:2px solid #33302A;border-radius:12px;padding:14px;background:#FCF8EE;color:#33302A;resize:none;box-sizing:border-box"></textarea>
+<div style="background:#FFDF7E;border:1px solid rgba(0,0,0,.2);padding:10px 13px;font-size:14px;position:relative;align-self:flex-start;transform:rotate(-.6deg)">
+<span style="position:absolute;top:-7px;left:14px;width:36px;height:11px;background:rgba(255,255,255,.5);border:1px solid rgba(0,0,0,.14);transform:rotate(-3deg)"></span>
+Tip: el micrófono de tu teclado dicta por ti.</div>
+<button onClick="{{ doParse }}" style="min-height:58px;background:#33302A;color:#F6EFDF;border:none;border-radius:12px;font-family:'Shantell Sans',cursive;font-size:18px;padding:12px;cursor:pointer">Apúntalo, Nana</button>
+</sc-if>
+<sc-if value="{{ captureParsed }}" hint-placeholder-val="{{ false }}">
+<div style="font-family:'Shantell Sans',cursive;font-size:17px">Esto entendí — ¿lo guardo?</div>
+<sc-for list="{{ parsedItems }}" as="it" hint-placeholder-count="3">
+<div style="min-height:56px;background:#FCF8EE;border:2px solid #33302A;border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:10px;font-size:16.5px;border-left:10px solid #FFDF7E">{{ it.name }}<span style="margin-left:auto;color:#6E6858;font-size:14px">{{ it.qty }}</span><button onClick="{{ it.remove }}" style="width:34px;height:34px;border:1.5px solid #33302A;border-radius:8px;background:#F6EFDF;cursor:pointer;color:#33302A;font-size:15px;flex:none">✕</button></div>
+</sc-for>
+<button onClick="{{ confirmSave }}" style="min-height:58px;background:#33302A;color:#F6EFDF;border:none;border-radius:12px;font-family:'Shantell Sans',cursive;font-size:18px;padding:12px;cursor:pointer">Sí, guárdalo en la despensa</button>
+<button onClick="{{ fixParse }}" style="min-height:52px;background:#FCF8EE;color:#33302A;border:2px solid #33302A;border-radius:12px;font-family:'Shantell Sans',cursive;font-size:16px;padding:10px;cursor:pointer">Corregir</button>
+</sc-if>
+</div></div>
+</sc-if>
+
+<!-- ============ DESPENSA (amarillo) ============ -->
+<sc-if value="{{ isPantry }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;flex:1" data-screen-label="Despensa">
+<div style="display:flex;align-items:center;gap:12px;padding:20px 18px 12px">
+<button onClick="{{ goHome }}" style="width:46px;height:46px;border:2px solid #33302A;border-radius:12px;background:#FCF8EE;font-size:19px;color:#33302A;flex:none;cursor:pointer">←</button>
+<div style="font-family:'Shantell Sans',cursive;font-size:24px;font-weight:700">Despensa</div>
+<span style="margin-left:auto;background:#FFDF7E;border:1px solid rgba(0,0,0,.22);padding:4px 10px;font-size:12.5px;transform:rotate(-1.5deg)">{{ pantryCount }} cosas</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px;padding:0 18px 18px">
+<div style="display:flex;flex-wrap:wrap;gap:6px;font-size:12px">
+<sc-for list="{{ pantryGroups }}" as="g" hint-placeholder-count="7">
+<span style="background:{{ g.color }};border:1px solid rgba(0,0,0,.2);border-radius:5px;padding:4px 9px">{{ g.name }}</span>
+</sc-for>
+</div>
+<sc-for list="{{ pantryGroups }}" as="g" hint-placeholder-count="4">
+<div style="position:relative;margin-top:12px">
+<span style="position:absolute;top:-9px;left:12px;width:44px;height:13px;background:{{ g.color }};border:1px solid rgba(0,0,0,.2);transform:rotate(-2deg)"></span>
+<div style="font-family:'Shantell Sans',cursive;font-size:16px;font-weight:700;color:#6E6858;padding-left:66px">{{ g.name }}</div>
+</div>
+<sc-for list="{{ g.items }}" as="it" hint-placeholder-count="2">
+<div style="min-height:54px;background:#FCF8EE;border:2px solid #33302A;border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:10px;font-size:16px;border-left:10px solid {{ g.color }}">{{ it.name }}<span style="margin-left:auto;color:#6E6858;font-size:14px">{{ it.qty }}</span></div>
+</sc-for>
+</sc-for>
+<button onClick="{{ goCapture }}" style="min-height:54px;background:#FCF8EE;color:#33302A;border:2px dashed #6E6858;border-radius:12px;font-family:'Shantell Sans',cursive;font-size:16px;cursor:pointer;margin-top:8px">＋ Agregar algo</button>
+</div></div>
+</sc-if>
+
+<!-- ============ COCINAR HOY ============ -->
+<sc-if value="{{ isCook }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;flex:1" data-screen-label="Cocinar hoy">
+<div style="display:flex;align-items:center;gap:12px;padding:20px 18px 12px">
+<button onClick="{{ goHome }}" style="width:46px;height:46px;border:2px solid #33302A;border-radius:12px;background:#FCF8EE;font-size:19px;color:#33302A;flex:none;cursor:pointer">←</button>
+<div style="font-family:'Shantell Sans',cursive;font-size:24px;font-weight:700">Cocinar hoy</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:13px;padding:0 18px 18px">
+<div style="display:flex;gap:8px">
+<input type="text" value="{{ antojoText }}" onChange="{{ onAntojoInput }}" onKeyDown="{{ antojoKey }}" placeholder="«Se me antoja…»" style="flex:1;min-height:52px;border:2px solid #33302A;border-radius:12px;padding:0 14px;background:#FCF8EE;color:#33302A;font-size:16px;font-family:'Shantell Sans',cursive;box-sizing:border-box">
+<button onClick="{{ submitAntojo }}" style="min-height:52px;padding:0 16px;background:#F5AEC7;border:2px solid #33302A;border-radius:12px;font-family:'Shantell Sans',cursive;font-size:15px;color:#33302A;cursor:pointer;flex:none">Díselo</button>
+</div>
+<sc-for list="{{ suggestions }}" as="r" hint-placeholder-count="3">
+<div style="background:#FCF8EE;border:2px solid #33302A;border-radius:14px;padding:15px;display:flex;flex-direction:column;gap:8px;box-shadow:2px 3px 0 rgba(51,48,42,.16);position:relative">
+<span style="position:absolute;top:-8px;left:20px;width:46px;height:13px;background:{{ r.tape }};border:1px solid rgba(0,0,0,.2);transform:rotate(-3deg)"></span>
+<div style="font-family:'Shantell Sans',cursive;font-size:20px;font-weight:700;margin-top:2px">{{ r.title }}</div>
+<div style="font-size:14.5px;color:#6E6858">Usas: {{ r.uses }}</div>
+<sc-if value="{{ r.hasMissing }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ r.sendMissing }}" style="font-size:14px;background:#F5AEC7;align-self:flex-start;padding:5px 12px;border-radius:6px;border:1.5px solid rgba(0,0,0,.25);cursor:pointer;color:#33302A;text-align:left">Te faltan: {{ r.missing }} — toca y va a la lista</button>
+</sc-if>
+<sc-if value="{{ r.sentMissing }}" hint-placeholder-val="{{ false }}">
+<div style="font-size:14px;background:#A8DBF2;align-self:flex-start;padding:5px 12px;border-radius:6px;border:1px solid rgba(0,0,0,.2)">✓ {{ r.missing }} ya está en tu lista</div>
+</sc-if>
+<sc-if value="{{ r.ok }}" hint-placeholder-val="{{ true }}">
+<div style="font-size:14px;background:#C3DDA0;align-self:flex-start;padding:5px 12px;border-radius:6px;border:1px solid rgba(0,0,0,.2)">✓ No te falta nada</div>
+</sc-if>
+<sc-if value="{{ r.open }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:7px;margin-top:2px">
+<sc-for list="{{ r.steps }}" as="s" hint-placeholder-count="3">
+<div style="background:#F6EFDF;border:1.5px solid #6E6858;border-radius:8px;padding:9px 12px;font-size:14.5px">{{ s }}</div>
+</sc-for>
+<button onClick="{{ r.cook }}" style="min-height:54px;background:#33302A;color:#F6EFDF;border:none;border-radius:12px;font-family:'Shantell Sans',cursive;font-size:17px;cursor:pointer;margin-top:4px">Voy a cocinar esto</button>
+</div>
+</sc-if>
+<sc-if value="{{ r.closed }}" hint-placeholder-val="{{ true }}">
+<button onClick="{{ r.toggle }}" style="min-height:48px;background:#F6EFDF;border:2px solid #33302A;border-radius:10px;font-size:16px;font-family:'Shantell Sans',cursive;color:#33302A;cursor:pointer">Ver pasos</button>
+</sc-if>
+</div>
+</sc-for>
+</div></div>
+</sc-if>
+
+<!-- ============ COCINANDO ============ -->
+<sc-if value="{{ isCooking }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;flex:1" data-screen-label="Cocinando">
+<div style="display:flex;align-items:center;gap:12px;padding:20px 18px 12px">
+<button onClick="{{ goCook }}" style="width:46px;height:46px;border:2px solid #33302A;border-radius:12px;background:#FCF8EE;font-size:19px;color:#33302A;flex:none;cursor:pointer">←</button>
+<div style="font-family:'Shantell Sans',cursive;font-size:21px;font-weight:700;line-height:1.2">Cocinando: {{ sessionShort }}</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px;padding:0 18px 18px;flex:1">
+<sc-for list="{{ sessionSteps }}" as="s" hint-placeholder-count="3">
+<div style="background:#FCF8EE;border:2px solid #33302A;border-radius:10px;padding:11px 14px;font-size:15.5px;border-left:10px solid #C3DDA0">{{ s }}</div>
+</sc-for>
+<div style="position:relative;margin-top:12px">
+<span style="position:absolute;top:-9px;left:12px;width:44px;height:13px;background:#C3DDA0;border:1px solid rgba(0,0,0,.2);transform:rotate(-2deg)"></span>
+<div style="font-family:'Shantell Sans',cursive;font-size:16px;font-weight:700;color:#6E6858;padding-left:66px">Tu chat con Nana</div>
+</div>
+<sc-for list="{{ chat }}" as="m" hint-placeholder-count="2">
+<div style="border-radius:10px;padding:10px 13px;font-size:15px;max-width:88%;background:{{ m.bg }};border:1.5px solid rgba(0,0,0,.3);align-self:{{ m.align }};font-family:{{ m.font }}">{{ m.text }}</div>
+</sc-for>
+<div style="flex:1"></div>
+<div style="display:flex;gap:8px">
+<input type="text" value="{{ chatText }}" onChange="{{ onChatInput }}" onKeyDown="{{ chatKey }}" placeholder="Dile a Nana lo que pase…" style="flex:1;min-height:52px;border:2px solid #33302A;border-radius:12px;padding:0 14px;background:#FCF8EE;color:#33302A;font-size:15.5px;box-sizing:border-box">
+<button onClick="{{ sendChat }}" style="min-height:52px;padding:0 16px;background:#C3DDA0;border:2px solid #33302A;border-radius:12px;font-family:'Shantell Sans',cursive;font-size:15px;color:#33302A;cursor:pointer;flex:none">Enviar</button>
+</div>
+<button onClick="{{ finishCooking }}" style="min-height:58px;background:#33302A;color:#F6EFDF;border:none;border-radius:12px;font-family:'Shantell Sans',cursive;font-size:18px;cursor:pointer">Ya terminé — descuenta lo usado</button>
+</div></div>
+</sc-if>
+
+<!-- ============ LISTA (celeste) ============ -->
+<sc-if value="{{ isList }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;flex:1" data-screen-label="Lista de compras">
+<div style="display:flex;align-items:center;gap:12px;padding:20px 18px 12px">
+<button onClick="{{ goHome }}" style="width:46px;height:46px;border:2px solid #33302A;border-radius:12px;background:#FCF8EE;font-size:19px;color:#33302A;flex:none;cursor:pointer">←</button>
+<div style="font-family:'Shantell Sans',cursive;font-size:24px;font-weight:700">Lista de compras</div>
+<span style="margin-left:auto;background:#A8DBF2;border:1px solid rgba(0,0,0,.22);padding:4px 10px;font-size:12.5px;transform:rotate(1.5deg)">{{ shopCount }} por comprar</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:11px;padding:0 18px 18px;flex:1">
+<div style="display:flex;flex-wrap:wrap;gap:6px;font-size:12.5px">
+<span style="background:#F5AEC7;border:1px solid rgba(0,0,0,.2);border-radius:5px;padding:4px 9px">antojo</span>
+<span style="background:#C3DDA0;border:1px solid rgba(0,0,0,.2);border-radius:5px;padding:4px 9px">receta — Nana avisa</span>
+<span style="background:#A8DBF2;border:1px solid rgba(0,0,0,.2);border-radius:5px;padding:4px 9px">tú lo apuntaste</span></div>
+<sc-for list="{{ listPending }}" as="it" hint-placeholder-count="4">
+<div style="min-height:58px;background:#FCF8EE;border:2px solid #33302A;border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:12px;font-size:16.5px;border-left:10px solid {{ it.color }}"><input type="checkbox" onChange="{{ it.toggle }}" style="width:26px;height:26px;accent-color:#33302A;flex:none"> {{ it.name }} <span style="margin-left:auto;background:{{ it.color }};border:1px solid rgba(0,0,0,.2);padding:3px 9px;font-size:12px;transform:rotate(-1.5deg);flex:none">{{ it.origin }}</span></div>
+</sc-for>
+<sc-if value="{{ hasCart }}" hint-placeholder-val="{{ true }}">
+<div style="position:relative;margin-top:10px">
+<span style="position:absolute;top:-9px;left:12px;width:44px;height:13px;background:#A8DBF2;border:1px solid rgba(0,0,0,.2);transform:rotate(2deg)"></span>
+<div style="font-family:'Shantell Sans',cursive;font-size:16px;font-weight:700;color:#6E6858;padding-left:66px">Ya en el carrito</div>
+</div>
+<sc-for list="{{ listCart }}" as="it" hint-placeholder-count="1">
+<div style="min-height:58px;background:#FCF8EE;border:2px solid #33302A;border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:12px;font-size:16.5px;border-left:10px solid {{ it.color }};opacity:.55"><input type="checkbox" checked="{{ true }}" onChange="{{ it.toggle }}" style="width:26px;height:26px;accent-color:#33302A;flex:none"> <span style="text-decoration:line-through">{{ it.name }}</span> <span style="margin-left:auto;background:{{ it.color }};border:1px solid rgba(0,0,0,.2);padding:3px 9px;font-size:12px;flex:none">{{ it.origin }}</span></div>
+</sc-for>
+</sc-if>
+<div style="flex:1"></div>
+<button onClick="{{ buyDone }}" style="min-height:58px;background:#33302A;color:#F6EFDF;border:none;border-radius:12px;font-family:'Shantell Sans',cursive;font-size:18px;cursor:pointer">Ya compré — pásalo a la despensa</button>
+</div></div>
+</sc-if>
+
+<!-- ============ AJUSTES ============ -->
+<sc-if value="{{ isSettings }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;flex:1" data-screen-label="Ajustes">
+<div style="display:flex;align-items:center;gap:12px;padding:20px 18px 12px">
+<button onClick="{{ goHome }}" style="width:46px;height:46px;border:2px solid #33302A;border-radius:12px;background:#FCF8EE;font-size:19px;color:#33302A;flex:none;cursor:pointer">←</button>
+<div style="font-family:'Shantell Sans',cursive;font-size:24px;font-weight:700">Ajustes</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:11px;padding:0 18px 18px">
+<div style="font-family:'Shantell Sans',cursive;font-size:16px;font-weight:700;color:#6E6858;margin-top:6px">Cerebro de Nana (LLM)</div>
+<select style="width:100%;min-height:52px;font-size:16px;border:2px solid #33302A;border-radius:12px;padding:0 12px;background:#FCF8EE;color:#33302A"><option>Gemini (gratuito)</option><option>Ollama (mi PC)</option><option>OpenRouter</option></select>
+<input type="password" placeholder="API key (se guarda solo en este dispositivo)" style="width:100%;min-height:52px;font-size:15px;border:2px solid #33302A;border-radius:12px;padding:0 14px;background:#FCF8EE;color:#33302A;box-sizing:border-box">
+<button style="min-height:52px;background:#FCF8EE;color:#33302A;border:2px solid #33302A;border-radius:12px;font-family:'Shantell Sans',cursive;font-size:16px;cursor:pointer">Probar conexión</button>
+<div style="font-family:'Shantell Sans',cursive;font-size:16px;font-weight:700;color:#6E6858;margin-top:10px">Mis datos</div>
+<button style="min-height:52px;background:#FCF8EE;color:#33302A;border:2px solid #33302A;border-radius:12px;font-family:'Shantell Sans',cursive;font-size:16px;cursor:pointer">Exportar respaldo (JSON)</button>
+<button style="min-height:52px;background:#FCF8EE;color:#33302A;border:2px solid #33302A;border-radius:12px;font-family:'Shantell Sans',cursive;font-size:16px;cursor:pointer">Importar respaldo</button>
+<div style="background:#FFDF7E;border:1px solid rgba(0,0,0,.2);padding:10px 13px;font-size:13.5px;align-self:flex-start;transform:rotate(-.6deg);margin-top:6px">Tu API key nunca sale de tu teléfono.</div>
+</div></div>
+</sc-if>
+
+</div>
+
+<!-- ============ NAV INFERIOR ============ -->
+<div style="display:flex;border-top:2px solid #33302A;background:#FCF8EE;flex:none">
+<button onClick="{{ goHome }}" style="flex:1;min-height:64px;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11.5px;background:{{ navHome.bg }};color:{{ navHome.fg }};font-weight:{{ navHome.w }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 11l9-8 9 8v10H3z"></path></svg>Inicio</button>
+<button onClick="{{ goPantry }}" style="flex:1;min-height:64px;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11.5px;background:{{ navPantry.bg }};color:{{ navPantry.fg }};font-weight:{{ navPantry.w }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 8h16v12H4zM4 8l2-4h12l2 4M12 8v4"></path></svg>Despensa</button>
+<button onClick="{{ goList }}" style="flex:1;min-height:64px;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11.5px;background:{{ navList.bg }};color:{{ navList.fg }};font-weight:{{ navList.w }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 6l1.5 1.5L9 5M5 12l1.5 1.5L9 11M5 18l1.5 1.5L9 17M12 6.5h8M12 12.5h8M12 18.5h8"></path></svg>Lista</button>
+<button onClick="{{ goSettings }}" style="flex:1;min-height:64px;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11.5px;background:{{ navSettings.bg }};color:{{ navSettings.fg }};font-weight:{{ navSettings.w }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"></circle><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"></path></svg>Ajustes</button>
+</div>
+
+</div></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: &quot;440px&quot;, &quot;height&quot;: &quot;900px&quot;}, &quot;pantallaInicial&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;home&quot;, &quot;options&quot;: [&quot;home&quot;, &quot;capture&quot;, &quot;pantry&quot;, &quot;cook&quot;, &quot;list&quot;, &quot;settings&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Prototipo&quot;}}">
+class Component extends DCLogic {
+  state = {
+    screen: 'home',
+    toast: '',
+    captureText: '',
+    parsed: null,
+    pantry: [
+      { name: 'Proteínas', color: '#F8B57E', items: [{ name: 'Pollo', qty: '1 kg' }, { name: 'Huevos', qty: 'como 8' }] },
+      { name: 'Verduras', color: '#B9D98B', items: [{ name: 'Jitomate', qty: '6 piezas' }, { name: 'Cebolla', qty: '2' }, { name: 'Cilantro', qty: 'poquito' }] },
+      { name: 'Frutas', color: '#F2A0BF', items: [{ name: 'Plátano', qty: '4' }] },
+      { name: 'Lácteos', color: '#9FD9D4', items: [{ name: 'Leche', qty: '1 L' }, { name: 'Queso Oaxaca', qty: 'un trozo' }] },
+      { name: 'Básicos', color: '#FFDF7E', items: [{ name: 'Arroz', qty: '1 kg' }, { name: 'Aceite', qty: 'media botella' }] },
+      { name: 'Condimentos y especias', color: '#A8BDE8', items: [{ name: 'Sal', qty: 'hay' }, { name: 'Comino', qty: 'hay' }] },
+      { name: 'Hogar', color: '#CFCBC0', items: [{ name: 'Jabón de trastes', qty: '1' }] }
+    ],
+    recipes: [
+      { id: 1, title: 'Arroz con pollo a la jardinera', uses: 'pollo, arroz, jitomate, cebolla', missing: null, sent: false, open: false, antojo: false,
+        steps: ['1. Dora el pollo en trozos', '2. Sofríe el arroz con cebolla y jitomate', '3. Agrega agua caliente y tapa 18 min a fuego bajo'] },
+      { id: 2, title: 'Tacos de pollo con salsa de jitomate', uses: 'pollo, jitomate, cebolla, cilantro', missing: 'tortillas', sent: false, open: false, antojo: false,
+        steps: ['1. Asa los jitomates y la cebolla', '2. Licúa con sal — salsa lista', '3. Deshebra el pollo y mézclalo'] },
+      { id: 3, title: 'Huevos ahogados en salsa', uses: 'huevos, jitomate, cebolla', missing: null, sent: false, open: false, antojo: false,
+        steps: ['1. Asa jitomate y cebolla, licúa con sal', '2. Hierve la salsa 5 min', '3. Casca los huevos dentro y tapa 4 min'] }
+    ],
+    shop: [
+      { name: 'Tortillas', origin: 'receta', checked: false },
+      { name: 'Queso Oaxaca', origin: 'antojo', checked: false },
+      { name: 'Pan de caja', origin: 'antojo', checked: false },
+      { name: 'Jabón de trastes', origin: 'tú', checked: true }
+    ],
+    antojoText: '',
+    session: null,
+    chat: [],
+    chatText: '',
+    replyIdx: 0
+  };
+  componentDidMount() {
+    const p = this.props.pantallaInicial;
+    if (p && p !== 'home') this.setState({ screen: p });
+  }
+  go(screen) { this.setState({ screen, toast: '' }); }
+  colorFor(origin) {
+    return origin === 'antojo' ? '#F5AEC7' : origin === 'receta' ? '#C3DDA0' : '#A8DBF2';
+  }
+  parseCapture() {
+    const t = this.state.captureText.trim();
+    const src = t || 'pollo, 6 jitomates y un kilo de arroz';
+    const parts = src.replace(/^compr[eé]\s*/i, '').split(/,| y /i).map(s => s.trim()).filter(Boolean);
+    const items = parts.map(p => {
+      const m = p.match(/(\d+|un kilo|medio|media|un|una)\s*(kg|kilo|kilos|litro|l|piezas|pzas)?/i);
+      let qty = m && m[0].trim() !== '' ? m[0].trim() : '1';
+      let name = p.replace(m ? m[0] : '', '').replace(/\s*de\s*/i, ' ').trim() || p;
+      name = name.charAt(0).toUpperCase() + name.slice(1);
+      return { name, qty: qty === 'un kilo' ? '1 kg' : qty };
+    });
+    this.setState({ parsed: items });
+  }
+  saveParsed() {
+    const parsed = this.state.parsed || [];
+    const pantry = this.state.pantry.map(g => g.name === 'Básicos' ? { ...g, items: [...g.items, ...parsed] } : g);
+    this.setState({ pantry, parsed: null, captureText: '', screen: 'pantry', toast: '' });
+  }
+  sendMissing(id) {
+    this.setState(s => ({
+      recipes: s.recipes.map(r => r.id === id ? { ...r, sent: true } : r),
+      shop: s.shop.some(i => i.name.toLowerCase() === 'tortillas') ? s.shop : [...s.shop, { name: 'Tortillas', origin: 'receta', checked: false }]
+    }));
+  }
+  submitAntojo() {
+    const t = this.state.antojoText.trim();
+    if (!t) return;
+    const title = t.charAt(0).toUpperCase() + t.slice(1);
+    this.setState(s => ({
+      antojoText: '',
+      recipes: [{ id: Date.now(), title, uses: 'lo que ya tienes en tu despensa', missing: null, sent: false, open: false, antojo: true,
+        steps: ['1. Nana arma la receta con tu despensa', '2. Si falta algo, te lo manda a la lista', '3. Toca «Voy a cocinar esto» cuando decidas'] }, ...s.recipes]
+    }));
+  }
+  startCooking(r) {
+    this.setState({
+      session: r, screen: 'cooking',
+      chat: [
+        { who: 'tu', text: 'solo tengo 2 jitomates y pide 3' },
+        { who: 'nana', text: 'Sale con 2: media taza de agua al licuar y una pizca más de sal.' }
+      ]
+    });
+  }
+  sendChat() {
+    const t = this.state.chatText.trim();
+    if (!t) return;
+    const replies = [
+      'Media a la salsa; la otra media pícala cruda para servir.',
+      'Va bien — pruébalo de sal antes de servir.',
+      'Eso se arregla: fuego bajo, tapa y 5 minutos más.',
+      'Sí, ya está: si el cuchillo entra fácil, apaga.'
+    ];
+    const i = this.state.replyIdx;
+    this.setState(s => ({
+      chatText: '', replyIdx: i + 1,
+      chat: [...s.chat, { who: 'tu', text: t }, { who: 'nana', text: replies[i % replies.length] }]
+    }));
+  }
+  finishCooking() {
+    const used = ['Jitomate', 'Cilantro'];
+    const pantry = this.state.pantry.map(g => ({ ...g, items: g.items.map(it => used.includes(it.name) ? { ...it, qty: 'se está acabando' } : it) }));
+    this.setState({ pantry, session: null, chat: [], screen: 'home', toast: 'Listo — desconté lo usado de tu despensa.' });
+  }
+  buyDone() {
+    const bought = this.state.shop.filter(i => i.checked);
+    if (!bought.length) { this.setState({ screen: 'home', toast: 'No palomeaste nada todavía.' }); return; }
+    const pantry = this.state.pantry.map(g => g.name === 'Básicos' ? { ...g, items: [...g.items, ...bought.map(b => ({ name: b.name, qty: '1' }))] } : g);
+    this.setState(s => ({ pantry, shop: s.shop.filter(i => !i.checked), screen: 'home', toast: 'Compras guardadas en tu despensa.' }));
+  }
+  renderVals() {
+    const s = this.state;
+    const nav = act => ({ bg: act ? '#F6EFDF' : '#FCF8EE', fg: act ? '#33302A' : '#6E6858', w: act ? 700 : 400 });
+    const allPantry = s.pantry.flatMap(g => g.items);
+    const pending = s.shop.filter(i => !i.checked);
+    const cart = s.shop.filter(i => i.checked);
+    const mkShop = it => ({
+      name: it.name, origin: it.origin, color: this.colorFor(it.origin),
+      toggle: () => this.setState(st => ({ shop: st.shop.map(x => x === it ? { ...x, checked: !x.checked } : x) }))
+    });
+    return {
+      isHome: s.screen === 'home', isCapture: s.screen === 'capture', isPantry: s.screen === 'pantry',
+      isCook: s.screen === 'cook', isCooking: s.screen === 'cooking', isList: s.screen === 'list', isSettings: s.screen === 'settings',
+      goHome: () => this.go('home'), goCapture: () => this.go('capture'), goPantry: () => this.go('pantry'),
+      goCook: () => this.go('cook'), goCooking: () => this.setState({ screen: 'cooking' }),
+      goList: () => this.go('list'), goSettings: () => this.go('settings'),
+      navHome: nav(s.screen === 'home'), navPantry: nav(s.screen === 'pantry' || s.screen === 'capture'),
+      navList: nav(s.screen === 'list'), navSettings: nav(s.screen === 'settings'),
+      toast: s.toast, hasToast: !!s.toast,
+      cookingActive: !!s.session, sessionShort: s.session ? s.session.title.toLowerCase().split(' con ')[0] : '',
+      captureText: s.captureText, onCaptureInput: e => this.setState({ captureText: e.target.value }),
+      captureIdle: !s.parsed, captureParsed: !!s.parsed,
+      doParse: () => this.parseCapture(),
+      parsedItems: (s.parsed || []).map((it, i) => ({ ...it, remove: () => this.setState(st => ({ parsed: st.parsed.filter((_, j) => j !== i) })) })),
+      confirmSave: () => this.saveParsed(), fixParse: () => this.setState({ parsed: null }),
+      pantryGroups: s.pantry, pantryCount: allPantry.length,
+      homePantry: allPantry.slice(0, 5),
+      shopCount: pending.length,
+      homeShop: pending.slice(0, 4).map(it => ({ name: it.name, color: this.colorFor(it.origin) })),
+      antojoText: s.antojoText, onAntojoInput: e => this.setState({ antojoText: e.target.value }),
+      antojoKey: e => { if (e.key === 'Enter') this.submitAntojo(); },
+      submitAntojo: () => this.submitAntojo(),
+      suggestions: s.recipes.map(r => ({
+        title: r.title, uses: r.uses, steps: r.steps,
+        tape: r.antojo ? '#F5AEC7' : r.missing && !r.sent ? '#F5AEC7' : '#C3DDA0',
+        hasMissing: !!r.missing && !r.sent, sentMissing: !!r.missing && r.sent, missing: r.missing || '',
+        ok: !r.missing, open: r.open, closed: !r.open,
+        toggle: () => this.setState(st => ({ recipes: st.recipes.map(x => x.id === r.id ? { ...x, open: !x.open } : x) })),
+        sendMissing: () => this.sendMissing(r.id),
+        cook: () => this.startCooking(r)
+      })),
+      sessionSteps: s.session ? s.session.steps : [],
+      chat: s.chat.map(m => ({
+        text: m.text, bg: m.who === 'nana' ? '#C3DDA0' : '#FCF8EE',
+        align: m.who === 'nana' ? 'flex-start' : 'flex-end',
+        font: m.who === 'nana' ? "'Shantell Sans',cursive" : "'Atkinson Hyperlegible',sans-serif"
+      })),
+      chatText: s.chatText, onChatInput: e => this.setState({ chatText: e.target.value }),
+      chatKey: e => { if (e.key === 'Enter') this.sendChat(); },
+      sendChat: () => this.sendChat(), finishCooking: () => this.finishCooking(),
+      listPending: pending.map(mkShop), listCart: cart.map(mkShop), hasCart: cart.length > 0,
+      buyDone: () => this.buyDone()
+    };
+  }
+}
+</script>
+</body>
+</html>

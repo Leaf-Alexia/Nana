@@ -1,0 +1,73 @@
+/*
+ * TOKENS DE DISEÑO — única fuente visual de Nana (ver ARTE.md).
+ * La app solo consume estas variables; cambiar la piel = tocar este archivo.
+ * Paleta: variante afinada 1c del hi-fi (docs/diseno/Post-it exploracion/).
+ */
+
+/* Fuentes servidas localmente (local-first: sin CDN) */
+@font-face {
+  font-family: 'Shantell Sans';
+  src: url('/fonts/shantell-sans-latin-var.woff2') format('woff2');
+  font-weight: 300 800; /* fuente variable: un solo archivo cubre todos los pesos */
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  src: url('/fonts/atkinson-regular-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  src: url('/fonts/atkinson-bold-latin.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  src: url('/fonts/atkinson-italic-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  /* ---- Papel y tinta ---- */
+  --paper: #F6EFDF;        /* fondo de la app (papel ahuesado cálido) */
+  --card: #FCF8EE;         /* tarjetas y notas */
+  --ink: #33302A;          /* texto y botón primario (gris lápiz) */
+  --ink-soft: #6E6858;     /* texto secundario (solo tamaños grandes/meta) */
+  --ink-faint: #9B9483;    /* placeholders */
+
+  /* ---- Post-its de ORIGEN: por qué algo está en la lista ---- */
+  /* Un color = un significado, estable en toda la app. */
+  --origin-antojo: #F5AEC7;   /* rosa — lo pediste por antojo */
+  --origin-receta: #C3DDA0;   /* verde — falta para una receta, Nana avisa */
+  --origin-manual: #A8DBF2;   /* azul — tú lo apuntaste a mano */
+
+  /* ---- Otros post-its con rol fijo ---- */
+  --nana: #C3DDA0;            /* voz/avisos de Nana (mismo verde que receta) */
+  --postit-yellow: #FFDF7E;   /* despensa, tips y recordatorios */
+
+  /* ---- Colores de CATEGORÍA: qué es cada ingrediente ---- */
+  /* Se usan como borde/cinta, nunca como chip sin texto (ver ARTE.md). */
+  --cat-proteins: #F8B57E;    /* proteínas */
+  --cat-vegetables: #B9D98B;  /* verduras */
+  --cat-fruits: #F2A0BF;      /* frutas */
+  --cat-dairy: #9FD9D4;       /* lácteos */
+  --cat-staples: #FFDF7E;     /* básicos (arroz, aceite…) */
+  --cat-spices: #A8BDE8;      /* condimentos y especias */
+  --cat-household: #CFCBC0;   /* hogar (no se come) */
+
+  /* ---- Tipografía: dos voces ---- */
+  --font-nana: 'Shantell Sans', cursive;            /* títulos, botones, voz de Nana */
+  --font-work: 'Atkinson Hyperlegible', sans-serif; /* listas, cantidades, pasos */
+
+  /* ---- Trazos y sombras de papel ---- */
+  --stroke: 2px solid var(--ink);
+  --stroke-thin: 1.5px solid var(--ink);
+  --shadow-note: 2px 3px 0 rgba(51, 48, 42, .16); /* sombra dura, como papel sobre papel */
+
+  /* ---- Táctil (restricción dura: dedos con masa) ---- */
+  --touch-min: 48px;
+}

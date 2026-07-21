@@ -1,0 +1,303 @@
+/*
+ * Componentes base de la UI — consumen los tokens de tokens.css.
+ * Nada de colores ni tamaños sueltos aquí: si un valor no viene de un token,
+ * es sospechoso (decisión ARTE.md: el diseño vive aparte del código).
+ */
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-work);
+  font-size: 16px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#app {
+  height: 100%;
+  height: 100dvh; /* alto real en móvil, sin saltos por la barra del navegador */
+  display: flex;
+  flex-direction: column;
+  /* En pantallas grandes la app se queda en columna de celular, centrada */
+  max-width: 480px;
+  margin: 0 auto;
+  width: 100%;
+}
+@media (min-width: 481px) {
+  #app {
+    border-left: 1px solid rgba(0, 0, 0, .1);
+    border-right: 1px solid rgba(0, 0, 0, .1);
+  }
+}
+
+input, textarea, select, button { font-family: inherit; color: var(--ink); }
+::placeholder { color: var(--ink-faint); opacity: 1; }
+
+/* ---- Zona de pantalla (scrollea) + nav fija abajo ---- */
+.screen {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.screen-body {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  padding: 0 18px 18px;
+  flex: 1;
+}
+
+/* ---- Encabezado de pantalla ---- */
+.screen-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 18px 12px;
+}
+.screen-title {
+  font-family: var(--font-nana);
+  font-size: 24px;
+  font-weight: 700;
+}
+.btn-back {
+  width: 46px;
+  height: 46px;
+  border: var(--stroke);
+  border-radius: 12px;
+  background: var(--card);
+  font-size: 19px;
+  flex: none;
+  cursor: pointer;
+}
+
+/* ---- Botones ---- */
+.btn-primary {
+  min-height: 58px;
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  border-radius: 12px;
+  font-family: var(--font-nana);
+  font-size: 18px;
+  padding: 12px;
+  cursor: pointer;
+}
+.btn-secondary {
+  min-height: 52px;
+  background: var(--card);
+  border: var(--stroke);
+  border-radius: 12px;
+  font-family: var(--font-nana);
+  font-size: 16px;
+  padding: 10px;
+  cursor: pointer;
+}
+.btn-ghost {
+  min-height: 54px;
+  background: var(--card);
+  border: 2px dashed var(--ink-soft);
+  border-radius: 12px;
+  font-family: var(--font-nana);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Botón grande de intención del inicio (Cocinar hoy / Añadir) */
+.btn-intent {
+  min-height: 80px;
+  width: 100%;
+  text-align: left;
+  background: var(--card);
+  border: var(--stroke);
+  border-radius: 14px;
+  padding: 14px 16px;
+  box-shadow: var(--shadow-note);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.btn-intent .intent-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: var(--stroke-thin);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+.btn-intent .intent-title {
+  font-family: var(--font-nana);
+  font-size: 22px;
+  font-weight: 700;
+  display: block;
+}
+.btn-intent .intent-sub {
+  display: block;
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  margin-top: 2px;
+}
+
+/* ---- Tarjeta-nota (con sombra dura de papel) ---- */
+.note {
+  background: var(--card);
+  border: var(--stroke);
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: var(--shadow-note);
+  position: relative;
+}
+.note--round { border-radius: 14px; }
+
+/* Cinta adhesiva que "pega" la nota */
+.tape {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  margin-left: -29px;
+  width: 58px;
+  height: 15px;
+  border: 1px solid rgba(0, 0, 0, .22);
+}
+.tape--small {
+  left: 20px;
+  margin-left: 0;
+  width: 46px;
+  height: 13px;
+  border: 1px solid rgba(0, 0, 0, .2);
+}
+
+/* ---- Renglón de item (despensa / lista) ---- */
+/* El borde izquierdo grueso lleva el color de CATEGORÍA: dice qué es. */
+.item-row {
+  min-height: 58px;
+  background: var(--card);
+  border: var(--stroke);
+  border-radius: 10px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16.5px;
+  border-left-width: 10px;
+  border-left-style: solid;
+}
+.item-row input[type="checkbox"] {
+  width: 26px;
+  height: 26px;
+  accent-color: var(--ink);
+  flex: none;
+}
+.item-row .qty {
+  margin-left: auto;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+.item-row.done { opacity: .55; }
+.item-row.done .item-name { text-decoration: line-through; }
+
+/* ---- Chip post-it (siempre con texto: el color solo se lee junto a su palabra) ---- */
+.chip {
+  border: 1px solid rgba(0, 0, 0, .2);
+  border-radius: 5px;
+  padding: 4px 9px;
+  font-size: 12.5px;
+}
+.chip--tilt-l { transform: rotate(-1.5deg); }
+.chip--tilt-r { transform: rotate(1.5deg); }
+
+/* ---- Encabezado de grupo con cinta de color ---- */
+.group-head {
+  position: relative;
+  margin-top: 12px;
+}
+.group-head .tape--small { top: -9px; left: 12px; width: 44px; transform: rotate(-2deg); }
+.group-head .group-name {
+  font-family: var(--font-nana);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink-soft);
+  padding-left: 66px;
+}
+
+/* ---- Post-it suelto (tips, avisos de Nana) ---- */
+.postit {
+  border: 1px solid rgba(0, 0, 0, .2);
+  padding: 10px 13px;
+  font-size: 14px;
+  position: relative;
+  align-self: flex-start;
+  transform: rotate(-.6deg);
+}
+
+/* ---- Campos de texto ---- */
+.field {
+  width: 100%;
+  min-height: 52px;
+  font-size: 16px;
+  border: var(--stroke);
+  border-radius: 12px;
+  padding: 0 14px;
+  background: var(--card);
+}
+textarea.field {
+  min-height: 130px;
+  padding: 14px;
+  resize: none;
+  font-size: 17px;
+}
+
+/* ---- Navegación inferior ---- */
+.nav {
+  display: flex;
+  border-top: var(--stroke);
+  background: var(--card);
+  flex: none;
+  padding-bottom: env(safe-area-inset-bottom); /* respeta el borde curvo/gestos del celular */
+}
+.nav button {
+  flex: 1;
+  min-height: 64px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  font-size: 11.5px;
+  background: var(--card);
+  color: var(--ink-soft);
+}
+.nav button.active {
+  background: var(--paper);
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* ---- Burbujas del chat de cocina ---- */
+.bubble {
+  border-radius: 10px;
+  padding: 10px 13px;
+  font-size: 15px;
+  max-width: 88%;
+  border: 1.5px solid rgba(0, 0, 0, .3);
+}
+.bubble--nana {
+  background: var(--nana);
+  align-self: flex-start;
+  font-family: var(--font-nana);
+}
+.bubble--user {
+  background: var(--card);
+  align-self: flex-end;
+}

@@ -56,26 +56,52 @@ El diseño no se incrusta en el markup. La dirección visual se define en su pro
 - **El inicio muestra el refri con sus dos notas:** un cuadro «En tu despensa» (scrollea por dentro si hay mucho texto) y debajo «Por comprar». Es el vistazo de 3 segundos hecho pantalla, y literalmente el pilar 2 (notas pegadas al refri). Tocar una nota abre su pantalla completa.
 - **Nomenclatura:** nada se llama «lista del domingo» en la UI; la nota del inicio dice «Por comprar» y la pantalla completa «Lista de compras».
 
-## Paleta y tipografía ✅ (2026-07-21 — el usuario eligió mezclando las 3 exploraciones)
+## Paleta y tipografía ✅ (2026-07-21 v2 — el usuario eligió el hi-fi «variante afinada 1c»)
 
-**Tokens definitivos** (la mezcla: papel/tinta de C, post-its de A, letra de B):
+Tras la pasada hi-fi con Claude Design (`docs/diseno/Post-it exploracion/` — `Nana Hi-Fi.dc.html` con 3 variantes y `Nana Prototipo.dc.html` navegable), el usuario eligió la **variante afinada 1c**: papel un punto más cálido y post-its re-entonados a la misma luminosidad. Estos tokens **sustituyen** a los de la mezcla anterior (quedan abajo como historia) y viven en código en `src/ui/tokens.css` — la app solo consume esas variables.
 
-| Token | Valor | Contraste con la tinta |
+**Tokens definitivos v2** (ratios calculados contra la tinta `#33302A`):
+
+| Token | Valor | Contraste |
 |---|---|---|
-| Papel (fondo app) | `#F3EEE3` — ahuesado | 10.4:1 |
-| Tarjeta / nota | `#FBF8F0` | 11.3:1 |
-| Tinta (texto, botón primario) | `#3A362E` — gris lápiz | — |
-| Tinta suave (secundario) | `#75705F` | (solo texto grande/meta) |
-| Post-it amarillo = **receta** | `#FFE082` | 9.3:1 |
-| Post-it rosa = **antojo** | `#F8BBD0` | 7.5:1 |
-| Post-it azul = **manual (tú)** | `#B3E5FC` | 8.9:1 |
-| Post-it verde = **voz de Nana** | `#C5E1A5` | 8.4:1 |
+| Papel (fondo app) | `#F6EFDF` | 11.5:1 |
+| Tarjeta / nota | `#FCF8EE` | 12.4:1 |
+| Tinta (texto, botón primario) | `#33302A` — gris lápiz | — |
+| Tinta suave (secundario) | `#6E6858` | 4.8:1 sobre papel (solo texto grande/meta) |
+| Post-it rosa = **antojo** | `#F5AEC7` | 7.4:1 |
+| Post-it verde = **receta/Nana avisa + voz de Nana** | `#C3DDA0` | 8.9:1 |
+| Post-it azul = **tú lo apuntaste** | `#A8DBF2` | 8.8:1 |
+| Post-it amarillo = **despensa, tips y recordatorios** | `#FFDF7E` | 10.1:1 |
 
-- **Voz de Nana:** Shantell Sans (títulos, botones de intención, mensajes de Nana), cuerpo base 1.25rem. **Voz de trabajo:** Atkinson Hyperlegible (listas, cantidades, pasos), base 18px.
-- Peor contraste de toda la matriz: **7.45:1** (tinta sobre rosa) — muy arriba del AA 4.5:1.
-- Fuentes servidas localmente en la PWA (sin CDN); el CDN solo existió en el doc de exploración.
-- **Compuerta pendiente:** ratificación en la primera prueba de la app real en el celular, bajo luz cálida de cocina (la exploración se vio en pantalla, la app se ratifica en contexto).
-- La piel elegida se ve en la pestaña «★ Elegida» de `docs/diseno/exploraciones-pasada2.html`.
+Cambio respecto al mapa v1: «receta» ya no es amarillo — se fusionó con la voz de Nana en verde (es Nana quien avisa el faltante), y el amarillo quedó libre para marcar la despensa. Así cada color sigue teniendo UN significado.
+
+### Colores de categoría ✅ (2026-07-21, pedido del usuario: «que el color diga qué es»)
+
+Segundo código de color, ortogonal al de origen: la **categoría** del ingrediente. Para que ambos convivan sin ambigüedad, cada uno tiene su canal fijo:
+
+- **Categoría (qué es) → bordes izquierdos gruesos, cintas de grupo y puntos de color.** Nunca como chip suelto sin palabra.
+- **Origen (por qué está en la lista) → chip post-it, siempre con su palabra encima** («antojo», «receta», «tú»).
+
+| Categoría | Valor | Contraste |
+|---|---|---|
+| Proteínas | `#F8B57E` | 7.5:1 |
+| Verduras | `#B9D98B` | 8.4:1 |
+| Frutas | `#F2A0BF` | 6.6:1 |
+| Lácteos | `#9FD9D4` | 8.4:1 |
+| Básicos | `#FFDF7E` | 10.1:1 |
+| Condimentos y especias | `#A8BDE8` | 7.0:1 |
+| Hogar | `#CFCBC0` | 8.1:1 |
+
+- Peor contraste de toda la matriz v2: **6.6:1** (tinta sobre rosa frutas) — arriba del AA 4.5:1.
+- **Riesgo vigilado:** frutas (`#F2A0BF`) y antojo (`#F5AEC7`) son rosas parecidos, igual que verduras/receta en verdes. Lo desambigua el canal (borde vs chip con palabra); si en el celular se confunden, se re-entona la categoría, no el origen.
+- Catálogo en código: `src/data/categories.js` (colores solo referencian tokens CSS).
+- **Voz de Nana:** Shantell Sans (títulos, botones de intención, mensajes de Nana). **Voz de trabajo:** Atkinson Hyperlegible (listas, cantidades, pasos), base ~16px.
+- Fuentes servidas localmente en la PWA (`public/fonts/`, woff2 subconjunto latino); sin CDN.
+- **Compuerta pendiente:** ratificación en la primera prueba de la app real en el celular, bajo luz cálida de cocina.
+
+### Historia: tokens v1 (mezcla de las 3 exploraciones, sustituidos por v2)
+
+Papel `#F3EEE3`, tarjeta `#FBF8F0`, tinta `#3A362E`, tinta suave `#75705F`; post-its: amarillo receta `#FFE082`, rosa antojo `#F8BBD0`, azul tú `#B3E5FC`, verde Nana `#C5E1A5`. Peor contraste 7.45:1. Se ven en la pestaña «★ Elegida» de `docs/diseno/exploraciones-pasada2.html`.
 
 ### Historia de la decisión (candidata original, 2026-07-20)
 
@@ -100,7 +126,8 @@ Pedido del usuario: como escrito a mano pero no cursiva, totalmente legible. Est
 |---|---|
 | Pilares visuales (máx. 3) | ✅ cerrados (arriba) |
 | Entrada principal (menú de intenciones) | ✅ cerrada (arriba) |
-| Wireframes de estructura — 6 pantallas: inicio, captura, despensa, cocinar-hoy, lista, ajustes | 🟡 pasada 1 corregida con el feedback del usuario (inicio con notas de despensa/por-comprar, botones de acción, antojo fusionado en cocinar-hoy) — compuerta: verla en el celular |
-| Paleta con ratios de contraste | ✅ tokens definitivos (tabla arriba); ratificación final en la app real |
-| Tipografías y escala | ✅ Shantell Sans + Atkinson Hyperlegible (tabla arriba) |
-| Ícono de la app | ⬜ pendiente — siguiente pieza visual, ya con paleta cerrada |
+| Wireframes de estructura — 6 pantallas: inicio, captura, despensa, cocinar-hoy, lista, ajustes | ✅ aprobados vía hi-fi/prototipo (`docs/diseno/Post-it exploracion/`) e implementados en la app (paso 1 TDD) — la compuerta de celular ahora es la de la app real |
+| Paleta con ratios de contraste | ✅ tokens definitivos v2 (tabla arriba) en `src/ui/tokens.css`; ratificación final en la app real |
+| Tipografías y escala | ✅ Shantell Sans + Atkinson Hyperlegible, servidas localmente |
+| Colores de categoría (qué es cada ingrediente) | ✅ mapa cerrado (tabla arriba); vigilar rosa-frutas vs rosa-antojo en el celular |
+| Ícono de la app | 🟡 placeholder generado (post-it amarillo con «N», `public/icons/`) — diseñar el definitivo |

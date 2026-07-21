@@ -1,0 +1,16 @@
+{
+  "name": "nana",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Nana — despensa local-first: qué cocinar hoy y qué comprar el domingo",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview --host"
+  },
+  "devDependencies": {
+    "vite": "^6.3.5",
+    "vite-plugin-pwa": "^0.21.2"
+  }
+}

@@ -201,3 +201,23 @@ Registro cronológico del qué y el porqué. El estado actual vive en la entrada
 **Estado:** datos listos y probados en Node. **No probados en dispositivo real** — eso ocurre cuando exista app que los consuma (paso 1 del TDD). La compuerta del DoD sigue abierta para estos módulos.
 
 **Próximo paso:** sin cambios — sigue pendiente la compuerta de wireframes (el usuario debe abrir `wireframes-v1.html` en su celular). Estos datos son insumo de capas 2–3, no adelantan capa 1.
+
+---
+
+## 2026-07-21 — Diseño hi-fi aprobado e implementado: nace la app (paso 1 del TDD)
+
+**Qué pasó:** el usuario revisó la exploración hi-fi hecha con Claude Design (`docs/diseno/Post-it exploracion/`: `Nana Hi-Fi.dc.html` con variantes 1a/1b/1c y `Nana Prototipo.dc.html` navegable), aprobó el diseño y pidió implementarlo, con un ajuste: que el color también diga **qué es** cada ingrediente. Se construyó el esqueleto Vite + PWA con las 7 pantallas del prototipo.
+
+**Decisiones y porqués:**
+- **Paleta v2 = variante afinada 1c** (papel `#F6EFDF`, tinta `#33302A`, post-its re-entonados). Sustituye a los tokens v1 de la pasada 2; tabla completa con ratios en ARTE.md (peor caso 6.6:1, arriba de AA).
+- **El mapa de origen cambió:** receta ya no es amarillo — se fusionó con la voz de Nana en verde (es Nana quien avisa el faltante); el amarillo quedó para despensa/tips. Un color = un significado se conserva.
+- **Dos códigos de color por canales separados** (el ajuste pedido): categoría del ingrediente (qué es) va en bordes izquierdos, cintas y puntos; origen (por qué está en la lista) va en chips post-it siempre con su palabra. Riesgo vigilado: rosa-frutas vs rosa-antojo se parecen; si en el celular confunden, se re-entona la categoría.
+- **El diseño vive aparte del código** (decisión previa, ahora ejecutada): tokens en `src/ui/tokens.css`, catálogo de categorías en `src/data/categories.js`; las pantallas solo consumen variables.
+- **Fuentes locales** (`public/fonts/`, woff2 latino, ~130 KB): Shantell Sans variable + Atkinson Hyperlegible. Sin CDN, como manda local-first.
+- **Ícono placeholder** (post-it amarillo con «N», generado por script) para que la PWA sea instalable ya; el definitivo sigue pendiente en ARTE.md.
+
+**Qué se construyó:** `index.html` + `vite.config.js` (vite-plugin-pwa, manifest es-MX) + `src/` con estado en memoria (`state.js`), datos demo (`data/demo_data.js`), categorías (`data/categories.js`), orígenes (`data/origins.js`) y 7 pantallas (`ui/screens/`): inicio, añadir, despensa, cocinar hoy, cocinando (chat temporal), lista y ajustes. El parseo de compras y el chat son placeholders enlatados — el LLM real es el paso 3.
+
+**Validación:** `npm run build` limpio; probada en Chrome de escritorio (build de producción con service worker): navegación completa, fuentes cargan, dos códigos de color visibles, sin errores de consola. **Compuerta del DoD abierta:** falta instalarla en el celular del usuario (`npm run dev -- --host` o `npm run preview` en la misma red) y ratificar paleta bajo luz de cocina.
+
+**Próximo paso:** el usuario la instala en su celular (compuerta del paso 1); luego paso 2 del TDD (Dexie + CRUD real de despensa).
