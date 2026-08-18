@@ -5,10 +5,10 @@ import { defineConfig } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
-  // Ruta base: en GitHub Pages la app vive en usuario.github.io/nana/,
-  // así que todos los assets deben resolverse bajo /nana/. En desarrollo
+  // Ruta base: en GitHub Pages la app vive en usuario.github.io/Nana/,
+  // así que todos los assets deben resolverse bajo /Nana/. En desarrollo
   // (npm run dev) Vite la ignora y sirve desde la raíz.
-  base: '/nana/',
+  base: '/Nana/',
   plugins: [
     VitePWA({
       registerType: 'autoUpdate',
@@ -18,8 +18,8 @@ export default defineConfig({
         short_name: 'Nana',
         description: 'Tu despensa: qué cocinar hoy y qué comprar el domingo',
         lang: 'es',
-        start_url: '/nana/',
-        scope: '/nana/',
+        start_url: '/Nana/',
+        scope: '/Nana/',
         display: 'standalone',
         background_color: '#F6EFDF',
         theme_color: '#F6EFDF',
