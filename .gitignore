@@ -14,3 +14,6 @@ Thumbs.db
 # Libros fuente: con copyright y pesados (58 MB). Se leen una vez, se destilan
 # a data/, y el destilado SI se versiona. Los PDF viven solo en la maquina local.
 docs/investigaciones/*.pdf
+
+# Clon accidental del repo remoto dentro del proyecto (GitHub Desktop); se borra a mano
+Nana/
