@@ -233,3 +233,17 @@ Registro cronológico del qué y el porqué. El estado actual vive en la entrada
 - **Botón «Recomiéndame otras cosas, Nana»** al final de Cocinar hoy (estaba en el hi-fi como «Otras ideas, Nana» y se perdió en el porteo). En el paso 1 responde con un post-it honesto: sin LLM conectado no hay ideas nuevas; la respuesta real llega en el paso 3.
 
 **Estado:** compuerta del paso 1 sigue abierta (instalarla en el celular).
+
+---
+
+## 2026-08-17 — Despliegue en GitHub Pages para probar en el celular
+
+**Qué pasó:** el usuario propuso subir la app a GitHub Pages para instalarla desde ahí. Se aceptó: una PWA solo se instala con ícono en Android si viene por HTTPS, y Pages lo da gratis sin romper el núcleo local-first (Pages sirve archivos estáticos; los datos siguen en el dispositivo). Repo público `nana` — coherente con el caso de estudio de portafolio; no hay secretos en el repo (`.env` ignorado, PDFs de libros nunca subidos).
+
+**Cambios:**
+- `vite.config.js`: `base: '/nana/'` y `start_url`/`scope` del manifest bajo `/nana/`, porque Pages sirve en `usuario.github.io/nana/`. Verificado en `dist/`: assets, fuentes y manifest resuelven bajo la ruta.
+- `.github/workflows/deploy.yml`: en cada push a `master` construye y publica `dist/`. Requiere *Settings → Pages → Source: GitHub Actions*.
+
+**Consecuencia para el paso 3 (LLM):** al ser sitio público, la API key del LLM no puede ir en el código; se guardará en el dispositivo (pantalla de ajustes). Condiciona la pregunta #2 del inbox.
+
+**Estado:** compuerta del paso 1 sigue abierta hasta probar la instalación en el celular desde Pages.
