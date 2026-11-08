@@ -70,7 +70,8 @@ nana/
 | 0 | Wireframes + dirección visual (ARTE.md) | Usuario aprueba viéndolos |
 | 1 | Esqueleto Vite + PWA instalable ("hola despensa") | Se instala con ícono en el celular del usuario |
 | 2 | Esquema Dexie + CRUD de despensa con texto/dictado | Registrar la compra real de la semana |
-| 3 | Adaptador LLM + parseo de compras + "¿qué cocino hoy?" | 3 sugerencias razonables con la despensa real |
+| 3a | Cerebro local sin LLM: diccionario de ingredientes + tabla de recetas + "¿qué cocino hoy?" | Entiende la compra real de la semana y da 3 sugerencias razonables sin clave |
+| 3b | Adaptador Gemini opcional (clave en Ajustes) + texto libre + chat + leer fotos | Con clave, las sugerencias mejoran y una foto de lista se convierte en lista |
 | 4 | Lista de compras + flujo de antojos | "Se me antoja un sándwich de queso" → faltantes correctos en la lista |
 | 5 | Export/import JSON + pulido + una semana de uso real | DoD del MVP completo (CLAUDE.md) |
 

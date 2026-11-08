@@ -1,7 +1,8 @@
 // LISTA DE COMPRAS: dos códigos de color a la vez, cada uno por su canal.
 //   · Borde izquierdo = CATEGORÍA (qué es) — pedido del usuario 2026-07-21.
 //   · Chip post-it   = ORIGEN (por qué está aquí), siempre con su palabra.
-import { el } from '../dom.js';
+import { el, svg } from '../dom.js';
+import { ICONS } from '../icons.js';
 import { screenHead } from './common.js';
 import { toggleShopItem, buyDone } from '../../state.js';
 import { categoryColor, categoryLabel } from '../../data/categories.js';
@@ -21,6 +22,27 @@ export function renderList(state) {
   screen.append(head);
 
   const body = el('div', { class: 'screen-body', style: 'gap:11px' });
+
+  // ESCANEAR LISTA (pregunta #8, 2026-11-07): botón de cámara en el encabezado.
+  // Sin el atributo `capture`, Android ofrece elegir entre tomar foto o subir
+  // una de la galería — justo el comportamiento pedido por el usuario.
+  // Por ahora solo recibe la foto: leerla requiere el LLM (paso 3/4).
+  const photoInput = el('input', {
+    type: 'file', accept: 'image/*', style: 'display:none',
+    onChange: (e) => {
+      if (!e.target.files?.length) return;
+      body.querySelector('.photo-note')?.remove();
+      body.prepend(el('div', {
+        class: 'postit photo-note',
+        style: 'background:var(--nana);box-shadow:var(--shadow-note);font-family:var(--font-nana)'
+      }, 'Ya tengo tu foto. Leerla y pasarla a la lista llega cuando me conectes un cerebro con vista (clave de Gemini).'));
+      e.target.value = '';
+    }
+  });
+  head.append(photoInput, el('button', {
+    class: 'btn-back', 'aria-label': 'Escanear lista con foto',
+    onClick: () => photoInput.click()
+  }, svg(ICONS.camera)));
 
   // Leyenda de orígenes (cada color con su palabra)
   body.append(el('div', { style: 'display:flex;flex-wrap:wrap;gap:6px;font-size:12.5px' },

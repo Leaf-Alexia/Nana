@@ -255,3 +255,13 @@ Registro cronológico del qué y el porqué. El estado actual vive en la entrada
 **Qué pasó:** el usuario abrió la app desde GitHub Pages en su celular y le gusta cómo se ve: la paleta v2 queda ratificada en dispositivo real. Falta confirmar que se haya **instalado con ícono** (la compuerta literal del paso 1).
 
 **Preguntas respondidas:** cómo funciona Dexie (paso 2); si existe un LLM que corra dentro de la app gratis (sí: WebLLM/WebGPU, pero descarga 1–2 GB y es lento y flojo en español en un celular; se mantiene la recomendación de Gemini free tier para el MVP y el modelo local queda como plan B / capa 5); y escaneo de imagen para la lista de compras → pregunta #8 del inbox.
+
+---
+
+## 2026-11-07 — Paso 1 cerrado, cerebro híbrido y botón de cámara
+
+**Qué pasó:** el usuario confirmó que la app se instaló **con ícono** desde Pages → compuerta del paso 1 ✅. Aprobó Dexie para el paso 2 (con el respaldo JSON del paso 5 como red). Pidió que Nana funcione con un cerebro integrado y que una clave propia de Gemini la mejore → decisión cerrada #11 (híbrido: reglas locales sin LLM + Gemini opcional). Aprobó la opción (a) de la #8.
+
+**Cambios:** botón de cámara en el encabezado de la lista (`src/ui/screens/list.js`, ícono nuevo en `icons.js`). Usa `<input type="file" accept="image/*">` sin `capture`, así Android pregunta «tomar foto o elegir archivo», como propuso el usuario. Por ahora solo recibe la foto y avisa con un post-it de Nana que leerla requiere Gemini. `npm run build` limpio; falta probar el selector en el celular.
+
+**Ajuste al plan:** el paso 3 del TDD se parte en 3a (cerebro local) y 3b (adaptador Gemini).
