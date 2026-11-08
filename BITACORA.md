@@ -265,3 +265,13 @@ Registro cronológico del qué y el porqué. El estado actual vive en la entrada
 **Cambios:** botón de cámara en el encabezado de la lista (`src/ui/screens/list.js`, ícono nuevo en `icons.js`). Usa `<input type="file" accept="image/*">` sin `capture`, así Android pregunta «tomar foto o elegir archivo», como propuso el usuario. Por ahora solo recibe la foto y avisa con un post-it de Nana que leerla requiere Gemini. `npm run build` limpio; falta probar el selector en el celular.
 
 **Ajuste al plan:** el paso 3 del TDD se parte en 3a (cerebro local) y 3b (adaptador Gemini).
+
+---
+
+## 2026-11-07 — Tabla de recetas del cerebro integrado (insumo del paso 3a)
+
+**Qué pasó:** el usuario dio sus básicos (hot dog, hamburguesa, huevo con jamón o salchicha, frijoles, pollo; con tortilla o pan) y pidió completar con la canasta básica. Se usó la canasta PACIC de Profeco (24 productos, tope de $910 en 2026) y se armó `src/data/recipes.js`: 28 recetas caseras con `required` (bloquean), `optional` (suman), acompañamiento, tiempo y pasos cortos.
+
+**Porqué así:** con `required`/`optional` Nana puede sugerir sin LLM («puedes hacer esto» / «te falta solo X»), que es la base de la decisión #11. Los tiempos están marcados «a validar» en la cocina del usuario.
+
+**Pendiente detectado para el 3a:** 9 ingredientes de las recetas (salchicha, pan, catsup, mayonesa, salsa, tostadas, caldo de pollo, leche, chile en polvo) no existen en `ingredient_names.js`, porque ese diccionario apunta a claves de los libros en inglés y esos productos no están en ellos. El cerebro local necesitará su propia lista de nombres de despensa con sinónimos («bolillo», «telera» → pan); no se inventan claves de libro.
