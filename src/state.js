@@ -1,15 +1,19 @@
-// Estado en memoria de la app (paso 1).
+// Estado de la app.
 // Patrón mínimo: un objeto de estado + suscriptores que redibujan.
-// En el paso 2 la despensa/lista se respaldan en IndexedDB (Dexie).
-import { DEMO_PANTRY, DEMO_RECIPES, DEMO_SHOP, CANNED_REPLIES } from './data/demo_data.js';
+// Paso 2: la despensa y la lista se guardan en IndexedDB (db.js). La regla:
+// primero se escribe en la base y luego se actualiza la pantalla, así lo que
+// ves siempre es lo que quedó guardado.
+import { DEMO_RECIPES, CANNED_REPLIES } from './data/demo_data.js';
+import { db, HOUSEHOLD, requestPersistence } from './db.js';
 import { guessCategory } from './data/categories.js';
 
 const state = {
   screen: 'home',      // pantalla visible: home|capture|pantry|cook|cooking|list|settings
   toast: '',           // aviso verde de Nana en el inicio
-  pantry: [...DEMO_PANTRY],
+  pantry: [],          // se llena desde la base al arrancar (loadData)
   recipes: DEMO_RECIPES.map(r => ({ ...r, sent: false, open: false, antojo: false })),
-  shop: [...DEMO_SHOP],
+  shop: [],
+  editingId: null,     // renglón de la despensa que se está editando
   parsed: null,        // items entendidos al capturar compra (null = aún no)
   session: null,       // receta que se está cocinando ahora
   chat: [],
@@ -29,7 +33,61 @@ export function setState(patch) {
   listeners.forEach(fn => fn(state));
 }
 
-export function go(screen) { setState({ screen, toast: '', moreIdeasNote: '' }); }
+export function go(screen) { setState({ screen, toast: '', moreIdeasNote: '', editingId: null }); }
+
+/* ---- Base de datos ---- */
+
+// Lee despensa y lista guardadas. Se llama una vez al abrir la app.
+export async function loadData() {
+  await requestPersistence();
+  const [pantry, shop] = await Promise.all([
+    db.pantry.where('household_id').equals(HOUSEHOLD).toArray(),
+    db.shop.where('household_id').equals(HOUSEHOLD).toArray()
+  ]);
+  setState({ pantry, shop });
+}
+
+// Recarga desde la base después de escribir (fuente única de la verdad).
+async function refresh() {
+  const [pantry, shop] = await Promise.all([
+    db.pantry.where('household_id').equals(HOUSEHOLD).toArray(),
+    db.shop.where('household_id').equals(HOUSEHOLD).toArray()
+  ]);
+  return { pantry, shop };
+}
+
+// Agrega cosas a la despensa. Si ya existe algo con el mismo nombre,
+// actualiza su cantidad en vez de duplicarlo.
+async function addToPantry(items) {
+  const now = new Date().toISOString();
+  for (const it of items) {
+    const existing = await db.pantry
+      .where('household_id').equals(HOUSEHOLD)
+      .filter(p => p.name.toLowerCase() === it.name.toLowerCase())
+      .first();
+    if (existing) {
+      await db.pantry.update(existing.id, { qty: it.qty, added_at: now });
+    } else {
+      await db.pantry.add({ household_id: HOUSEHOLD, name: it.name, qty: it.qty, category: it.category, added_at: now });
+    }
+  }
+}
+
+// Editar un renglón de la despensa (nombre y cantidad).
+export function startEdit(id) { setState({ editingId: id }); }
+
+export async function updatePantryItem(id, changes) {
+  const name = changes.name.trim();
+  if (!name) return;
+  await db.pantry.update(id, { name, qty: changes.qty.trim() || '1', category: guessCategory(name) });
+  setState({ ...(await refresh()), editingId: null });
+}
+
+// «Ya no tengo esto» — corrección de un toque (decisión cerrada #10).
+export async function deletePantryItem(id) {
+  await db.pantry.delete(id);
+  setState({ ...(await refresh()), editingId: null });
+}
 
 // Botón «Recomiéndame otras cosas» — placeholder honesto del paso 1:
 // las ideas nuevas de verdad llegan cuando se conecte el LLM (paso 3).
@@ -56,9 +114,10 @@ export function parseCapture(text) {
   setState({ parsed: items });
 }
 
-export function saveParsed() {
+export async function saveParsed() {
+  await addToPantry(state.parsed || []);
   setState({
-    pantry: [...state.pantry, ...(state.parsed || [])],
+    ...(await refresh()),
     parsed: null,
     screen: 'pantry',
     toast: ''
@@ -66,14 +125,17 @@ export function saveParsed() {
 }
 
 // Manda el faltante de una receta a la lista de compras (origen: receta).
-export function sendMissing(id) {
+export async function sendMissing(id) {
   const recipe = state.recipes.find(r => r.id === id);
   if (!recipe || !recipe.missing) return;
   const name = recipe.missing.charAt(0).toUpperCase() + recipe.missing.slice(1);
   const already = state.shop.some(i => i.name.toLowerCase() === name.toLowerCase());
+  if (!already) {
+    await db.shop.add({ household_id: HOUSEHOLD, name, origin: 'receta', category: guessCategory(name), checked: false });
+  }
   setState({
-    recipes: state.recipes.map(r => r.id === id ? { ...r, sent: true } : r),
-    shop: already ? state.shop : [...state.shop, { name, origin: 'receta', category: guessCategory(name), checked: false }]
+    ...(await refresh()),
+    recipes: state.recipes.map(r => r.id === id ? { ...r, sent: true } : r)
   });
 }
 
@@ -120,12 +182,15 @@ export function sendChat(text) {
   });
 }
 
-export function finishCooking() {
-  // Placeholder: marca dos ingredientes como por acabarse.
-  // El descuento real de cantidades llega con el LLM (paso 3).
-  const used = ['Jitomate', 'Cilantro'];
+export async function finishCooking() {
+  // Placeholder: marca como «se está acabando» lo que la receta usa.
+  // El descuento real de cantidades llega con el cerebro (paso 3).
+  const used = (state.session?.uses || []).map(u => u.toLowerCase());
+  for (const it of state.pantry) {
+    if (used.includes(it.name.toLowerCase())) await db.pantry.update(it.id, { qty: 'se está acabando' });
+  }
   setState({
-    pantry: state.pantry.map(it => used.includes(it.name) ? { ...it, qty: 'se está acabando' } : it),
+    ...(await refresh()),
     session: null,
     chat: [],
     screen: 'home',
@@ -133,19 +198,21 @@ export function finishCooking() {
   });
 }
 
-export function toggleShopItem(item) {
-  setState({ shop: state.shop.map(x => x === item ? { ...x, checked: !x.checked } : x) });
+export async function toggleShopItem(item) {
+  await db.shop.update(item.id, { checked: !item.checked });
+  setState(await refresh());
 }
 
-export function buyDone() {
+export async function buyDone() {
   const bought = state.shop.filter(i => i.checked);
   if (!bought.length) {
     setState({ screen: 'home', toast: 'No palomeaste nada todavía.' });
     return;
   }
+  await addToPantry(bought.map(b => ({ name: b.name, qty: '1', category: b.category })));
+  await db.shop.bulkDelete(bought.map(b => b.id));
   setState({
-    pantry: [...state.pantry, ...bought.map(b => ({ name: b.name, qty: '1', category: b.category }))],
-    shop: state.shop.filter(i => !i.checked),
+    ...(await refresh()),
     screen: 'home',
     toast: 'Compras guardadas en tu despensa.'
   });

@@ -12,5 +12,8 @@
   "devDependencies": {
     "vite": "^6.3.5",
     "vite-plugin-pwa": "^0.21.2"
+  },
+  "dependencies": {
+    "dexie": "^4.4.7"
   }
 }

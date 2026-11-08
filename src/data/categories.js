@@ -26,15 +26,24 @@ const NAME_TO_CATEGORY = {
   'pan': 'staples', 'pan de caja': 'staples', 'frijol': 'staples', 'frijoles': 'staples',
   'sal': 'spices', 'comino': 'spices', 'pimienta': 'spices', 'orégano': 'spices', 'oregano': 'spices',
   'jabón': 'household', 'jabon': 'household', 'jabón de trastes': 'household',
-  'servilletas': 'household', 'papel': 'household'
+  'servilletas': 'household', 'papel': 'household',
+  // Básicos de la casa y canasta PACIC (2026-11-07)
+  'salchicha': 'proteins', 'jamón': 'proteins', 'jamon': 'proteins', 'bistec': 'proteins',
+  'chuleta': 'proteins', 'atún': 'proteins', 'atun': 'proteins', 'sardina': 'proteins', 'chorizo': 'proteins',
+  'zanahoria': 'vegetables', 'naranja': 'fruits', 'pasta': 'staples', 'azúcar': 'staples', 'azucar': 'staples',
+  'tostadas': 'staples', 'catsup': 'staples', 'mayonesa': 'staples', 'salsa': 'staples'
 };
+
+// Palabras de la más larga a la más corta: así «salchichas» encuentra
+// «salchicha» antes que «sal» (bug visto en la prueba del paso 2).
+const WORDS_BY_LENGTH = Object.keys(NAME_TO_CATEGORY).sort((a, b) => b.length - a.length);
 
 // Adivina la categoría por nombre; si no la conoce, cae en «básicos».
 export function guessCategory(name) {
   const n = name.trim().toLowerCase();
   if (NAME_TO_CATEGORY[n]) return NAME_TO_CATEGORY[n];
   // Búsqueda por palabra contenida («queso oaxaca» → queso)
-  for (const word of Object.keys(NAME_TO_CATEGORY)) {
+  for (const word of WORDS_BY_LENGTH) {
     if (n.includes(word)) return NAME_TO_CATEGORY[word];
   }
   return 'staples';

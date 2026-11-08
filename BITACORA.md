@@ -275,3 +275,18 @@ Registro cronológico del qué y el porqué. El estado actual vive en la entrada
 **Porqué así:** con `required`/`optional` Nana puede sugerir sin LLM («puedes hacer esto» / «te falta solo X»), que es la base de la decisión #11. Los tiempos están marcados «a validar» en la cocina del usuario.
 
 **Pendiente detectado para el 3a:** 9 ingredientes de las recetas (salchicha, pan, catsup, mayonesa, salsa, tostadas, caldo de pollo, leche, chile en polvo) no existen en `ingredient_names.js`, porque ese diccionario apunta a claves de los libros en inglés y esos productos no están en ellos. El cerebro local necesitará su propia lista de nombres de despensa con sinónimos («bolillo», «telera» → pan); no se inventan claves de libro.
+
+---
+
+## 2026-11-07 — Paso 2: la despensa se guarda de verdad (Dexie)
+
+**Qué pasó:** el usuario aprobó Dexie y pidió agregar los 9 ingredientes faltantes.
+
+**Cambios:**
+- `src/db.js`: base `nana` versión 1 con tablas `pantry` y `shop`, todas con `household_id: 'home'` (multi-hogar desde el día 1). Pide almacenamiento persistente a Chrome para que no borre los datos si falta espacio. Nombres en código vs SPEC: qty = quantity, origin = source, checked = done.
+- `state.js`: despensa y lista se leen de la base al abrir (`loadData`) y toda acción escribe primero en la base y luego redibuja. Al registrar algo que ya existe se actualiza la cantidad, no se duplica. Se quitaron los datos demo de despensa y lista: la app arranca vacía, lista para la compra real. Las recetas siguen siendo demo hasta el paso 3a.
+- Despensa: tocar un renglón lo edita (nombre y cantidad) con «Guardar» o «Ya no tengo esto» (decisión #10); post-it de Nana cuando está vacía.
+- `src/data/pantry_names.js`: los 9 ingredientes faltantes con sinónimos («bolillo», «telera» → pan; «ketchup» → catsup; «Tajín» → chile en polvo…).
+- Bug corregido en `guessCategory`: «salchichas» caía en especias porque contiene «sal». Ahora se prueban las palabras de la más larga a la más corta, y se agregaron las de la canasta básica.
+
+**Validación:** build limpio; en Chrome de escritorio (build de producción): registrar «4 salchichas, pan y un kilo de frijol» → recargar la página → siguen ahí → editar → borrar; la base quedó con los registros esperados. **Compuerta abierta:** registrar la compra real de la semana en el celular.

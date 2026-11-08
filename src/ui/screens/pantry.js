@@ -3,7 +3,7 @@
 // renglón — el color dice QUÉ es cada cosa (pedido del usuario, 2026-07-21).
 import { el } from '../dom.js';
 import { screenHead } from './common.js';
-import { go } from '../../state.js';
+import { go, startEdit, updatePantryItem, deletePantryItem } from '../../state.js';
 import { CATEGORIES, categoryColor } from '../../data/categories.js';
 
 export function renderPantry(state) {
@@ -25,6 +25,14 @@ export function renderPantry(state) {
     )
   ));
 
+  // Despensa vacía (primer uso): Nana invita a registrar la compra.
+  if (!state.pantry.length) {
+    body.append(el('div', {
+      class: 'postit',
+      style: 'background:var(--nana);box-shadow:var(--shadow-note);font-family:var(--font-nana)'
+    }, 'Tu despensa está vacía. Cuéntame qué compraste y yo lo acomodo.'));
+  }
+
   // Grupos en el orden del catálogo
   for (const cat of CATEGORIES) {
     const items = state.pantry.filter(it => it.category === cat.key);
@@ -36,7 +44,29 @@ export function renderPantry(state) {
     ));
 
     for (const it of items) {
-      body.append(el('div', { class: 'item-row', style: `min-height:54px;border-left-color:${categoryColor(cat.key)}` },
+      const border = `min-height:54px;border-left-color:${categoryColor(cat.key)}`;
+
+      // Modo edición: dos campos + guardar / «ya no tengo esto»
+      if (state.editingId === it.id) {
+        const nameIn = el('input', { class: 'field', value: it.name, 'aria-label': 'Nombre', style: 'min-height:44px;flex:2' });
+        const qtyIn = el('input', { class: 'field', value: it.qty, 'aria-label': 'Cantidad', style: 'min-height:44px;flex:1' });
+        body.append(el('div', { class: 'item-row', style: `${border};flex-wrap:wrap;gap:8px` },
+          nameIn, qtyIn,
+          el('div', { style: 'display:flex;gap:8px;width:100%' },
+            el('button', { class: 'btn-secondary', style: 'flex:1',
+              onClick: () => updatePantryItem(it.id, { name: nameIn.value, qty: qtyIn.value }) }, 'Guardar'),
+            el('button', { class: 'btn-ghost', style: 'flex:1',
+              onClick: () => deletePantryItem(it.id) }, 'Ya no tengo esto')
+          )
+        ));
+        continue;
+      }
+
+      // Renglón normal: tocarlo abre la edición
+      body.append(el('button', {
+        class: 'item-row', style: `${border};width:100%;text-align:left;cursor:pointer`,
+        'aria-label': `Editar ${it.name}`, onClick: () => startEdit(it.id)
+      },
         el('span', { class: 'item-name' }, it.name),
         el('span', { class: 'qty' }, it.qty)
       ));
