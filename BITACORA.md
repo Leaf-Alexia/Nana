@@ -247,3 +247,11 @@ Registro cronológico del qué y el porqué. El estado actual vive en la entrada
 **Consecuencia para el paso 3 (LLM):** al ser sitio público, la API key del LLM no puede ir en el código; se guardará en el dispositivo (pantalla de ajustes). Condiciona la pregunta #2 del inbox.
 
 **Estado:** compuerta del paso 1 sigue abierta hasta probar la instalación en el celular desde Pages.
+
+---
+
+## 2026-11-07 — El usuario abrió la app en el celular; preguntas sobre Dexie, LLM local y escaneo
+
+**Qué pasó:** el usuario abrió la app desde GitHub Pages en su celular y le gusta cómo se ve: la paleta v2 queda ratificada en dispositivo real. Falta confirmar que se haya **instalado con ícono** (la compuerta literal del paso 1).
+
+**Preguntas respondidas:** cómo funciona Dexie (paso 2); si existe un LLM que corra dentro de la app gratis (sí: WebLLM/WebGPU, pero descarga 1–2 GB y es lento y flojo en español en un celular; se mantiene la recomendación de Gemini free tier para el MVP y el modelo local queda como plan B / capa 5); y escaneo de imagen para la lista de compras → pregunta #8 del inbox.
